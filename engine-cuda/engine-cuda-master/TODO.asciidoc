@@ -1,0 +1,26 @@
+Still TODO
+----------
+
+.Implementation
+* Use newer generation GPUs and CUDA
+* More blockmodes (CTR if possible), RC5 (http://www.openssl.org/docs/apps/enc.html)
+* Streams and multi-GPU using CUDA 4
+* Have a look at parallel execution again
+
+Interesting Projects
+--------------------
+
+* kgpu (GPU framework for Linux kernel)
+** http://code.google.com/p/kgpu/
+
+* SSLShader (reverse SSL proxy with GPU support)
+** http://shader.kaist.edu/sslshader/
+
+* libgpucrypto (CUDA library from the SSLShader guys)
+** http://shader.kaist.edu/sslshader/libgpucrypto/
+
+* Disk encryption software
+** eCryptfs (crypto-filesystem)
+** LUKS / dm-crypt / cryptoloop / Truecrypt (full-disk encryption)
+** Comparison here: http://ecryptfs.sourceforge.net/ecryptfs-faq.html#compare
+** Block modes
