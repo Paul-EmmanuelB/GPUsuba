@@ -25,6 +25,10 @@
 	@updated_version author Broux Paul-Emmanuel <paulemmanuelb@gmail.com>
  */
 
+
+#ifndef _AES_CUDA_UTILS_H_
+#define _AES_CUDA_UTILS_H_
+
 #define BOOST_NO_CXX11_SCOPED_ENUMS
 #include "boost/filesystem/fstream.hpp"
 #include "boost/filesystem/operations.hpp"
@@ -76,3 +80,5 @@ void invMixColumn(std::vector<unsigned> &temp);
 unsigned galoisProd(unsigned a, unsigned b);
 
 void writeToFile(const std::string &outPath, char *storingArray, boost::intmax_t dataSize, unsigned maxInputSize);
+
+#endif //#ifndef _AES_CUDA_UTILS_H_

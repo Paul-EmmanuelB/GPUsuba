@@ -58,7 +58,7 @@ __global__ void aesEncrypt128( unsigned * result, unsigned * inData, int inputSi
     unsigned idx2	= int4tx*4;
 	int x;
 	unsigned keyElem;
-   
+
     __shared__ UByte4 stageBlock1[BSIZE];
 	__shared__ UByte4 stageBlock2[BSIZE];
 
@@ -68,7 +68,7 @@ __global__ void aesEncrypt128( unsigned * result, unsigned * inData, int inputSi
 	__shared__ UByte4 tBox2Block[256];
 	__shared__ UByte4 tBox3Block[256];
 
-	// input caricati in memoria
+	// Loading input
 	STAGEBLOCK1(tx).uival	= inData[BSIZE * bx + tx ];
 
 	unsigned elemPerThread = 256/BSIZE;

@@ -14,11 +14,11 @@ EXECUTABLE	:= AES
 # Cuda source files (compiled with cudacc)
 CUFILES		:= aesHost.cu 
 # C/C++ source files (compiled with gcc / c++)
-CCFILES		:= aescuda.cpp  aesCudaUtils.cpp
+CCFILES		:= aescuda.cpp  aesCudaUtils.cpp benchmark.cpp
 
 #C and CU FLAGS
-CFLAGS 	:=   -O3 
-CUFLAGS	:= $(CFLAGS)
+CFLAGS 	:= -Xptxas -O3 
+CUFLAGS	:= -O3
 
 # Macros
 CC = gcc
@@ -30,6 +30,7 @@ OBJ_PATH = obj
 EXE_PATH = exe
 INC_PATH = include
 DATA_PATH = data
+RES_PATH  = res
 
 
 # Includes
@@ -60,6 +61,7 @@ OBJ += $(addprefix ${OBJ_PATH}/, $(addsuffix .o, $(basename $(CUFILES))))
 
 all : $(EXE_PATH)/$(PRODUCT)
 
+
 #-----Main rule ----------
 $(EXE_PATH)/$(PRODUCT): $(OBJ)
 	$(NVCC) $(CFLAGS)  $^ -o $@ $(LINKFLAGS)
@@ -70,10 +72,10 @@ $(OBJ_PATH)/%.o : $(SRC_PATH)/%.cpp
 
 $(OBJ_PATH)/%.o : $(SRC_PATH)/%.cu
 	$(NVCC) $(CUFLAGS) -x cu $(INC) $(OLD_INC) -dc $< -o $@
-
-
-
-
+	
 clean:
 	rm -f $(OBJ)
 	rm -f ${EXE_PATH}/${PRODUCT}
+
+clean_res :
+	rm ${RES_PATH}/*.dat

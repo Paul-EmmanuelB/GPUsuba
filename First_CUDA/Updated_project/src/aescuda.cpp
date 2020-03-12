@@ -25,21 +25,18 @@
 	@updated_version author Broux Paul-Emmanuel <paulemmanuelb@gmail.com>
  */
 
-#include <iostream>
-#include "aesCudaUtils.h"
 #include "utilsBox.h"
-#include <string.h>
+#include "aescuda.h"
+//#define BENCH_ON
 
 using namespace std;
 
 const int INPUTSIZE = 33*1024*1024;
 bool MODE = 1;
 
-//handler
-extern "C"
-int aesHost(unsigned char* result, const unsigned char* inData, int inputSize, const unsigned char* key, int keySize, bool toEncrypt);
 
-int main(int argc, char *argv[])
+
+int main_function(int argc, char *argv[])
 {	
 	try {
 		unsigned numPairs = commandLineManager(argc, argv);
@@ -87,18 +84,20 @@ int main(int argc, char *argv[])
 	
 			if ( errorReturned == -3 )
 				throw string("aesHost: some input not allocated\n");
-	
-			cout << "\n###############################################################\n\n";
+			
+			#ifndef BENCH_ON
+				cout << "\n###############################################################\n\n";
 
-			char numFile[10000];
-			sprintf(numFile, "%d", cnt);
-			string nameOutFile("../res/output_");
-			nameOutFile.append(numFile);
-			nameOutFile.append(".dat");
+				char numFile[10000];
+				sprintf(numFile, "%d", cnt);
+				string nameOutFile("./res/output_");
+				nameOutFile.append(numFile);
+				nameOutFile.append(".dat");
 
-			//Writing outgoing results
-			writeToFile(nameOutFile, reinterpret_cast<char *>(h_Result), usefulData, INPUTSIZE);
-	
+				//Writing outgoing results
+				writeToFile(nameOutFile, reinterpret_cast<char *>(h_Result), usefulData, INPUTSIZE);
+			#endif	
+
 			delete[] h_Result;
 			delete[] h_Input;
 		}

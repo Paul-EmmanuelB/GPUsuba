@@ -1,3 +1,6 @@
+#ifndef _SBOX_E_H_
+#define _SBOX_E_H_
+
 
 union  UByte4 {
     unsigned int uival;
@@ -157,3 +160,4 @@ __constant__ unsigned int TBox3[] = {
 0x82c34141, 0x29b09999, 0x5a772d2d, 0x1e110f0f, 0x7bcbb0b0, 0xa8fc5454, 0x6dd6bbbb, 0x2c3a1616, 
 };
 
+#endif //#ifndef _SBOX_E_H_

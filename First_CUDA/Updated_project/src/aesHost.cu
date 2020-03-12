@@ -48,9 +48,8 @@
 #include <aesEncrypt256_kernel.h>
 #include <aesDecrypt256_kernel.h>
 
-//To activate Debug or not
-//#define _DEBUG
 
+#define BENCH_ON
 
 
 
@@ -61,7 +60,7 @@ extern "C" void aesEncryptHandler128(unsigned *d_Result, unsigned *d_Input, int 
     dim3  grid((inputSize/BSIZE)/4, 1);
 
 	aesEncrypt128<<< grid, threads >>>( d_Result, d_Input, inputSize);
-    CUDA_SAFE_CALL( cudaThreadSynchronize() );
+    CUDA_SAFE_CALL( cudaDeviceSynchronize() );
 }
 
 extern "C" void aesDecryptHandler128(unsigned *d_Result, unsigned *d_Input, int inputSize) {
@@ -70,16 +69,37 @@ extern "C" void aesDecryptHandler128(unsigned *d_Result, unsigned *d_Input, int 
     dim3  grid((inputSize/BSIZE)/4, 1);
 
 	aesDecrypt128<<< grid, threads >>>( d_Result, d_Input, inputSize);
-    CUDA_SAFE_CALL( cudaThreadSynchronize() );
+    CUDA_SAFE_CALL( cudaDeviceSynchronize() );
 }
 
 extern "C" void aesEncryptHandler256(unsigned *d_Result, unsigned *d_Input, int inputSize) {
 
+	cudaEvent_t start, stop;
+	cudaEventCreate(&start);
+	cudaEventCreate(&stop);
+
 	dim3  threads(BSIZE, 1);
     dim3  grid((inputSize/BSIZE)/4, 1);
 
-	aesEncrypt256<<< grid, threads >>>( d_Result, d_Input, inputSize);
-    CUDA_SAFE_CALL( cudaThreadSynchronize() );
+
+	for(int i = 0; i < 10; i++){
+		aesEncrypt256<<< grid, threads >>>( d_Result, d_Input, inputSize); //warmup
+	}
+
+
+	cudaEventRecord(start);
+	aesEncrypt256<<< grid, threads >>>( d_Result, d_Input, inputSize); 
+	cudaEventRecord(stop);	
+	
+    CUDA_SAFE_CALL( cudaDeviceSynchronize() );
+	
+	float milliseconds = 0;
+	cudaEventElapsedTime(&milliseconds, start, stop);
+	printf("GPU, other method processing time: %f (ms)\n", milliseconds);
+
+	cudaEventDestroy(start);
+	cudaEventDestroy(stop);
+
 }
 
 extern "C" void aesDecryptHandler256(unsigned *d_Result, unsigned *d_Input, int inputSize) {
@@ -88,7 +108,7 @@ extern "C" void aesDecryptHandler256(unsigned *d_Result, unsigned *d_Input, int 
     dim3  grid((inputSize/BSIZE)/4, 1);
 
 	aesDecrypt256<<< grid, threads >>>( d_Result, d_Input, inputSize);
-    CUDA_SAFE_CALL( cudaThreadSynchronize() );
+    CUDA_SAFE_CALL( cudaDeviceSynchronize() );
 }
 
 
@@ -104,7 +124,7 @@ extern "C" int aesHost(unsigned char* result, const unsigned char* inData, int i
 		return -3;
 
     int deviceCount;                                                         
-    CUDA_SAFE_CALL_NO_SYNC(cudaGetDeviceCount(&deviceCount));                
+    CUDA_SAFE_CALL_NO_SYNC(cudaGetDeviceCount(&deviceCount));            
     if (deviceCount == 0) {                                                  
         fprintf(stderr, "There is no device.\n");                            
         exit(EXIT_FAILURE);                                                  
@@ -112,7 +132,24 @@ extern "C" int aesHost(unsigned char* result, const unsigned char* inData, int i
     int dev;                                                                 
     for (dev = 0; dev < deviceCount; ++dev) {                                
         cudaDeviceProp deviceProp;                                           
-        CUDA_SAFE_CALL_NO_SYNC(cudaGetDeviceProperties(&deviceProp, dev));   
+        CUDA_SAFE_CALL_NO_SYNC(cudaGetDeviceProperties(&deviceProp, dev));
+		
+		/*
+		//Device informations
+		printf("Device Number: %d\n", dev);
+		printf("  Device name: %s\n", deviceProp.name);
+		printf("  Memory Clock Rate (KHz): %d\n",
+		       deviceProp.memoryClockRate);
+		printf("  Memory Bus Width (bits): %d\n",
+		       deviceProp.memoryBusWidth);
+		printf("  Peak Memory Bandwidth (GB/s): %f\n\n",
+		       2.0*deviceProp.memoryClockRate*(deviceProp.memoryBusWidth/8)/1.0e6);
+		printf("  Total global memory (bytes): %ld\n",
+		       deviceProp.totalGlobalMem);
+		printf("  Total constant memory (bytes): %d\n",
+		       deviceProp.totalConstMem);
+		*/
+
         if (deviceProp.major >= 1)                                           
             break;                                                           
     }                                                                        
@@ -182,19 +219,26 @@ extern "C" int aesHost(unsigned char* result, const unsigned char* inData, int i
 	CUT_SAFE_CALL( sdkCreateTimer(&int_timer) );
 	CUT_SAFE_CALL( sdkStartTimer(&int_timer) );
 
+	/*
 	cudaEvent_t start, stop;
 	cudaEventCreate(&start);
 	cudaEventCreate(&stop);
+	
 	cudaEventRecord(start);
+	*/
 
-	if (!toEncrypt) {	
-		printf("\nDECRYPTION.....\n\n");
+	if (!toEncrypt) {
+		#ifndef BENCH_ON
+			printf("\nDECRYPTION.....\n\n");
+		#endif //#ifndef BENCH_ON
 		if (keySize != 240)
 			aesDecryptHandler128( d_Result, d_Input, inputSize);
 		else
 			aesDecryptHandler256( d_Result, d_Input, inputSize);
 	} else {
-		printf("\nENCRYPTION.....\n\n");
+		#ifndef BENCH_ON
+			printf("\nENCRYPTION.....\n\n");
+		#endif //#ifndef BENCH_ON
 		if (keySize != 240)
 			aesEncryptHandler128( d_Result, d_Input, inputSize);
 		else
@@ -212,7 +256,7 @@ extern "C" int aesHost(unsigned char* result, const unsigned char* inData, int i
     printf("GPU processing time: %f (ms)\n", sdkGetTimerValue(&int_timer));
     CUT_SAFE_CALL(sdkDeleteTimer(&int_timer));
 	
-	cudaEventRecord(stop);
+	//cudaEventRecord(stop);
 
     // check if kernel execution generated and error
     CUT_CHECK_ERROR("Kernel execution failed");
@@ -221,13 +265,15 @@ extern "C" int aesHost(unsigned char* result, const unsigned char* inData, int i
     CUDA_SAFE_CALL(cudaMemcpy(result, d_Result, size_Result, cudaMemcpyDeviceToHost) );
 	
 
-	cudaEventSynchronize(stop);
+	/*cudaEventSynchronize(stop);
 	float milliseconds = 0;
 	cudaEventElapsedTime(&milliseconds, start, stop);
 	printf("GPU, other method processing time: %f (ms)\n", milliseconds);
 
 	cudaEventDestroy(start);
 	cudaEventDestroy(stop);
+	*/
+
 	/*
 	//Outdated
     CUT_SAFE_CALL(cutStopTimer(ext_timer));

@@ -1,6 +1,6 @@
 
 /***************************************************************************
- *   Copyright (C) 2006                                                    *
+ *   Copyright (C) 2020                                                    *
  *                                                                         *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -25,7 +25,8 @@
  */
 
 
-
+#ifndef _UTIL_H_
+#define _UTIL_H_
 
 
 #include <cuda.h>
@@ -81,7 +82,7 @@
 #  define CUDA_SAFE_CALL( call)                                             \
     do {								  									\
 		CUDA_SAFE_CALL_NO_SYNC(call);                                       \
-		cudaError_t err = cudaThreadSynchronize();                              \
+		cudaError_t err = cudaDeviceSynchronize();                              \
 		if( cudaSuccess != err) {                                               \
 		    fprintf(stderr, "Cuda error in file '%s' in line %i : %s.\n",       \
 		            __FILE__, __LINE__, cudaGetErrorString( err) );             \
@@ -143,11 +144,11 @@ inline void gpuAssert(cudaError_t code, const char *file, int line, bool abort=t
     do {								  									\
     	bool err = x;                                          			\
     	if( true != err) {                                               \
-        	fprintf(stderr, "Timer error in file '%s' in line %i : %s.\n",       \
+        	fprintf(stderr, "Timer error in file '%s' in line %i.\n",       \
                 __FILE__, __LINE__ );							          	    \
         	exit(EXIT_FAILURE);                                                 \
   		}																		\
 	} while (0)
 
 
-
+#endif //#ifndef _UTIL_H_

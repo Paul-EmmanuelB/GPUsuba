@@ -27,6 +27,7 @@
 
 #include "aesCudaUtils.h"
 #include <string.h>
+#define BENCH_ON
 
 extern unsigned Rcon[];
 extern unsigned SBox[];
@@ -136,14 +137,17 @@ unsigned initAesCuda(std::string myKeyFile, unsigned char myKeyBuffer[], const u
 	
 	//Reading the key
 	readFromFileForm(keyPath, keyArray);
+	
+	#ifndef BENCH_ON
+		std::cout << "\n###############################################################\n\n";
+		std::cout << "AES - CUDA by Svetlin Manavski\n\n";
+		std::cout << "AES " << myKeyBitsSize << " is running...." << std::endl << std::endl;
+		std::cout << "Input file size: " << inputFileSize << " Bytes" << std::endl << std::endl;
+		std::cout << "Key: ";
 
-	std::cout << "\n###############################################################\n\n";
-	std::cout << "AES - CUDA by Svetlin Manavski)\n\n";
-	std::cout << "AES " << myKeyBitsSize << " is running...." << std::endl << std::endl;
-	std::cout << "Input file size: " << inputFileSize << " Bytes" << std::endl << std::endl;
-	std::cout << "Key: ";
 	for (unsigned cnt=0; cnt<keyArray.size(); ++cnt)
 		std::cout << std::hex << keyArray[cnt];
+	#endif //BENCH_ON
 
 	if (MODE){
 		//ENCRYPTION MODE
@@ -344,6 +348,9 @@ void writeToFile(const std::string &outPath, char *storingArray, boost::intmax_t
 
 	std::ofstream outStream;
 	outStream.open( outPath.c_str() , std::ifstream::binary);
+
+	if(!outStream)
+		throw std::string("Error, cannot open file, inexistant path or else");
 
 	if (!MODE)
 		dataSize = dataSize - storingArray[dataSize-1];

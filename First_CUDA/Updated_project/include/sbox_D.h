@@ -1,4 +1,5 @@
-
+#ifndef _SBOX_D_H_
+#define _SBOX_D_H_
 __constant__ unsigned char posIdx_D[]= {
 	0, 1, 2, 3,
     1, 2, 3, 0,
@@ -171,3 +172,5 @@ __constant__ unsigned int inv_SBox[] = {
 	0x17, 0x2b, 0x04, 0x7e, 0xba, 0x77, 0xd6, 0x26, 0xe1, 0x69, 0x14, 0x63, 0x55, 0x21, 0x0c, 0x7d
 };
 
+
+#endif // #ifndef _SBOX_D_H_
