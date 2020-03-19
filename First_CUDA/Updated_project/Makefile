@@ -1,4 +1,29 @@
 
+#/***************************************************************************
+# *   Copyright (C) 2020                                                    *
+# *                                                                         *
+# *                                                                         *
+# *   This program is free software; you can redistribute it and/or modify  *
+# *   it under the terms of the GNU General Public License as published by  *
+# *   the Free Software Foundation; either version 2 of the License, or     *
+# *   (at your option) any later version.                                   *
+# *                                                                         *
+# *   This program is distributed in the hope that it will be useful,       *
+# *   but WITHOUT ANY WARRANTY; without even the implied warranty of        *
+# *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the         *
+# *   GNU General Public License for more details.                          *
+# *                                                                         *
+# *   You should have received a copy of the GNU General Public License     *
+# *   along with this program; if not, write to the                         *
+# *   Free Software Foundation, Inc.,                                       *
+# *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
+# ***************************************************************************/
+
+
+#	@author Broux Paul-Emmanuel <paulemmanuelb@gmail.com>
+
+
+
 ################################################################################
 #
 # Build script for project
@@ -14,23 +39,24 @@ EXECUTABLE	:= AES
 # Cuda source files (compiled with cudacc)
 CUFILES		:= aesHost.cu 
 # C/C++ source files (compiled with gcc / c++)
-CCFILES		:= aescuda.cpp  aesCudaUtils.cpp benchmark.cpp
+CCFILES		:= aescuda.cpp  aesCudaUtils.cpp main.cpp
 
 #C and CU FLAGS
-CFLAGS 	:= -Xptxas -O3 
-CUFLAGS	:= -O3
+CFLAGS 	:= -O3 
+CUFLAGS	:= -Xptxas -O3
 
 # Macros
 CC = gcc
 NVCC = /usr/local/cuda/bin/nvcc
 
 # Path
-SRC_PATH = src
-OBJ_PATH = obj
-EXE_PATH = exe
-INC_PATH = include
-DATA_PATH = data
-RES_PATH  = res
+SRC_PATH   = src
+OBJ_PATH   = obj
+EXE_PATH   = exe
+INC_PATH   = include
+DATA_PATH  = data
+RES_PATH   = res
+BENCH_PATH = bench
 
 
 # Includes
@@ -64,7 +90,7 @@ all : $(EXE_PATH)/$(PRODUCT)
 
 #-----Main rule ----------
 $(EXE_PATH)/$(PRODUCT): $(OBJ)
-	$(NVCC) $(CFLAGS)  $^ -o $@ $(LINKFLAGS)
+	$(NVCC) $(CUFLAGS)  $^ -o $@ $(LINKFLAGS)
 
 # -- Base rules ----------
 $(OBJ_PATH)/%.o : $(SRC_PATH)/%.cpp
@@ -77,5 +103,8 @@ clean:
 	rm -f $(OBJ)
 	rm -f ${EXE_PATH}/${PRODUCT}
 
-clean_res :
+cleanRes :
 	rm ${RES_PATH}/*.dat
+
+cleanBench :
+	rm ${BENCH_PATH}/benchResult

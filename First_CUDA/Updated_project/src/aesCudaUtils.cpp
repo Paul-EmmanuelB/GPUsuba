@@ -1,6 +1,6 @@
 
 /***************************************************************************
- *   Copyright (C) 2006                                                    *
+ *   Copyright (C) 2020                                                    *
  *                                                                         *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -27,7 +27,7 @@
 
 #include "aesCudaUtils.h"
 #include <string.h>
-#define BENCH_ON
+
 
 extern unsigned Rcon[];
 extern unsigned SBox[];
@@ -90,7 +90,7 @@ void usage() {
 }
 
 //Main function
-unsigned initAesCuda(std::string myKeyFile, unsigned char myKeyBuffer[], const unsigned int myKeyBitsSize, std::string myInputFile, char inputArray[], const unsigned inputArraySize){
+unsigned initAesCuda(std::string myKeyFile, unsigned char myKeyBuffer[], const unsigned int myKeyBitsSize, std::string myInputFile, char inputArray[], const unsigned inputArraySize, int bench_mode){
 	
 	path inputPath(myInputFile.c_str());
 	path keyPath(myKeyFile.c_str());
@@ -138,7 +138,7 @@ unsigned initAesCuda(std::string myKeyFile, unsigned char myKeyBuffer[], const u
 	//Reading the key
 	readFromFileForm(keyPath, keyArray);
 	
-	#ifndef BENCH_ON
+	if(!bench_mode){
 		std::cout << "\n###############################################################\n\n";
 		std::cout << "AES - CUDA by Svetlin Manavski\n\n";
 		std::cout << "AES " << myKeyBitsSize << " is running...." << std::endl << std::endl;
@@ -147,7 +147,7 @@ unsigned initAesCuda(std::string myKeyFile, unsigned char myKeyBuffer[], const u
 
 	for (unsigned cnt=0; cnt<keyArray.size(); ++cnt)
 		std::cout << std::hex << keyArray[cnt];
-	#endif //BENCH_ON
+	}
 
 	if (MODE){
 		//ENCRYPTION MODE

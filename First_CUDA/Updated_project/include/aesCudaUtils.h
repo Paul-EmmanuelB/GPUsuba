@@ -1,6 +1,6 @@
 
 /***************************************************************************
- *   Copyright (C) 2006                                                    *
+ *   Copyright (C) 2020                                                    *
  *                                                                         *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -61,7 +61,7 @@ unsigned commandLineManager(int argc, char *argv[]);
 
 void usage();
 
-unsigned initAesCuda(std::string myKeyFile, unsigned char myKeyBuffer[], const unsigned int myKeyBitsSize, std::string myInputFile, char inputArray[], const unsigned inputArraySize);
+unsigned initAesCuda(std::string myKeyFile, unsigned char myKeyBuffer[], const unsigned int myKeyBitsSize, std::string myInputFile, char inputArray[], const unsigned inputArraySize, int bench_mode);
 
 boost::intmax_t getFileSize(path &myPath);
 
