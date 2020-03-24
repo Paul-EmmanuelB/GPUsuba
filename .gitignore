@@ -8,3 +8,6 @@
 
 #Crypted Files
 *.dat
+
+#Benchmark changing file
+First_CUDA/Working_project/bench/benchResult
