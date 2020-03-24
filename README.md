@@ -17,7 +17,7 @@ First_CUDA :
 	Conf. on Signal Processing and Communication, pages 65–68, 2007.
 
 
-[engine_cuda](https://github.com/heipei/engine-cuda "Updated engine-cuda") :
+[Engine_cuda](https://github.com/heipei/engine-cuda "Updated engine-cuda") :
 	The updated engine-cuda project is based on the 
 	[same named project](https://code.google.com/archive/p/engine-cuda/ "Original engine-cuda" ) 
 	created in 2011. The updated is the implementation work sum up by "GPU-Acceleration of
