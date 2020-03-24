@@ -44,6 +44,7 @@ CCFILES		:= aescuda.cpp  aesCudaUtils.cpp main.cpp
 #C and CU FLAGS
 CFLAGS 	:= -O3 
 CUFLAGS	:= -Xptxas -O3
+PROFILING := -pg
 
 # Macros
 CC = gcc
@@ -94,11 +95,16 @@ $(EXE_PATH)/$(PRODUCT): $(OBJ)
 
 # -- Base rules ----------
 $(OBJ_PATH)/%.o : $(SRC_PATH)/%.cpp
-	$(NVCC) $(CFLAGS) -x cu $(INC) $(OLD_INC) $(BOOST_ROOT) -dc $< -o $@
+	$(NVCC) $(CFLAGS) $(INC) $(OLD_INC) $(BOOST_ROOT) -dc $< -o $@
 
 $(OBJ_PATH)/%.o : $(SRC_PATH)/%.cu
-	$(NVCC) $(CUFLAGS) -x cu $(INC) $(OLD_INC) -dc $< -o $@
-	
+	$(NVCC) $(CUFLAGS) $(INC) $(OLD_INC) -dc $< -o $@
+
+# -- Profiling ----------
+profil : $(OBJ)
+	$(NVCC) $(CUFLAGS) $(PROFILING)  $^ -o $@ $(LINKFLAGS)
+
+# -- Cleaning ----------
 clean:
 	rm -f $(OBJ)
 	rm -f ${EXE_PATH}/${PRODUCT}
