@@ -1,0 +1,20 @@
+	BENCH RESULT for device's warm up of 250
+	GPU kernel execution  (ms)	9.91936
+	Total processing time  (ms)	31.9468
+
+	BENCH RESULT for device's warm up of 250
+	GPU kernel execution  (ms)	9.9272
+	Total processing time  (ms)	18.1934
+
+	BENCH RESULT for device's warm up of 250
+	GPU kernel execution  (ms)	9.92445
+	Total processing time  (ms)	18.5908
+
+	BENCH RESULT for device's warm up of 250
+	GPU kernel execution  (ms)	9.90595
+	Total processing time  (ms)	18.2759
+
+	BENCH RESULT for device's warm up of 250
+	GPU kernel execution  (ms)	9.9192
+	Total processing time  (ms)	18.3804
+
