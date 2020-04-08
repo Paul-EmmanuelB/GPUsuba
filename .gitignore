@@ -11,3 +11,6 @@
 
 #Benchmark changing file
 First_CUDA/Working_project/bench/benchResult
+
+#workspace manager
+.code-workspace
