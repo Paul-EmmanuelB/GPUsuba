@@ -48,9 +48,9 @@ void deviceInfo() {
 		printf("	Max threads in y dimension				%d\n"				, deviceProp.maxThreadsDim[1]);
 		printf("	Max threads in z dimension				%d\n"				, deviceProp.maxThreadsDim[2]);
 		printf("	Where x*y*z					<=	1024\n"		);
-		printf("	Max grid size (block)					%d\n"				, deviceProp.maxGridSize[0]);
-		printf("	Max grid size (block)					%d\n"				, deviceProp.maxGridSize[1]);
-		printf("	Max grid size (block)					%d\n"				, deviceProp.maxGridSize[2]);
+		printf("	Max grid size x (block)					%d\n"				, deviceProp.maxGridSize[0]);
+		printf("	Max grid size y (block)					%d\n"				, deviceProp.maxGridSize[1]);
+		printf("	Max grid size z (block)					%d\n"				, deviceProp.maxGridSize[2]);
 		printf("	Clock rate (kHZ)					%d\n"					, deviceProp.clockRate);
 		printf("	Total constant memory (bytes)				%lu\n"			, deviceProp.totalConstMem);
 		printf("	Major							%d\n"						, deviceProp.major);
