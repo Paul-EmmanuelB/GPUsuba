@@ -34,11 +34,9 @@
 ##	@author Broux Paul-Emmanuel <paulemmanuelb@gmail.com>					 ##
 ###############################################################################
 
-# Add source files here
-EXECUTABLE	:= AES	
-# Cuda source files (compiled with cudacc)
+# Cuda source files
 CUFILES		:= aesHost.cu 
-# C/C++ source files (compiled with gcc / c++)
+# C/C++ source files
 CCFILES		:= aescuda.cpp  aesCudaUtils.cpp main.cpp
 
 #C and CU FLAGS
