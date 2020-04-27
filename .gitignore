@@ -6,11 +6,14 @@
 *.exe
 
 
-#Crypted Files
+#Test Files
 *.dat
+*.bmp
+dataset.txt
 
 #Benchmark changing file
 First_CUDA/Working_project/bench/benchResult
 
 #workspace manager
-.code-workspace
+*.code-workspace
+*.json
