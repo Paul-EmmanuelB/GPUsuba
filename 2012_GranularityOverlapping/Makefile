@@ -58,7 +58,6 @@ PRODUCT = aes.exe
 # -- src and obj List ----------
 SRC  = $(addprefix ${SRC_PATH}/, $(SRC_FILES))
 
-OBJ  = $(addprefix ${OBJ_PATH}/, $(addsuffix .o, $(basename $(SRC_FILES))))
 
 ###############################################################################
 # Rules and targets
@@ -67,13 +66,17 @@ all : $(EXE_PATH)/$(PRODUCT)
 
 
 #-----Main rule ----------
-$(EXE_PATH)/$(PRODUCT):
+$(EXE_PATH)/$(PRODUCT): $(SRC)
 	$(NVCC) $(CUFLAGS)  $^ -o $@
 
-# -- Base rules ----------
-$(OBJ_PATH)/%.o : $(SRC)
-	$(NVCC) $(CUFLAGS) -x cu  -dc $< -o $@
-	
+dataset:
+	head -c 8MB /dev/urandom > data/dataset.txt
+
 clean:
-	rm -f $(OBJ)
 	rm -f ${EXE_PATH}/${PRODUCT}
+
+cleanRes:
+	rm -f result.*
+
+cleanDataset:
+	rm -f data/dataset.txt

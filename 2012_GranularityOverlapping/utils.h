@@ -4,6 +4,9 @@
 #include <iostream>
 #include <fstream>
 #include "sboxE.h"
+#include "sboxD.h"
+#include "typedef.h"
+
 
 using namespace std;
 
@@ -11,16 +14,15 @@ using namespace std;
                     Files functions
 ************************************************************************/
 
-unsigned int filesize(char * filename) {
-    unsigned int size;
-    streampos begin,end;
-    ifstream myfile ("filename", ios::binary);
-    begin = myfile.tellg();
-    myfile.seekg (0, ios::end);
-    end = myfile.tellg();
-    myfile.close();
-    size = (unsigned int)(end-begin);
-    return size;
+int fsize(char * filename) {
+    std::ifstream file(filename, std::ifstream::binary);
+	if(!file) {
+		perror("Failed to open the file \n");
+		exit(1);
+	}
+	file.seekg(0,file.end);
+    int length = file.tellg();
+    return length;
 }
 
 
@@ -28,145 +30,68 @@ unsigned int filesize(char * filename) {
 /***********************************************************************
                     Key scheduling
 ************************************************************************/
-#  define AES_MAXNR 14
+#define Nb 4			// number of columns in the state & expanded key
+#define Nk 4			// number of columns in a key
+#define Nr 10			// number of rounds in encryption
 
-struct aes_key_st {
-#  ifdef AES_LONG
-    unsigned long rd_key[4 * (AES_MAXNR + 1)];
-#  else
-    unsigned int rd_key[4 * (AES_MAXNR + 1)];
-#  endif
-    int rounds;
-};
-typedef struct aes_key_st AES_KEY;
+__constant__ uint32_t const_expkey[44]; // The expended key to put into the constant memory
+
 
 const uint32_t rcon[] = {
-    0x00000001U, 0x00000002U, 0x00000004U, 0x00000008U,
-    0x00000010U, 0x00000020U, 0x00000040U, 0x00000080U,
-    0x0000001bU, 0x00000036U 
+    0x00000001, 0x00000002, 0x00000004, 0x00000008,
+    0x00000010, 0x00000020, 0x00000040, 0x00000080,
+    0x0000001b, 0x00000036 
 };
 
 
-#define GETU32(p) (*((uint32_t*)(p)))
+void ExpandKey (uint8 *key, uint8 *expkey) {
+	uint8 tmp0, tmp1, tmp2, tmp3, tmp4;
+	unsigned idx;
 
-int AES_cuda_set_encrypt_key(const unsigned char *userKey, const int bits, AES_KEY *key) {
-	uint32_t *rk;
-   	int i = 0;
-	uint32_t temp;
+	memcpy (expkey, key, Nk * 4);
 
-	if (!userKey || !key) return -1;
-
-	if (bits != 128 && bits != 192 && bits != 256) return -2;
-
-	rk = key->rd_key;
-
-	if (bits==128) key->rounds = 10;
-	else if (bits==192) key->rounds = 12;
-	else key->rounds = 14;
-
-	rk[0] = GETU32(userKey     );
-	rk[1] = GETU32(userKey +  4);
-	rk[2] = GETU32(userKey +  8);
-	rk[3] = GETU32(userKey + 12);
-	if (bits == 128) {
-		while (1) {
-			temp  = rk[3];
-			rk[4] = rk[0] ^ (const_sm_sbox[(temp >>  8) & 0xff]      ) ^ (const_sm_sbox[(temp >> 16) & 0xff] <<  8) ^
-					(const_sm_sbox[(temp >> 24)       ] << 16) ^ (const_sm_sbox[(temp      ) & 0xff] << 24) ^ rcon[i];
-			rk[5] = rk[1] ^ rk[4];
-			rk[6] = rk[2] ^ rk[5];
-			rk[7] = rk[3] ^ rk[6];
-			if (++i == 10) return 0;
-			rk += 4;
+	for( idx = Nk; idx < Nb * (Nr + 1); idx++ ) {
+		tmp0 = expkey[4*idx - 4];
+		tmp1 = expkey[4*idx - 3];
+		tmp2 = expkey[4*idx - 2];
+		tmp3 = expkey[4*idx - 1];
+		if( !(idx % Nk) ) {
+			tmp4 = tmp3;
+			tmp3 = sbox[tmp0];
+			tmp0 = sbox[tmp1] ^ rcon[idx/Nk-1];
+			tmp1 = sbox[tmp2];
+			tmp2 = sbox[tmp4];
+		} else if( Nk > 6 && idx % Nk == 4 ) {
+			tmp0 = sbox[tmp0];
+			tmp1 = sbox[tmp1];
+			tmp2 = sbox[tmp2];
+			tmp3 = sbox[tmp3];
 		}
-	}
-	rk[4] = GETU32(userKey + 16);
-	rk[5] = GETU32(userKey + 20);
-	if (bits == 192) {
-		while (1) {
-			temp  = rk[5];
-			rk[6] = rk[0] ^ (const_sm_sbox[(temp >>  8) & 0xff]      ) ^ (const_sm_sbox[(temp >> 16) & 0xff] <<  8) ^
-					(const_sm_sbox[(temp >> 24)       ] << 16) ^ (const_sm_sbox[(temp      ) & 0xff] << 24) ^ rcon[i];
-			rk[7] = rk[1] ^ rk[6];
-			rk[8] = rk[2] ^ rk[7];
-			rk[9] = rk[3] ^ rk[8];
-			if (++i == 8) return 0;
-			rk[10] = rk[ 4] ^ rk[ 9];
-			rk[11] = rk[ 5] ^ rk[10];
-			rk += 6;
-		}
-	}
-	rk[6] = GETU32(userKey + 24);
-	rk[7] = GETU32(userKey + 28);
-	if (bits == 256) {
-		while (1) {
-			temp = rk[7];
-			rk[ 8] = rk[0] ^ (const_sm_sbox[(temp >>  8) & 0xff]      ) ^ (const_sm_sbox[(temp >> 16) & 0xff] <<  8) ^
-					(const_sm_sbox[(temp >> 24)       ] << 16) ^ (const_sm_sbox[(temp      ) & 0xff] << 24) ^ rcon[i];
-			rk[ 9] = rk[1] ^ rk[ 8];
-			rk[10] = rk[2] ^ rk[ 9];
-			rk[11] = rk[3] ^ rk[10];
-			if (++i == 7) return 0;
-			temp = rk[11];
-			rk[12]=rk[ 4] ^ (const_sm_sbox[(temp      ) & 0xff]      ) ^ (const_sm_sbox[(temp >>  8) & 0xff] <<  8) ^
-					(const_sm_sbox[(temp >> 16) & 0xff] << 16) ^ (const_sm_sbox[(temp >> 24)       ] << 24);
-			rk[13]=rk[ 5] ^ rk[12];
-			rk[14]=rk[ 6] ^ rk[13];
-			rk[15]=rk[ 7] ^ rk[14];
 
-			rk += 8;
-        	}
+		expkey[4*idx+0] = expkey[4*idx - 4*Nk + 0] ^ tmp0;
+		expkey[4*idx+1] = expkey[4*idx - 4*Nk + 1] ^ tmp1;
+		expkey[4*idx+2] = expkey[4*idx - 4*Nk + 2] ^ tmp2;
+		expkey[4*idx+3] = expkey[4*idx - 4*Nk + 3] ^ tmp3;
 	}
-	return 0;
 }
 
-int AES_cuda_set_decrypt_key(const unsigned char *userKey, const int bits, AES_KEY *key) {
-        uint32_t *rk;
-	int i, j, status;
-	uint32_t temp;
 
-	/* first, start with an encryption schedule */
-	status = AES_cuda_set_encrypt_key(userKey, bits, key);
-	if (status < 0)
-		return status;
-
-	rk = key->rd_key;
-
-	/* invert the order of the round keys: */
-	for (i = 0, j = 4*(key->rounds); i < j; i += 4, j -= 4) {
-		temp = rk[i    ]; rk[i    ] = rk[j    ]; rk[j    ] = temp;
-		temp = rk[i + 1]; rk[i + 1] = rk[j + 1]; rk[j + 1] = temp;
-		temp = rk[i + 2]; rk[i + 2] = rk[j + 2]; rk[j + 2] = temp;
-		temp = rk[i + 3]; rk[i + 3] = rk[j + 3]; rk[j + 3] = temp;
-	}
-
-	/* apply the inverse MixColumn transform to all round keys but the first and the last: */
-	for (i = 1; i < (key->rounds); i++) {
-		rk += 4;
-
-		rk[0] =
-			Td0_cpu[Te2_cpu[(rk[0]      ) & 0xff] & 0xff] ^
-			Td1_cpu[Te2_cpu[(rk[0] >>  8) & 0xff] & 0xff] ^
-			Td2_cpu[Te2_cpu[(rk[0] >> 16) & 0xff] & 0xff] ^
-			Td3_cpu[Te2_cpu[(rk[0] >> 24)       ] & 0xff];
-		rk[1] =
-			Td0_cpu[Te2_cpu[(rk[1]      ) & 0xff] & 0xff] ^
-			Td1_cpu[Te2_cpu[(rk[1] >>  8) & 0xff] & 0xff] ^
-			Td2_cpu[Te2_cpu[(rk[1] >> 16) & 0xff] & 0xff] ^
-			Td3_cpu[Te2_cpu[(rk[1] >> 24)       ] & 0xff];
-		rk[2] =
-			Td0_cpu[Te2_cpu[(rk[2]      ) & 0xff] & 0xff] ^
-			Td1_cpu[Te2_cpu[(rk[2] >>  8) & 0xff] & 0xff] ^
-			Td2_cpu[Te2_cpu[(rk[2] >> 16) & 0xff] & 0xff] ^
-			Td3_cpu[Te2_cpu[(rk[2] >> 24)       ] & 0xff];
-		rk[3] =
-			Td0_cpu[Te2_cpu[(rk[3]      ) & 0xff] & 0xff] ^
-			Td1_cpu[Te2_cpu[(rk[3] >>  8) & 0xff] & 0xff] ^
-			Td2_cpu[Te2_cpu[(rk[3] >> 16) & 0xff] & 0xff] ^
-			Td3_cpu[Te2_cpu[(rk[3] >> 24)       ] & 0xff];
-	}
-	return 0;
+unsigned char rconf(unsigned char in) {
+        unsigned char c=1;
+        if(in == 0)  
+                return 0; 
+        while(in != 1) {
+		unsigned char b;
+		b = c & 0x80;
+		c <<= 1;
+		if(b == 0x80) {
+			c ^= 0x1b;
+		}
+                in--;
+        }
+        return c;
 }
+
 
 
 #endif // _UTILS_H_
