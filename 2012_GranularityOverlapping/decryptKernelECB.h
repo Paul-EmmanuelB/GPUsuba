@@ -6,7 +6,6 @@
 __global__ static void decrypt_Kernel( uint32_t* dev_input, uint32_t* dev_output, 
 size_t inputSize, uint32_t* dev_sm_td1, uint32_t* dev_sm_td2, uint32_t* dev_sm_td3, uint32_t* dev_sm_td4, uint8_t* dev_sm_isbox_inv)
 {
-    
     // Index calculations
     int tid         = threadIdx.y*blockDim.x + threadIdx.x;     //local id
     int x           = blockIdx.x * blockDim.x + threadIdx.x;    //global x id
@@ -82,17 +81,17 @@ size_t inputSize, uint32_t* dev_sm_td1, uint32_t* dev_sm_td2, uint32_t* dev_sm_t
 
         #pragma unroll
         for (int round = 9; round; round--) {
-            w1 = (sm_td4[(s2 >> 24) & 0xFF] ^ sm_td3[(s3 >> 16) & 0xFF] ^ sm_td2[(s4 >> 8) & 0xFF] ^ sm_td1[s1 & 0xFF])
+            w1 = (sm_td4[(s2 >> 24)] ^ sm_td3[(s3 >> 16) & 0xFF] ^ sm_td2[(s4 >> 8) & 0xFF] ^ sm_td1[s1 & 0xFF])
                 ^ const_IK0[expkey[round*16]]
                 ^ ((const_IK0[expkey[round * 16 + 1]] << 8) ^ (const_IK0[expkey[round * 16 + 1]] >> 24))
                 ^ ((const_IK0[expkey[round * 16 + 2]] << 16) ^ (const_IK0[expkey[round * 16 + 2]] >> 16))
                 ^ ((const_IK0[expkey[round * 16 + 3]] << 24) ^ (const_IK0[expkey[round * 16 + 3]] >> 8));
-            w2 = (sm_td4[(s3 >> 24) & 0xFF] ^ sm_td3[(s4 >> 16) & 0xFF] ^ sm_td2[(s1 >> 8) & 0xFF] ^ sm_td1[s2 & 0xFF])
+            w2 = (sm_td4[(s3 >> 24)] ^ sm_td3[(s4 >> 16) & 0xFF] ^ sm_td2[(s1 >> 8) & 0xFF] ^ sm_td1[s2 & 0xFF])
                 ^ const_IK0[expkey[round * 16 + 4]]
                 ^ ((const_IK0[expkey[round * 16 + 5]] << 8) ^ (const_IK0[expkey[round * 16 + 5]] >> 24))
                 ^ ((const_IK0[expkey[round * 16 + 6]] << 16) ^ (const_IK0[expkey[round * 16 + 6]] >> 16))
                 ^ ((const_IK0[expkey[round * 16 + 7]] << 24) ^ (const_IK0[expkey[round * 16 + 7]] >> 8));
-            w3 = (sm_td4[(s4 >> 24) & 0xFF] ^ sm_td3[(s1 >> 16) & 0xFF] ^ sm_td2[(s2 >> 8) & 0xFF] ^ sm_td1[s3 & 0xFF])
+            w3 = (sm_td4[(s4 >> 24)] ^ sm_td3[(s1 >> 16) & 0xFF] ^ sm_td2[(s2 >> 8) & 0xFF] ^ sm_td1[s3 & 0xFF])
                 ^ const_IK0[expkey[round * 16 + 8]]
                 ^ ((const_IK0[expkey[round * 16 + 9]] << 8) ^ (const_IK0[expkey[round * 16 + 9]] >> 24))
                 ^ ((const_IK0[expkey[round * 16 + 10]] << 16) ^ (const_IK0[expkey[round * 16 + 10]] >> 16))
@@ -114,28 +113,28 @@ size_t inputSize, uint32_t* dev_sm_td1, uint32_t* dev_sm_td2, uint32_t* dev_sm_t
         w1  = (uint32_t)(sm_isbox[ s1 & 0xFF]);
         w1 |= (uint32_t)(sm_isbox[(s4 >>  8) & 0xFF]) << 8;
         w1 |= (uint32_t)(sm_isbox[(s3 >> 16) & 0xFF]) << 16;
-        w1 |= (uint32_t)(sm_isbox[(s2 >> 24) & 0xFF]) << 24; //SubBytes and ShiftRows
+        w1 |= (uint32_t)(sm_isbox[(s2 >> 24)       ]) << 24; //SubBytes and ShiftRows
         w1 ^= const_expkey[0];
         dev_output[4*global_tid] = w1 ; //store the cipher text
 
         w2  = (uint32_t)(sm_isbox[ s2 & 0xFF]);
         w2 |= (uint32_t)(sm_isbox[(s1 >>  8) & 0xFF]) << 8;
         w2 |= (uint32_t)(sm_isbox[(s4 >> 16) & 0xFF]) << 16;
-        w2 |= (uint32_t)(sm_isbox[(s3 >> 24) & 0xFF]) << 24; //SubBytes and ShiftRows
+        w2 |= (uint32_t)(sm_isbox[(s3 >> 24)       ]) << 24; //SubBytes and ShiftRows
         w2 ^= const_expkey[1];
         dev_output[4*global_tid+1] = w2 ; //store the cipher text
 
         w3  = (uint32_t)(sm_isbox[ s3 & 0xFF]);
         w3 |= (uint32_t)(sm_isbox[(s2 >> 8) & 0xFF]) << 8;
         w3 |= (uint32_t)(sm_isbox[(s1 >> 16) & 0xFF]) << 16;
-        w3 |= (uint32_t)(sm_isbox[(s4 >> 24) & 0xFF]) << 24; //SubBytes and ShiftRows
+        w3 |= (uint32_t)(sm_isbox[(s4 >> 24)       ]) << 24; //SubBytes and ShiftRows
         w3 ^= const_expkey[2];
         dev_output[4*global_tid+2] = w3 ; //store the cipher text
 
         w4  = (uint32_t)(sm_isbox[ s4 & 0xFF]);
         w4 |= (uint32_t)(sm_isbox[(s3 >> 8) & 0xFF]) <<  8;
         w4 |= (uint32_t)(sm_isbox[(s2 >> 16) & 0xFF]) << 16;
-        w4 |= (uint32_t)(sm_isbox[(s1 >> 24) & 0xFF]) << 24; //SubBytes and ShiftRows
+        w4 |= (uint32_t)(sm_isbox[(s1 >> 24)       ]) << 24; //SubBytes and ShiftRows
         w4 ^= const_expkey[3];
         dev_output[4*global_tid+3] = w4 ; //store the cipher text
     }

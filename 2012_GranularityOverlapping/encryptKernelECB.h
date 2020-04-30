@@ -25,7 +25,7 @@ size_t inputSize, uint32_t* dev_sm_te1, uint32_t* dev_sm_te2, uint32_t* dev_sm_t
     // Loading shared memory. 256 elements are needed
     int elemPerThread = 256/blockSize;
     
-    if ( !elemPerThread && tid<25) {
+    if ( !elemPerThread && tid<256) {
         //load dev_sm_te1, dev_sm_te2, dev_sm_te3, dev_sm_te4 and
         // sm_sbox to share memory variables sm_te1, sm_te2,
         //sm_te3, sm_te4 and sm_sbox;
@@ -94,28 +94,28 @@ size_t inputSize, uint32_t* dev_sm_te1, uint32_t* dev_sm_te2, uint32_t* dev_sm_t
         s1  = (uint32_t)(sm_sbox[ w1        & 0xFF]);
         s1 |= (uint32_t)(sm_sbox[(w2 >>  8) & 0xFF]) << 8;
         s1 |= (uint32_t)(sm_sbox[(w3 >> 16) & 0xFF]) << 16;
-        s1 |= (uint32_t)(sm_sbox[(w4 >> 24) & 0xFF]) << 24; //SubBytes and ShiftRows
+        s1 |= (uint32_t)(sm_sbox[(w4 >> 24)       ]) << 24; //SubBytes and ShiftRows
         s1 ^= const_expkey[(ROUNDS - 1) * 4]; //AddRoundKey
         dev_output[4*global_tid] = s1 ; //store the cipher text
         
         s2  = (uint32_t)(sm_sbox[ w2        & 0xFF]);
         s2 |= (uint32_t)(sm_sbox[(w3 >>  8) & 0xFF]) << 8;
         s2 |= (uint32_t)(sm_sbox[(w4 >> 16) & 0xFF]) << 16;
-        s2 |= (uint32_t)(sm_sbox[(w1 >> 24) & 0xFF]) << 24; //SubBytes and ShiftRows
+        s2 |= (uint32_t)(sm_sbox[(w1 >> 24)       ]) << 24; //SubBytes and ShiftRows
         s2 ^= const_expkey[(ROUNDS - 1) * 4 + 1]; //AddRoundKey
         dev_output[4*global_tid+1] = s2 ; //store the cipher text
 
         s3  = (uint32_t)(sm_sbox[ w3        & 0xFF]);
         s3 |= (uint32_t)(sm_sbox[(w4 >>  8) & 0xFF]) << 8;
         s3 |= (uint32_t)(sm_sbox[(w1 >> 16) & 0xFF]) << 16;
-        s3 |= (uint32_t)(sm_sbox[(w2 >> 24) & 0xFF]) << 24; //SubBytes and ShiftRows
+        s3 |= (uint32_t)(sm_sbox[(w2 >> 24)       ]) << 24; //SubBytes and ShiftRows
         s3 ^= const_expkey[(ROUNDS - 1) * 4 + 2]; //AddRoundKey
         dev_output[4*global_tid+2] = s3 ; //store the cipher text
 
         s4  = (uint32_t)(sm_sbox[ w4        & 0xFF]);
         s4 |= (uint32_t)(sm_sbox[(w1 >>  8) & 0xFF]) << 8;
         s4 |= (uint32_t)(sm_sbox[(w2 >> 16) & 0xFF]) << 16;
-        s4 |= (uint32_t)(sm_sbox[(w3 >> 24) & 0xFF]) << 24; //SubBytes and ShiftRows
+        s4 |= (uint32_t)(sm_sbox[(w3 >> 24)       ]) << 24; //SubBytes and ShiftRows
         s4 ^= const_expkey[(ROUNDS - 1) * 4 + 3]; //AddRoundKey
         dev_output[4*global_tid+3] = s4 ; //store the cipher text
     }

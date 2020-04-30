@@ -40,8 +40,7 @@ int main(int argc, char * argv[]) {
     ///////////////////////////////////////////////////////////////
     // command line arguments
     ///////////////////////////////////////////////////////////////
-    int     warm_up_device      = 1;    // GPU kernel warm up
-	int     warm_up_host        = 0;    // Host warm up (with GPU kernel inside)
+    int     warm_up_device      = 0;    // GPU kernel warm up
     int     threadNum           = 512;  // Threads per block. This is a recommanded number.
     int     blockNum            = 0;    // Number of blocks in the grid
     int     mode                = 1;    // Encryption mode, 1 to encrypt or 0 to decrypt.
@@ -61,11 +60,12 @@ int main(int argc, char * argv[]) {
             if((strcmp(argv[n],"-wuDevice") == 0) && (n+1<argc)) {
                 warm_up_device = atoi(argv[n+1]);
             }
-            else if((strcmp(argv[n],"-wuHost") == 0) && (n+1<argc)) {
-                warm_up_host = atoi(argv[n+1]);
-            }
             else if((strcmp(argv[n],"-threadNum") == 0) && (n+1<argc)) {
                 threadNum = atoi(argv[n+1]);
+                if(threadNum ==0) {
+                    printf("\n threadNum must be a non-null value.\n");
+                    exit(1);
+                }
             }
             else if((strcmp(argv[n],"-blockNum") == 0) && (n+1<argc)) {
                 blockNum = atoi(argv[n+1]);
@@ -108,8 +108,7 @@ int main(int argc, char * argv[]) {
     std::cout << "    mode		 = " 	<< mode             << std::endl;
     std::cout << "    threadNum		= " << threadNum        << std::endl;
     std::cout << "    blockNum		= " << blockNum         << std::endl;
-    std::cout << "    wuHost		= " << warm_up_host     << std::endl;
-    std::cout << "    wuDevice		= " << warm_up_device   << std::endl;
+    std::cout << "    wuDevice		= " << warm_up_device   << std::endl << std::endl;
 
     
     //Copying the key file
@@ -163,7 +162,6 @@ int main(int argc, char * argv[]) {
         perror ("Error opening file");
         exit(1);
     }
-    printf("TEST\n"); //PRINTTTTTTTTTTTTT
     result = fread (inputData, sizeof(uint8_t), filesize, inputFile);
     if(result != filesize) {
         perror("Reading error from the input file");
@@ -175,8 +173,8 @@ int main(int argc, char * argv[]) {
     for (int i = 0; i < padElmt; i++) {
 		inputData[filesize + i] = padElmt;
     }
-	filesize += padElmt; 
-    printf("Filesize %d \n",filesize); //PRINTTTTTTTTTTTTT
+	filesize += padElmt;
+    std::cout << "    Data to treat with padding elements: " << filesize  << " bytes."  << std::endl;
 
     //Determining grid size if not given
     if(!blockNum) {
@@ -188,7 +186,7 @@ int main(int argc, char * argv[]) {
             exit(1);
         }
     }
-    printf("Blocksize =  %d \n",blockNum);
+    std::cout << "    Gridsize in term of block: " << blockNum  << std::endl;
 
     //Device vectors declarations and allocations
     uint32_t * devInput, * devOutput, * dev_sm_te1, * dev_sm_te2, * dev_sm_te3, * dev_sm_te4;
@@ -272,7 +270,7 @@ int main(int argc, char * argv[]) {
         }
     }
     else {
-        padElmt = outputData[filesize-padElmt-1] + padElmt;
+        padElmt += outputData[filesize-padElmt-1];
         result = fwrite (outputData, sizeof(uint8_t), filesize-padElmt, outputFile);
         if(result != filesize-padElmt) {
             perror("Writting error to the output file");
