@@ -11,9 +11,11 @@
 *.bmp
 dataset.txt
 
-#Benchmark changing file
-First_CUDA/Working_project/bench/benchResult
 
 #workspace manager
 *.code-workspace
 *.json
+AES_Implementations/Implem_Methods/Data/256KBdataset.txt
+AES_Implementations/Implem_Methods/Data/512KBdataset.txt
+AES_Implementations/Implem_Methods/Data/1024KBdataset.txt
+AES_Implementations/Implem_Methods/Data/8192KBdataset.txt

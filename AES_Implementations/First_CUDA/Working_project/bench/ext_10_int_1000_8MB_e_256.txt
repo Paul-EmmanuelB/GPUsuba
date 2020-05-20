@@ -1,0 +1,50 @@
+
+GPU, other method processing time: 9.916032 (ms)
+GPU processing time: 10518.300781 (ms)
+Total processing time: 10549.869141 (ms)
+
+
+GPU, other method processing time: 9.928000 (ms)
+GPU processing time: 10146.306641 (ms)
+Total processing time: 10160.859375 (ms)
+
+
+GPU, other method processing time: 9.915680 (ms)
+GPU processing time: 10470.569336 (ms)
+Total processing time: 10483.157227 (ms)
+
+
+GPU, other method processing time: 9.920800 (ms)
+GPU processing time: 10516.892578 (ms)
+Total processing time: 10533.403320 (ms)
+
+
+GPU, other method processing time: 9.919040 (ms)
+GPU processing time: 10082.203125 (ms)
+Total processing time: 10099.551758 (ms)
+
+
+GPU, other method processing time: 9.929920 (ms)
+GPU processing time: 9981.908203 (ms)
+Total processing time: 9997.188477 (ms)
+
+
+GPU, other method processing time: 9.921120 (ms)
+GPU processing time: 9972.137695 (ms)
+Total processing time: 9987.607422 (ms)
+
+
+GPU, other method processing time: 9.906560 (ms)
+GPU processing time: 10017.013672 (ms)
+Total processing time: 10030.502930 (ms)
+
+
+GPU, other method processing time: 9.915360 (ms)
+GPU processing time: 10119.347656 (ms)
+Total processing time: 10135.818359 (ms)
+
+
+GPU, other method processing time: 9.923040 (ms)
+GPU processing time: 10694.602539 (ms)
+Total processing time: 10707.749023 (ms)
+
