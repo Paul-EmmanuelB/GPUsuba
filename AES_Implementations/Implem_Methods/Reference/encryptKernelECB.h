@@ -58,13 +58,7 @@ size_t inputSize, uint32_t* dev_sm_te1, uint32_t* dev_sm_te2, uint32_t* dev_sm_t
 
     // Each thread treat 16 bytes. 
     if(global_tid < inputSize/16) {
-        
-        //load the cipher blocks, all the global memory transactions are
-        //coalesced. The original plain text load from files, due to the read
-        //procedure reverse the byte order of the 32-bit words, So a reverse
-        //process was necessary.
-
-
+        //Loading plaintext
         w1 = dev_input[4*global_tid];
         w2 = dev_input[4*global_tid+1];
         w3 = dev_input[4*global_tid+2];

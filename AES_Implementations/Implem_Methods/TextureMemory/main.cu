@@ -60,8 +60,8 @@ int main(int argc, char * argv[]) {
             }
             else if((strcmp(argv[n],"-threadNum") == 0) && (n+1<argc)) {
                 threadNum = atoi(argv[n+1]);
-                if(threadNum ==0) {
-                    printf("\n threadNum must be a non-null value.\n");
+                if(threadNum <256) {
+                    printf("\n threadNum must be superior to 256.\n");
                     exit(1);
                 }
             }

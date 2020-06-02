@@ -62,11 +62,7 @@ size_t inputSize, uint32_t* dev_sm_td1, uint32_t* dev_sm_td2, uint32_t* dev_sm_t
     int gridSize = xwidth*ywidth;
 
     for(int i = global_tid; i < elements; i += gridSize) {
-
-        //load the cipher blocks, all the global memory transactions are
-        //coalesced. The original plain text load from files, due to the read
-        //procedure reverse the byte order of the 32-bit words, So a reverse
-        //process was necessary.
+        //Loading plaintext
         s1  = dev_input[4*i];
         s2  = dev_input[4*i+1];
         s3  = dev_input[4*i+2];

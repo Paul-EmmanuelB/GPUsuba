@@ -59,11 +59,7 @@ size_t stateBlocks, uint32_t* dev_sm_td1, uint32_t* dev_sm_td2, uint32_t* dev_sm
     
     // Each thread treat 16 bytes. 
     if(global_tid < stateBlocks) {
-
-        //load the cipher blocks, all the global memory transactions are
-        //coalesced. The original plain text load from files, due to the read
-        //procedure reverse the byte order of the 32-bit words, So a reverse
-        //process was necessary.
+        //Loading plaintext
         s.x  = dev_input[global_tid].x;
         s.y  = dev_input[global_tid].y;
         s.z  = dev_input[global_tid].z;

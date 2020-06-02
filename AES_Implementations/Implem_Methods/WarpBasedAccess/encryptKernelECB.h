@@ -61,11 +61,7 @@ size_t inputSize, uint32_t* dev_sm_te1, uint32_t* dev_sm_te2, uint32_t* dev_sm_t
     int laneID = global_tid%warpSize;
     // Each warp treat 512 bytes. 
     if(warpID < warpSize*warps) {
-        
-        //load the cipher blocks, all the global memory transactions are
-        //coalesced. The original plain text load from files, due to the read
-        //procedure reverse the byte order of the 32-bit words, So a reverse
-        //process was necessary.
+        //Loading plaintext
         w1 = dev_input[128*warpID+laneID+warpSize*0];
         w2 = dev_input[128*warpID+laneID+warpSize*1];
         w3 = dev_input[128*warpID+laneID+warpSize*2];

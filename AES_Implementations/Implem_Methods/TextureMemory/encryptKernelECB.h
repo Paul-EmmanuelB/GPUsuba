@@ -25,10 +25,6 @@ cudaTextureObject_t tex0, cudaTextureObject_t tex1, cudaTextureObject_t tex2, cu
     // Loading shared memory. 256 elements are needed
     int elemPerThread = 256/blockSize;
     
-    /*if(global_tid ==1){
-        for(int i=0; i<256; i++)
-            printf("\n%x",tex1D(Tex0, i));
-    }*/
 
     if ( !elemPerThread && tid<256) {
         //load dev_sm_te0, dev_sm_te1, dev_sm_te2, dev_sm_te3 and
@@ -40,35 +36,10 @@ cudaTextureObject_t tex0, cudaTextureObject_t tex1, cudaTextureObject_t tex2, cu
         sm_te3[tid]   = tex1Dfetch<uint32>(tex3, tid);
         sm_sbox[tid]  = dev_sm_sbox[tid];
     }
-    else {
-        for(int i=0; i<elemPerThread; i++) {
-            sm_te0[tid*elemPerThread  + i]   = tex1Dfetch<uint32>(tex0, tid*elemPerThread + i);
-            sm_te1[tid*elemPerThread  + i]   = tex1Dfetch<uint32>(tex1, tid*elemPerThread + i);
-            sm_te2[tid*elemPerThread  + i]   = tex1Dfetch<uint32>(tex2, tid*elemPerThread + i);
-            sm_te3[tid*elemPerThread  + i]   = tex1Dfetch<uint32>(tex3, tid*elemPerThread + i);
-            sm_sbox[tid*elemPerThread + i]   = dev_sm_sbox[tid*elemPerThread + i];
-        }
-        int modEPT = 256%blockSize; //256 is not a multiple of blockSize
-        if(!modEPT && (tid == blockSize-1)) {
-            for(int i=0; i<modEPT; i++) {
-                sm_te0[tid*(elemPerThread+1)  + i]   = tex1Dfetch<uint32>(tex0, tid*(elemPerThread+1) + i);
-                sm_te1[tid*(elemPerThread+1)  + i]   = tex1Dfetch<uint32>(tex1, tid*(elemPerThread+1) + i);
-                sm_te2[tid*(elemPerThread+1)  + i]   = tex1Dfetch<uint32>(tex2, tid*(elemPerThread+1) + i);
-                sm_te3[tid*(elemPerThread+1)  + i]   = tex1Dfetch<uint32>(tex3, tid*(elemPerThread+1) + i);
-                sm_sbox[tid*(elemPerThread+1) + i]   = dev_sm_sbox[tid*(elemPerThread+1) + i];
-            }
-        }
-    }
 
     // Each thread treat 16 bytes. 
     if(global_tid < inputSize/16) {
-        
-        //load the cipher blocks, all the global memory transactions are
-        //coalesced. The original plain text load from files, due to the read
-        //procedure reverse the byte order of the 32-bit words, So a reverse
-        //process was necessary.
-
-
+        //Loading plaintext
         w1 = dev_input[4*global_tid];
         w2 = dev_input[4*global_tid+1];
         w3 = dev_input[4*global_tid+2];

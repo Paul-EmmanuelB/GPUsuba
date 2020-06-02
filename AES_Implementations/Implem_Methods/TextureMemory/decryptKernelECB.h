@@ -59,11 +59,7 @@ cudaTextureObject_t tex0, cudaTextureObject_t tex1, cudaTextureObject_t tex2, cu
     
     // Each thread treat 16 bytes. 
     if(global_tid < inputSize/16) {
-
-        //load the cipher blocks, all the global memory transactions are
-        //coalesced. The original plain text load from files, due to the read
-        //procedure reverse the byte order of the 32-bit words, So a reverse
-        //process was necessary.
+        //Loading plaintext
         s1  = dev_input[4*global_tid];
         s2  = dev_input[4*global_tid+1];
         s3  = dev_input[4*global_tid+2];
