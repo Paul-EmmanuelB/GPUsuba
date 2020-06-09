@@ -52,6 +52,8 @@ SRC_PATH_WBA    = WarpBasedAccess
 SRC_PATH_OV    	= Overlapping
 SRC_PATH_AoS    = AoS
 SRC_PATH_TM    	= TextureMemory
+SRC_PATH_Shufl  = Shuffle
+SRC_PATH_Bts	= Bitslicing
 EXE_PATH   		= .
 DATA_PATH  		= Data
 INCLUDE_PATH	= Include
@@ -67,6 +69,8 @@ SRC_WBA		= $(addprefix ${SRC_PATH_WBA}/, $(SRC_FILES))
 SRC_OV		= $(addprefix ${SRC_PATH_OV}/, $(SRC_FILES))
 SRC_AoS		= $(addprefix ${SRC_PATH_AoS}/, $(SRC_FILES))
 SRC_TM		= $(addprefix ${SRC_PATH_TM}/, $(SRC_FILES))
+SRC_Shufl	= $(addprefix ${SRC_PATH_Shufl}/, $(SRC_FILES))
+SRC_Bts	    = $(addprefix ${SRC_PATH_Bts}/, $(SRC_FILES))
 
 ###############################################################################
 # Rules and targets
@@ -92,6 +96,12 @@ AoS:  $(SRC_AoS)
 	$(NVCC) $(CUFLAGS)  $^ -o $(PRODUCT) -I $(INCLUDE_PATH)
 
 TM:  $(SRC_TM)
+	$(NVCC) $(CUFLAGS)  $^ -o $(PRODUCT) -I $(INCLUDE_PATH)
+
+Shufl:  $(SRC_Shufl)
+	$(NVCC) $(CUFLAGS)  $^ -o $(PRODUCT) -I $(INCLUDE_PATH)
+
+Bts:  $(SRC_Bts)
 	$(NVCC) $(CUFLAGS)  $^ -o $(PRODUCT) -I $(INCLUDE_PATH)
 
 dataset:
