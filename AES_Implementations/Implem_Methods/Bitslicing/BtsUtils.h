@@ -112,5 +112,28 @@ unsigned char rconf(unsigned char in) {
 }
 
 
+//Print functions
+uint8_t byte_from_8_bits(uint32_t x0, uint32_t x1, uint32_t x2, uint32_t x3,
+                         uint32_t x4, uint32_t x5, uint32_t x6, uint32_t x7,
+                         int stateNum) {
+  return
+    (( (x0 >> stateNum) & 1) << 0) |
+    (( (x1 >> stateNum) & 1) << 1) |
+    (( (x2 >> stateNum) & 1) << 2) |
+    (( (x3 >> stateNum) & 1) << 3) |
+    (( (x4 >> stateNum) & 1) << 4) |
+    (( (x5 >> stateNum) & 1) << 5) |
+    (( (x6 >> stateNum) & 1) << 6) |
+    (( (x7 >> stateNum) & 1) << 7);
+}
+
+void print_state_128(uint32_t state[128], int stateNum) {
+  for (int i = 0; i < 16; i++) {
+      printf("%02X ",byte_from_8_bits(state[i*8],state[i*8+1],state[i*8+2],state[i*8+3],
+                                    state[i*8+4],state[i*8+5],state[i*8+6],state[i*8+7],
+                                    stateNum));
+  }
+  printf("\n");
+}
 
 #endif // _BTS_UTILS_H_

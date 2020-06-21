@@ -24,16 +24,20 @@
 	@author Broux Paul-Emmanuel <paulemmanuelb@gmail.com>
  */
 
-//#define BENCH_ON
+#define BENCH_ON //Deactivate print messages and introduce warm up and average timing
+#define ADV_BTS
 
 #include <stdio.h>
 #include <cstdlib>
 
 #include "BtsUtils.h"
-#include "encryptKernelECB.h"
-#include "decryptKernelECB.h"
 #include "transpose.h"
 
+#ifdef ADV_BTS
+#include "encryptKernelECB_Advanced.h"
+#else
+#include "encryptKernelECB.h"
+#endif //ADV_BTS
 
 int main(int argc, char * argv[]) {
 
@@ -42,9 +46,8 @@ int main(int argc, char * argv[]) {
     // command line arguments
     ///////////////////////////////////////////////////////////////
     int     warm_up_device      = 0;    // GPU kernel warm up
-    int     threadNum           = 512;  // Threads per block. This is a recommanded number.
+    int     threadNum           = 64;  // Threads per block. This is a recommanded number.
     int     blockNum            = 0;    // Number of blocks in the grid
-    int     mode                = 1;    // Encryption mode, 1 to encrypt or 0 to decrypt.
     char *  filename;
     char *  keyfilename; 
 
@@ -60,16 +63,19 @@ int main(int argc, char * argv[]) {
             }
             else if((strcmp(argv[n],"-threadNum") == 0) && (n+1<argc)) {
                 threadNum = atoi(argv[n+1]);
-                if(threadNum < 64) {
-                    printf("\n threadNum must be greater than 63.\n");
+                if(threadNum < 0) {
+                    printf("\n threadNum must be greater than 0.\n");
                     exit(1);
                 }
+                #ifdef ADV_BTS
+                if(threadNum > 64) {
+                    printf("\n threadNum must be lesser than 65.\n");
+                    exit(1);
+                }
+                #endif
             }
             else if((strcmp(argv[n],"-blockNum") == 0) && (n+1<argc)) {
                 blockNum = atoi(argv[n+1]);
-            }
-            else if((strcmp(argv[n],"-mode") == 0) && (n+1<argc)) {
-                mode = atoi(argv[n+1]);
             }
             else if((strcmp(argv[n],"-filename") == 0) && (n+1<argc)) {
                 filename = argv[n+1];
@@ -80,7 +86,6 @@ int main(int argc, char * argv[]) {
             else if((strcmp(argv[n],"-help") == 0)) {
                 std::cout << "   This is a AES-128 implementation." << std::endl;
 				std::cout << "   \"-options value\" availables are:" << std::endl;
-                std::cout << "   -mode, 1 to encrypt and 0 to decrypt. Default value is 1." << std::endl;
                 std::cout << "   -filename, the file path to encrypt or decrypt." << std::endl;
                 std::cout << "   -keyfilename, the 128 key file's path to use for encyption or decryption." << std::endl;
                 std::cout << "   -threadNum to set the number of threads per block. Default recommended value is 512." << std::endl;
@@ -102,12 +107,11 @@ int main(int argc, char * argv[]) {
 		exit(1);
 	}
 
-    std::cout << "    mode		 = " 	<< mode             << std::endl;
     std::cout << "    threadNum		= " << threadNum        << std::endl;
     std::cout << "    blockNum		= " << blockNum         << std::endl;
     std::cout << "    wuDevice		= " << warm_up_device   << std::endl << std::endl;
 
-    
+
     //Copying the key file
     unsigned char key[16];
     FILE * keyFile;
@@ -120,12 +124,11 @@ int main(int argc, char * argv[]) {
         for(int i=0 ; i<16 ; i+=4) {
             if(fscanf(keyFile, "%x", (unsigned int *)&key[i]) != 1 ) {
                 perror ("Error reading keyfile. Make sure the key is hexadecimal words like \"0x01234567 0x89abcdef ...\" .\n");
-                exit(1);
+                //exit(1);
             }
         }
     }
     fclose(keyFile);
-
 
     // ***Key scheduling***
     uint8 expkey[176];
@@ -135,8 +138,23 @@ int main(int argc, char * argv[]) {
     uint32_t transposed_key[1408] = {0};
     transposeKey((uint32_t*)expkey, transposed_key);
 
+    //PRINT KEY AND TRANSPOSED KEY
+    printf("\nEncryption key : ");
+    for(int i=0; i<16; i++){
+        printf("%2x ",key[i]);
+    }
+
+    printf("\nRoundKeys\n");
+    for(int i=0; i<11; i++){
+        printf("Round %2d   ",i);
+        print_state_128(&transposed_key[128*i],0);
+    }
+
+
     //Attach to constant memory
     cudaMemcpyToSymbol(const_expkey,  transposed_key, 1408*sizeof(uint32_t)); //Moving the expanding key to constant memory
+
+
 
     // ***Inputdata file to encrypt/decrypt***
     //Checking for the size of the file
@@ -146,14 +164,13 @@ int main(int argc, char * argv[]) {
     //CMS padding to have 512 bytes blocks of data
     uint32_t padElmt;
     uint32_t mod512 = filesize%512;
+    padElmt = 512 - mod512;
 
-    padElmt  = 512 - mod512; // We always add bytes for later padding detection
+    filesize += padElmt;
 
     //Creating required arrays
-    uint8_t *inputData;
-    uint8_t *outputData;
-    inputData = (uint8_t*)malloc((filesize+padElmt)*sizeof(uint8_t));
-    outputData = (uint8_t*)malloc((filesize+padElmt)*sizeof(uint8_t));
+    uint8_t inputData[filesize] = {0};
+    uint8_t outputData[filesize] = {0};
 
     //Opening the file
     FILE * inputFile;
@@ -164,39 +181,26 @@ int main(int argc, char * argv[]) {
         perror ("Error opening file");
         exit(1);
     }
-    result = fread (inputData, sizeof(uint8_t), filesize, inputFile);
-    if(result != filesize) {
+    result = fread (inputData, sizeof(uint8_t), filesize-padElmt, inputFile);
+    if(result != filesize-padElmt) {
         perror("Reading error from the input file");
         exit(1);
     }
     fclose(inputFile);
 
-    //Padding
-    if(padElmt < 255){
-        for (int i = 0; i < padElmt; i++) {
-            inputData[filesize + i] = padElmt;
-        }
+#ifndef BENCH_ON
+    //PRINT PLAIN 
+    printf("\nPlaintext : \n");
+    for(int i=0; i<filesize; i++){
+        if(i%16==0 && i)
+            printf("| ");
+        if(i%32==0 && i)
+            printf("\n");
+        printf("%2x ",inputData[i]);
     }
-    else {
-        uint32_t temp = padElmt - 255;
-        if(temp < 255){
-            for (int i = 0; i < padElmt - 1 ; i++) {
-                inputData[filesize + i] = temp;
-            }
-            inputData[filesize + padElmt -1] = 255;
-        }
-        else{
-            temp -= 255;
-            for (int i = 0; i < padElmt - 2 ; i++) {
-                inputData[filesize + i] = temp;
-            }
-            inputData[filesize + padElmt -2] = 255;
-            inputData[filesize + padElmt -1] = 255;
-        }
-    }
-    
-	filesize += padElmt;
-    std::cout << "    Data to treat with padding elements: " << filesize  << " bytes."  << std::endl;
+#endif //BENCH_ON
+
+    std::cout << std::endl << "Data to treat with padding elements: " << filesize  << " bytes."  << std::endl;
 
     //Transposition for bitslicing
     uint32_t *transposition  = (uint32_t*)inputData;
@@ -205,23 +209,27 @@ int main(int argc, char * argv[]) {
         transposition += 128;
     }
 
+/*    //PRINT PLAIN TRANSPOSED
+    printf("\n Plain through transposed state : \n");
+    for(int i=0; i<filesize/512; i++){
+        if(i%16==0 && i)
+            printf("| ");
+        if(i%32==0 && i)
+            printf("\n");
+        for(int state=0; state<32; state++)
+            print_state_128(&transposition[i*128], state);
+    }
+*/
     //Determining grid size if not given
     if(!blockNum) {
         blockNum = 1+filesize/(threadNum*512);
     }
-    /* We don't need that as threads loop on the grid size
-    /*else {
-    /*    if(blockNum*threadNum*512 < filesize) {
-    /*        std::cerr << std::endl <<  std::endl << "BlockNum and ThreadNum don't fit the data file ton encrypt/decrypt. ";
-    /*        exit(1);
-    /*    }
-    /*}*/
-    std::cout << "    Gridsize in term of block: " << blockNum  << std::endl;
+    std::cout << "Gridsize in term of block: " << blockNum  << std::endl;
 
     //Device vectors declarations and allocations
     uint32_t * devInput, * devOutput;
-    cudaMalloc( (void **) &devInput         , filesize*sizeof(uint8_t));
-    cudaMalloc( (void **) &devOutput        , filesize*sizeof(uint8_t));
+    cudaMalloc( (void **) &devInput  , filesize*sizeof(uint8_t));
+    cudaMalloc( (void **) &devOutput , filesize*sizeof(uint8_t));
 
     //GPU + memory transfers time
     cudaEvent_t startHost, stopHost;
@@ -234,92 +242,77 @@ int main(int argc, char * argv[]) {
 	checkCudaErrors(cudaEventCreate(&stopDevice));
 
     cudaMemcpy(devInput, inputData, filesize*sizeof(uint8_t), cudaMemcpyHostToDevice);
+
     //Warm Up
-    if(mode) {
-        for(int i=0; i < warm_up_device ; i++) { 
-            encrypt_Kernel<<<blockNum,threadNum>>>(devInput, devOutput, filesize);
-        }
-    }
-    else {
-        for(int i=0; i < warm_up_device ; i++) {
-                decrypt_Kernel<<<blockNum,threadNum>>>(devInput, devOutput, filesize);
-        }
+    for(int i=0; i < warm_up_device ; i++) { 
+        encrypt_Kernel<<<blockNum,threadNum>>>(devInput, devOutput, filesize);
     }
 
-    #ifdef BENCH_ON
-        printf("\nBENCH_ON\n");
-        if(mode) {
-            checkCudaErrors(cudaEventRecord(startHost, NULL));
-            for(int j=0; j<1000; j++){ //for benchmarking
-                //cudaMemcpy(devInput, inputData, filesize*sizeof(uint8_t), cudaMemcpyHostToDevice);
-                //checkCudaErrors(cudaEventRecord(startDevice, NULL));
-                encrypt_Kernel<<<blockNum,threadNum>>>(devInput, devOutput, filesize);
-                //checkCudaErrors(cudaEventRecord(stopDevice, NULL));	
-                //cudaMemcpy(outputData, devOutput, filesize*sizeof(uint8_t), cudaMemcpyDeviceToHost);	
-            }
-            checkCudaErrors(cudaEventRecord(stopHost, NULL));
-        } 
-        else {
-            checkCudaErrors(cudaEventRecord(startHost, NULL));
-            for(int j=0; j<1000; j++){ //for benchmarking
-                //cudaMemcpy(devInput, inputData, filesize*sizeof(uint8_t), cudaMemcpyHostToDevice);
-                //checkCudaErrors(cudaEventRecord(startDevice, NULL));						
-                decrypt_Kernel<<<blockNum,threadNum>>>(devInput, devOutput, filesize);
-                //checkCudaErrors(cudaEventRecord(stopDevice, NULL));
-                //cudaMemcpy(outputData, devOutput, filesize*sizeof(uint8_t), cudaMemcpyDeviceToHost);
-            }
-            checkCudaErrors(cudaEventRecord(stopHost, NULL));
-        }
-    #else
-        if(mode) {
-            checkCudaErrors(cudaEventRecord(startHost, NULL));
-            cudaMemcpy(devInput, inputData, filesize*sizeof(uint8_t), cudaMemcpyHostToDevice);
-            //checkCudaErrors(cudaEventRecord(startDevice, NULL));
-            encrypt_Kernel<<<blockNum,threadNum>>>(devInput, devOutput, filesize);
-            //checkCudaErrors(cudaEventRecord(stopDevice, NULL));		
-        }
-        else {
-            checkCudaErrors(cudaEventRecord(startHost, NULL));
-            cudaMemcpy(devInput, inputData, filesize*sizeof(uint8_t), cudaMemcpyHostToDevice);
-            //checkCudaErrors(cudaEventRecord(startDevice, NULL));						
-            decrypt_Kernel<<<blockNum,threadNum>>>(devInput, devOutput, filesize);
-            //checkCudaErrors(cudaEventRecord(stopDevice, NULL));
-        }
-        checkCudaErrors(cudaEventRecord(stopHost, NULL));
-    #endif
+#ifdef BENCH_ON
+    printf("\nBENCH_ON\n");
+    checkCudaErrors(cudaEventRecord(startHost, NULL));
+    for(int j=0; j<1000; j++){ //for benchmarking
+        encrypt_Kernel<<<blockNum,threadNum>>>(devInput, devOutput, filesize);
+    }
+    //checkCudaErrors(cudaGetLastError());
+    checkCudaErrors(cudaEventRecord(stopHost, NULL));
+#else
+    checkCudaErrors(cudaEventRecord(startHost, NULL));
+    //cudaMemcpy(devInput, inputData, filesize*sizeof(uint8_t), cudaMemcpyHostToDevice);
+    encrypt_Kernel<<<blockNum,threadNum>>>(devInput, devOutput, filesize);
+    checkCudaErrors(cudaGetLastError());
+    checkCudaErrors(cudaEventRecord(stopHost, NULL));
+#endif
+
     cudaMemcpy(outputData, devOutput, filesize*sizeof(uint8_t), cudaMemcpyDeviceToHost);
     
     
-
-    //Make sure to end following events before continuing 
-    //checkCudaErrors(cudaEventSynchronize(stopDevice));	
     checkCudaErrors(cudaEventSynchronize(stopHost));
 
-    //Time calculation
-    //float Devmsec   = 0.0f;
+    //Time spent
     float Hostmsec  = 0.0f;
     double throughput;
-    
-    /*checkCudaErrors(cudaEventElapsedTime(&Devmsec, startDevice, stopDevice));
-    /*throughput = 1.0e-9f*8*filesize/(Devmsec*1.0e-3f);
-    /*printf("\n	GPU processing time: %f (ms)", Devmsec);
-    /*printf("\n	GPU throughput: %f (Gbps)\n", throughput);*/
-    
-
     checkCudaErrors(cudaEventElapsedTime(&Hostmsec, startHost, stopHost));
-    #ifdef BENCH_ON
-        Hostmsec /= 1000;
-    #endif
+#ifdef BENCH_ON
+    Hostmsec /= 1000;
+#endif
     throughput = 1.0e-9f*8*filesize/(Hostmsec*1.0e-3f);
-    printf("\n	Total processing time: %f (ms)", Hostmsec);
-    printf("\n	Total throughput: %f (Gbps)\n", throughput);
+    printf("\nTotal processing time: %f (ms)", Hostmsec);
+    printf("\nTotal throughput: %f (Gbps)\n", throughput);
 
     //Transposing back
     transposition  = (uint32_t*)outputData;
+#ifndef BENCH_ON
+    //Print
+    printf("\n Cipher Text : \n");
+    for(int i=0; i<filesize/512; i++){
+        if(i%16==0 && i)
+            printf("| ");
+        if(i%32==0 && i)
+            printf("\n");
+        for(int state=0; state<32; state++)
+            print_state_128(&transposition[i*128], state);
+    }
+#endif //BENCH_ON    
+
     for(int i=0; i<filesize/512; i++){
         invTranspose(transposition);
         transposition += 128;
     }
+
+/*
+#ifndef BENCH_ON
+    //PRINT CIPHER 
+    printf("\nCiphertext : \n");
+    for(int i=0; i<filesize; i++){
+        if(i%16==0 && i)
+            printf("| ");
+        if(i%32==0 && i)
+            printf("\n");
+        printf("%2x ",outputData[i]);
+    }
+#endif //BENCH_ON
+*/
 
     //Writing results inside a file
     FILE * outputFile;
@@ -329,41 +322,13 @@ int main(int argc, char * argv[]) {
         perror ("Error opening file");
         exit(1);
     }
-    if(mode){
-        result = fwrite (outputData, sizeof(uint8_t), filesize, outputFile);
-        if(result != filesize) {
-            perror("Writting error to the output file");
-            exit(1);
-        }
+    result = fwrite (outputData, sizeof(uint8_t), filesize-padElmt, outputFile);
+    if(result != filesize-padElmt) {
+        perror("Writting error to the output file");
+        exit(1);
     }
-    else {
-        //Dealing with padding elements
-        /*int temp = outputData[filesize-padElmt-1];
-        if(temp==255){
-            padElmt += 255;
-            int temp1 = outputData[filesize-padElmt-2];
-            if(temp1==255){
-                padElmt += 255;
-                padElmt += outputData[filesize-padElmt-3];
-            }
-            else{
-                padElmt += temp1;
-            }
-        }
-        else {
-            padElmt += temp;
-        }*/      
-        result = fwrite (outputData, sizeof(uint8_t), filesize-padElmt, outputFile);
-        /*if(result != filesize-padElmt) {
-            perror("Writting error to the output file");
-            exit(1);
-        }*/
-    }
-    fclose(outputFile);
+    fclose(outputFile); 
 
-    //Free host memory
-    free(inputData);
-    free(outputData);
     // Free device memory
     cudaFree(devInput);
     cudaFree(devOutput);
