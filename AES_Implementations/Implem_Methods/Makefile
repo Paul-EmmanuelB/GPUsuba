@@ -39,7 +39,7 @@ SRC_FILES := main.cu
 
 
 #C and CU FLAGS
-CUFLAGS	:= -Xptxas -O3 -arch=sm_62
+CUFLAGS	:= -Xptxas -v -O3 -arch=sm_62
 
 # Macros
 CC = gcc
