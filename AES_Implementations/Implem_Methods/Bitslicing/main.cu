@@ -163,8 +163,10 @@ int main(int argc, char * argv[]) {
 
     //CMS padding to have 512 bytes blocks of data
     uint32_t padElmt;
-    uint32_t mod512 = filesize%512;
-    padElmt = 512 - mod512;
+/*     uint32_t mod512 = filesize%512;
+    padElmt = 512 - mod512; */
+    uint32_t mod512 = filesize%16384;
+    padElmt = 16384 - mod512;
 
     filesize += padElmt;
 
@@ -190,14 +192,14 @@ int main(int argc, char * argv[]) {
 
 #ifndef BENCH_ON
     //PRINT PLAIN 
-    printf("\nPlaintext : \n");
+    /*printf("\nPlaintext : \n");
     for(int i=0; i<filesize; i++){
         if(i%16==0 && i)
             printf("| ");
         if(i%32==0 && i)
             printf("\n");
         printf("%2x ",inputData[i]);
-    }
+    }*/
 #endif //BENCH_ON
 
     std::cout << std::endl << "Data to treat with padding elements: " << filesize  << " bytes."  << std::endl;
@@ -209,6 +211,7 @@ int main(int argc, char * argv[]) {
         transposition += 128;
     }
 
+#ifdef BENCH_ON
 /*    //PRINT PLAIN TRANSPOSED
     printf("\n Plain through transposed state : \n");
     for(int i=0; i<filesize/512; i++){
@@ -220,6 +223,8 @@ int main(int argc, char * argv[]) {
             print_state_128(&transposition[i*128], state);
     }
 */
+#endif //BENCH_ON
+
     //Determining grid size if not given
     if(!blockNum) {
         blockNum = 1+filesize/(threadNum*512);
@@ -264,10 +269,8 @@ int main(int argc, char * argv[]) {
     checkCudaErrors(cudaEventRecord(stopHost, NULL));
 #endif
 
-    cudaMemcpy(outputData, devOutput, filesize*sizeof(uint8_t), cudaMemcpyDeviceToHost);
-    
-    
     checkCudaErrors(cudaEventSynchronize(stopHost));
+    cudaMemcpy(outputData, devOutput, filesize*sizeof(uint8_t), cudaMemcpyDeviceToHost);
 
     //Time spent
     float Hostmsec  = 0.0f;
@@ -284,7 +287,7 @@ int main(int argc, char * argv[]) {
     transposition  = (uint32_t*)outputData;
 #ifndef BENCH_ON
     //Print
-    printf("\n Cipher Text : \n");
+    /*printf("\n Cipher Text : \n");
     for(int i=0; i<filesize/512; i++){
         if(i%16==0 && i)
             printf("| ");
@@ -292,7 +295,7 @@ int main(int argc, char * argv[]) {
             printf("\n");
         for(int state=0; state<32; state++)
             print_state_128(&transposition[i*128], state);
-    }
+    }*/
 #endif //BENCH_ON    
 
     for(int i=0; i<filesize/512; i++){
@@ -300,8 +303,8 @@ int main(int argc, char * argv[]) {
         transposition += 128;
     }
 
-/*
 #ifndef BENCH_ON
+/*
     //PRINT CIPHER 
     printf("\nCiphertext : \n");
     for(int i=0; i<filesize; i++){
@@ -311,8 +314,8 @@ int main(int argc, char * argv[]) {
             printf("\n");
         printf("%2x ",outputData[i]);
     }
-#endif //BENCH_ON
 */
+#endif //BENCH_ON
 
     //Writing results inside a file
     FILE * outputFile;
