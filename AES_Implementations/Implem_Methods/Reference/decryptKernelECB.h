@@ -6,56 +6,29 @@
 __global__ static void decrypt_Kernel( uint32_t* dev_input, uint32_t* dev_output, 
 size_t inputSize, uint32_t* dev_sm_td1, uint32_t* dev_sm_td2, uint32_t* dev_sm_td3, uint32_t* dev_sm_td4, uint8_t* dev_sm_isbox_inv)
 {
-    // Index calculations
-    int tid         = threadIdx.y*blockDim.x + threadIdx.x;     //local id
-    int x           = blockIdx.x * blockDim.x + threadIdx.x;    //global x id
-    int y           = blockIdx.y * blockDim.y + threadIdx.y;    //global y id
-    int w           = blockDim.x * gridDim.x;                   //width of the grid
-    int global_tid  = y*w + x;                                  //global id
+    //* Index calculations
+    int tid         = threadIdx.x;                           //** local id
+    int global_tid  = blockIdx.x * blockDim.x + threadIdx.x; //** global id
 
-    int blockSize = blockDim.x * blockDim.y; 
-    
     uint32_t w1,w2,w3,w4,s1,s2,s3,s4;
     int ROUNDS = 11;
 
     // store the T-boxes and sbox in shared memory.
     __shared__ uint32_t sm_td1[256], sm_td2[256], sm_td3[256], sm_td4[256];
     __shared__ uint8_t sm_isbox[256];
-    
-    // Loading shared memory. 256 elements are needed
-    int elemPerThread = 256/blockSize;
 
-    if ( !elemPerThread && tid<256) {
-        //load dev_sm_td1, dev_sm_td2, dev_sm_td3, dev_sm_td4 and
-        // dev_sm_isbox_inv to share memory variables sm_td1, sm_td2,
-        //sm_td3, sm_td4 and sm_isbox;
-        sm_td1[tid]      = dev_sm_td1[tid];
-        sm_td2[tid]      = dev_sm_td2[tid];
-        sm_td3[tid]      = dev_sm_td3[tid];
-        sm_td4[tid]      = dev_sm_td4[tid];
-        sm_isbox[tid]    = dev_sm_isbox_inv[tid];
-    }
-    else {
-        for(int i=0; i<elemPerThread; i++) {
-            sm_td1[tid*elemPerThread  + i]   = dev_sm_td1[tid*elemPerThread + i];
-            sm_td2[tid*elemPerThread  + i]   = dev_sm_td2[tid*elemPerThread + i];
-            sm_td3[tid*elemPerThread  + i]   = dev_sm_td3[tid*elemPerThread + i];
-            sm_td4[tid*elemPerThread  + i]   = dev_sm_td4[tid*elemPerThread + i];
-            sm_isbox[tid*elemPerThread + i]   = dev_sm_isbox_inv[tid*elemPerThread + i];
-        }
-        int modEPT = 256%blockSize; //256 is not a multiple of blockSize
-        if(!modEPT && (tid == blockSize-1)) {
-            for(int i=0; i<modEPT; i++) {
-                sm_td1[tid*(elemPerThread+1)  + i]   = dev_sm_td1[tid*(elemPerThread+1) + i];
-                sm_td2[tid*(elemPerThread+1)  + i]   = dev_sm_td2[tid*(elemPerThread+1) + i];
-                sm_td3[tid*(elemPerThread+1)  + i]   = dev_sm_td3[tid*(elemPerThread+1) + i];
-                sm_td4[tid*(elemPerThread+1)  + i]   = dev_sm_td4[tid*(elemPerThread+1) + i];
-                sm_isbox[tid*(elemPerThread+1) + i]   = dev_sm_isbox_inv[tid*(elemPerThread+1) + i];
-            }
-        }
+    //Loading TBoxes and Sbox
+    for(int i = tid; i < 256; i += blockDim.x) {
+        //load dev_sm_te1, dev_sm_te2, dev_sm_te3, dev_sm_te4 and
+        // sm_sbox to share memory variables sm_te1, sm_te2,
+        //sm_te3, sm_te4 and sm_sbox;
+        sm_td1[i]   = dev_sm_td1[i];
+        sm_td2[i]   = dev_sm_td2[i];
+        sm_td3[i]   = dev_sm_td3[i];
+        sm_td4[i]   = dev_sm_td4[i];
+        sm_isbox[i]  = dev_sm_isbox_inv[i];
     }
     __syncthreads();
-
     
     // Each thread treat 16 bytes. 
     if(global_tid < inputSize/16) {

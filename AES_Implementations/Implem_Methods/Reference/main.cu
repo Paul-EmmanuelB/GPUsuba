@@ -24,7 +24,7 @@
 	@author Broux Paul-Emmanuel <paulemmanuelb@gmail.com>
  */
 
-#define BENCH_ON
+//#define BENCH_ON
 
 #include <stdio.h>
 #include <cstdlib>
@@ -41,12 +41,12 @@ int main(int argc, char * argv[]) {
 
 
     ///////////////////////////////////////////////////////////////
-    // command line arguments
+    // Command line arguments
     ///////////////////////////////////////////////////////////////
-    int     warm_up_device      = 0;    // GPU kernel warm up
-    int     threadNum           = 512;  // Threads per block. This is a recommanded number.
-    int     blockNum            = 0;    // Number of blocks in the grid
-    int     mode                = 1;    // Encryption mode, 1 to encrypt or 0 to decrypt.
+    int     warm_up_device      = 0;    //** GPU kernel warm up
+    int     threadNum           = 512;  //** Threads per block. This is a recommanded number.
+    int     blockNum            = 0;    //** Number of blocks in the grid
+    int     mode                = 1;    //** Encryption mode, 1 to encrypt or 0 to decrypt.
     char *  filename;
     char *  keyfilename; 
 
@@ -110,7 +110,7 @@ int main(int argc, char * argv[]) {
     std::cout << "    wuDevice		= " << warm_up_device   << std::endl << std::endl;
 
     
-    //Copying the key file
+    //* Copying the key file
     unsigned char key[16];
     FILE * keyFile;
     keyFile = fopen(keyfilename,"rb");
@@ -129,30 +129,30 @@ int main(int argc, char * argv[]) {
     fclose(keyFile);
 
 
-    // ***Key scheduling***
+    //* Key scheduling
     uint8 expkey[176];
     ExpandKey (key, expkey);
-    cudaMemcpyToSymbol(const_expkey,  expkey, 176*sizeof(uint8)); //Moving the expanding key to constant memory
+    cudaMemcpyToSymbol(const_expkey,  expkey, 176*sizeof(uint8)); //** Moving the expanding key to constant memory
     cudaMemcpyToSymbol(const_IK0,  IK0, 256*sizeof(uint32_t));
 
     // ***Inputdata file to encrypt/decrypt***
-    //Checking for the size of the file
+    //* Checking for the size of the file
     int filesize;
     filesize = fsize(filename);
 
-    //CMS padding to have 16 bytes blocks of data
+    //* CMS padding to have 16 bytes blocks of data
     uint8_t padElmt;
     int mod16 = filesize%16;
 
-    padElmt = 16 - mod16; // We always add bytes for later padding detection
+    padElmt = 16 - mod16; //** We always add bytes for later padding detection
 
-    //Creating required arrays
+    //* Creating required arrays
     uint8_t *inputData;
     uint8_t *outputData;
-    inputData = (uint8_t*)malloc((filesize+padElmt)*sizeof(uint8_t));
+    inputData  = (uint8_t*)malloc((filesize+padElmt)*sizeof(uint8_t));
     outputData = (uint8_t*)malloc((filesize+padElmt)*sizeof(uint8_t));
 
-    //Opening the file
+    //* Opening the file
     FILE * inputFile;
     int result;
     inputFile = fopen(filename,"rb");
@@ -168,14 +168,14 @@ int main(int argc, char * argv[]) {
     }
     fclose(inputFile);
 
-    //Padding
+    //* Padding
     for (int i = 0; i < padElmt; i++) {
 		inputData[filesize + i] = padElmt;
     }
 	filesize += padElmt;
     std::cout << "    Data to treat with padding elements: " << filesize  << " bytes."  << std::endl;
 
-    //Determining grid size if not given
+    //* Determining grid size if not given
     if(!blockNum) {
         blockNum = 1+filesize/(threadNum*16);
     }
@@ -187,7 +187,7 @@ int main(int argc, char * argv[]) {
     }
     std::cout << "    Gridsize in term of block: " << blockNum  << std::endl;
 
-    //Device vectors declarations and allocations
+    //* Device vectors declarations and allocations
     uint32_t * devInput, * devOutput, * dev_sm_te1, * dev_sm_te2, * dev_sm_te3, * dev_sm_te4;
     uint8_t  * dev_sm_sbox;
     cudaMalloc( (void **) &devInput         , filesize*sizeof(uint8_t));
@@ -199,18 +199,18 @@ int main(int argc, char * argv[]) {
     cudaMalloc( (void **) &dev_sm_sbox      , 256*sizeof(uint8_t));
 
 
-    //GPU + memory transfers time
+    //* GPU + memory transfers time
     cudaEvent_t startHost, stopHost;
 	checkCudaErrors(cudaEventCreate(&startHost));
 	checkCudaErrors(cudaEventCreate(&stopHost));
 
-    //To record device time execution
+    //* To record device time execution
     cudaEvent_t startDevice, stopDevice;
 	checkCudaErrors(cudaEventCreate(&startDevice));
 	checkCudaErrors(cudaEventCreate(&stopDevice));
 
 
-    //Copy vectors from host memory to device memory
+    //* Copy vectors from host memory to device memory
     if(mode) {
         cudaMemcpy(dev_sm_te1       , TBox0         , 256*sizeof(uint32_t), cudaMemcpyHostToDevice);
         cudaMemcpy(dev_sm_te2       , TBox1         , 256*sizeof(uint32_t), cudaMemcpyHostToDevice);
@@ -228,7 +228,8 @@ int main(int argc, char * argv[]) {
 
     cudaMemcpy(devInput, inputData, filesize*sizeof(uint8_t), cudaMemcpyHostToDevice);
 
-    //Warm Up
+#ifdef BENCH_ON
+    //* Warm Up
     if(mode) {
         for(int i=0; i < warm_up_device ; i++) { 
             encrypt_Kernel<<<blockNum,threadNum>>>(devInput, devOutput, filesize, dev_sm_te1,
@@ -241,80 +242,83 @@ int main(int argc, char * argv[]) {
             dev_sm_te2, dev_sm_te3, dev_sm_te4, dev_sm_sbox);
         }
     }
+#endif //** BENCH_ON
 
-
-
-    #ifdef BENCH_ON
-        printf("\nBENCH_ON\n");
-        if(mode) {
-            checkCudaErrors(cudaEventRecord(startHost, NULL));
-            for(int j=0; j<1000; j++){ //for benchmarking
-                cudaMemcpy(devInput, inputData, filesize*sizeof(uint8_t), cudaMemcpyHostToDevice);
-                //checkCudaErrors(cudaEventRecord(startDevice, NULL));
-                encrypt_Kernel<<<blockNum,threadNum>>>(devInput, devOutput, filesize, dev_sm_te1,
-                dev_sm_te2, dev_sm_te3, dev_sm_te4, dev_sm_sbox);
-                //checkCudaErrors(cudaEventRecord(stopDevice, NULL));	
-                cudaMemcpy(outputData, devOutput, filesize*sizeof(uint8_t), cudaMemcpyDeviceToHost);	
-            }
-            checkCudaErrors(cudaEventRecord(stopHost, NULL));
-        } 
-        else {
-            checkCudaErrors(cudaEventRecord(startHost, NULL));
-            for(int j=0; j<1000; j++){ //for benchmarking
-                cudaMemcpy(devInput, inputData, filesize*sizeof(uint8_t), cudaMemcpyHostToDevice);
-                //checkCudaErrors(cudaEventRecord(startDevice, NULL));						
-                decrypt_Kernel<<<blockNum,threadNum>>>(devInput, devOutput, filesize, dev_sm_te1,
-                dev_sm_te2, dev_sm_te3, dev_sm_te4, dev_sm_sbox);
-                //checkCudaErrors(cudaEventRecord(stopDevice, NULL));
-                cudaMemcpy(outputData, devOutput, filesize*sizeof(uint8_t), cudaMemcpyDeviceToHost);
-            }
-            checkCudaErrors(cudaEventRecord(stopHost, NULL));
-        }
-    #else
-        if(mode) {
-            checkCudaErrors(cudaEventRecord(startHost, NULL));
-            cudaMemcpy(devInput, inputData, filesize*sizeof(uint8_t), cudaMemcpyHostToDevice);
-            //checkCudaErrors(cudaEventRecord(startDevice, NULL));
+#ifdef BENCH_ON
+    printf("\nBENCH_ON\n");
+    if(mode) {
+        //checkCudaErrors(cudaEventRecord(startHost, NULL));
+        checkCudaErrors(cudaEventRecord(startDevice, NULL));
+        for(int j=0; j<1000; j++){ //for benchmarking
+            //cudaMemcpy(devInput, inputData, filesize*sizeof(uint8_t), cudaMemcpyHostToDevice);
             encrypt_Kernel<<<blockNum,threadNum>>>(devInput, devOutput, filesize, dev_sm_te1,
             dev_sm_te2, dev_sm_te3, dev_sm_te4, dev_sm_sbox);
-            //checkCudaErrors(cudaEventRecord(stopDevice, NULL));		
+            //cudaMemcpy(outputData, devOutput, filesize*sizeof(uint8_t), cudaMemcpyDeviceToHost);	
         }
-        else {
-            checkCudaErrors(cudaEventRecord(startHost, NULL));
-            cudaMemcpy(devInput, inputData, filesize*sizeof(uint8_t), cudaMemcpyHostToDevice);
-            //checkCudaErrors(cudaEventRecord(startDevice, NULL));						
+        checkCudaErrors(cudaEventRecord(stopDevice, NULL));	
+        //checkCudaErrors(cudaEventRecord(stopHost, NULL));
+    } 
+    else {
+        //checkCudaErrors(cudaEventRecord(startHost, NULL));
+        checkCudaErrors(cudaEventRecord(startDevice, NULL));						
+        for(int j=0; j<1000; j++){ //for benchmarking
+            //cudaMemcpy(devInput, inputData, filesize*sizeof(uint8_t), cudaMemcpyHostToDevice);
             decrypt_Kernel<<<blockNum,threadNum>>>(devInput, devOutput, filesize, dev_sm_te1,
             dev_sm_te2, dev_sm_te3, dev_sm_te4, dev_sm_sbox);
-            //checkCudaErrors(cudaEventRecord(stopDevice, NULL));
+            //cudaMemcpy(outputData, devOutput, filesize*sizeof(uint8_t), cudaMemcpyDeviceToHost);
         }
-        cudaMemcpy(outputData, devOutput, filesize*sizeof(uint8_t), cudaMemcpyDeviceToHost);
-        checkCudaErrors(cudaEventRecord(stopHost, NULL));
-    #endif
+        checkCudaErrors(cudaEventRecord(stopDevice, NULL));
+        //checkCudaErrors(cudaEventRecord(stopHost, NULL));
+    }
+    cudaMemcpy(outputData, devOutput, filesize*sizeof(uint8_t), cudaMemcpyDeviceToHost);
+#else
+    if(mode) {
+        //checkCudaErrors(cudaEventRecord(startHost, NULL));
+        cudaMemcpy(devInput, inputData, filesize*sizeof(uint8_t), cudaMemcpyHostToDevice);
+        checkCudaErrors(cudaEventRecord(startDevice, NULL));
+        encrypt_Kernel<<<blockNum,threadNum>>>(devInput, devOutput, filesize, dev_sm_te1,
+        dev_sm_te2, dev_sm_te3, dev_sm_te4, dev_sm_sbox);
+        checkCudaErrors(cudaEventRecord(stopDevice, NULL));		
+    }
+    else {
+        //checkCudaErrors(cudaEventRecord(startHost, NULL));
+        cudaMemcpy(devInput, inputData, filesize*sizeof(uint8_t), cudaMemcpyHostToDevice);
+        checkCudaErrors(cudaEventRecord(startDevice, NULL));						
+        decrypt_Kernel<<<blockNum,threadNum>>>(devInput, devOutput, filesize, dev_sm_te1,
+        dev_sm_te2, dev_sm_te3, dev_sm_te4, dev_sm_sbox);
+        checkCudaErrors(cudaEventRecord(stopDevice, NULL));
+    }
+    cudaMemcpy(outputData, devOutput, filesize*sizeof(uint8_t), cudaMemcpyDeviceToHost);
+    //checkCudaErrors(cudaEventRecord(stopHost, NULL));
+#endif //** BENCH_ON
     
 
-    //Make sure to end following events before continuing 
-    //checkCudaErrors(cudaEventSynchronize(stopDevice));	
-    checkCudaErrors(cudaEventSynchronize(stopHost));
+    //* Make sure to end following events before continuing 
+    checkCudaErrors(cudaEventSynchronize(stopDevice));	
+    //checkCudaErrors(cudaEventSynchronize(stopHost));
 
-    //Time calculation
-    //float Devmsec   = 0.0f;
-    float Hostmsec  = 0.0f;
+    //* Time calculation
+    float Devmsec   = 0.0f;
+    //float Hostmsec  = 0.0f;
     double throughput;
-    
-    /*checkCudaErrors(cudaEventElapsedTime(&Devmsec, startDevice, stopDevice));
+
+    //checkCudaErrors(cudaEventElapsedTime(&Hostmsec, startHost, stopHost));
+    checkCudaErrors(cudaEventElapsedTime(&Devmsec, startDevice, stopDevice));
+
+#ifdef BENCH_ON
+        //Hostmsec /= 1000;
+        Devmsec  /= 1000;
+#endif
+
+    //throughput = 1.0e-9f*8*filesize/(Hostmsec*1.0e-3f);
     throughput = 1.0e-9f*8*filesize/(Devmsec*1.0e-3f);
     printf("\n	GPU processing time: %f (ms)", Devmsec);
-    printf("\n	GPU throughput: %f (Gbps)\n", throughput);*/
+    printf("\n	GPU throughput: %f (Gbps)\n", throughput);
     
-    checkCudaErrors(cudaEventElapsedTime(&Hostmsec, startHost, stopHost));
-    #ifdef BENCH_ON
-        Hostmsec /= 1000;
-    #endif
-    throughput = 1.0e-9f*8*filesize/(Hostmsec*1.0e-3f);
-    printf("\n	Total processing time: %f (ms)", Hostmsec);
-    printf("\n	Total throughput: %f (Gbps)\n", throughput);
+    //printf("\n	Total processing time: %f (ms)", Hostmsec);
+    //printf("\n	Total throughput: %f (Gbps)\n", throughput);
 
-    //Writing results inside a file
+    //* Writing results inside a file
     FILE * outputFile;
     outputFile = fopen("Result/result.dat","wb");
 
@@ -339,10 +343,10 @@ int main(int argc, char * argv[]) {
     }
     fclose(outputFile);
 
-    //Free host memory
+    //* Free host memory
     free(inputData);
     free(outputData);
-    // Free device memory
+    //* Free device memory
     cudaFree(devInput);
     cudaFree(devOutput);
     cudaFree(dev_sm_te1);
