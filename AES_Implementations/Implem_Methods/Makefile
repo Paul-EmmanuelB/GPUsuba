@@ -102,8 +102,8 @@ Shufl:  $(SRC_Shufl)
 	$(NVCC) $(CUFLAGS)  $^ -o $(PRODUCT) -I $(INCLUDE_PATH)
 
 Bts:  $(SRC_Bts)
-	$(NVCC) $(CUFLAGS)  $^ -o $(PRODUCT) -I $(INCLUDE_PATH)
-
+	$(NVCC)  $(CUFLAGS)  $^ -o $(PRODUCT) -I $(INCLUDE_PATH)
+# -maxrregcount 200 -use_fast_math
 dataset:
 	head -c 8MB /dev/urandom > $(DATA_PATH)/dataset.txt
 
