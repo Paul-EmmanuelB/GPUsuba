@@ -157,156 +157,316 @@ __device__ void shiftRows(uint32_t &r8  , uint32_t &r9  , uint32_t &r10 , uint32
 }
 
 
-__device__ inline void shiftRows(uint32_t shared[128]){
-    
+//__device__ inline void shiftRows(uint32_t cipher[128]){
+__device__ void shiftRows(uint32_t cipher[128]){    
     uint32_t t0, t1, t2, t3, t4, t5, t6, t7;
 
     //First row
-    t0 = shared[8] ;
-    t1 = shared[9] ;
-    t2 = shared[10];
-    t3 = shared[11];
-    t4 = shared[12];
-    t5 = shared[13];
-    t6 = shared[14];
-    t7 = shared[15];
+    t0 = cipher[8] ;
+    t1 = cipher[9] ;
+    t2 = cipher[10];
+    t3 = cipher[11];
+    t4 = cipher[12];
+    t5 = cipher[13];
+    t6 = cipher[14];
+    t7 = cipher[15];
 
-    shared[8]  = shared[40];
-    shared[9]  = shared[41];
-    shared[10] = shared[42];
-    shared[11] = shared[43];
-    shared[12] = shared[44];
-    shared[13] = shared[45];
-    shared[14] = shared[46];
-    shared[15] = shared[47];
+    cipher[8]  = cipher[40];
+    cipher[9]  = cipher[41];
+    cipher[10] = cipher[42];
+    cipher[11] = cipher[43];
+    cipher[12] = cipher[44];
+    cipher[13] = cipher[45];
+    cipher[14] = cipher[46];
+    cipher[15] = cipher[47];
 
-    shared[40] = shared[72];
-    shared[41] = shared[73];
-    shared[42] = shared[74];
-    shared[43] = shared[75];
-    shared[44] = shared[76];
-    shared[45] = shared[77];
-    shared[46] = shared[78];
-    shared[47] = shared[79];
+    cipher[40] = cipher[72];
+    cipher[41] = cipher[73];
+    cipher[42] = cipher[74];
+    cipher[43] = cipher[75];
+    cipher[44] = cipher[76];
+    cipher[45] = cipher[77];
+    cipher[46] = cipher[78];
+    cipher[47] = cipher[79];
 
-    shared[72] = shared[104];
-    shared[73] = shared[105];
-    shared[74] = shared[106];
-    shared[75] = shared[107];
-    shared[76] = shared[108];
-    shared[77] = shared[109];
-    shared[78] = shared[110];
-    shared[79] = shared[111];
+    cipher[72] = cipher[104];
+    cipher[73] = cipher[105];
+    cipher[74] = cipher[106];
+    cipher[75] = cipher[107];
+    cipher[76] = cipher[108];
+    cipher[77] = cipher[109];
+    cipher[78] = cipher[110];
+    cipher[79] = cipher[111];
 
-    shared[104] = t0;
-    shared[105] = t1;
-    shared[106] = t2;
-    shared[107] = t3;
-    shared[108] = t4;
-    shared[109] = t5;
-    shared[110] = t6;
-    shared[111] = t7;
+    cipher[104] = t0;
+    cipher[105] = t1;
+    cipher[106] = t2;
+    cipher[107] = t3;
+    cipher[108] = t4;
+    cipher[109] = t5;
+    cipher[110] = t6;
+    cipher[111] = t7;
 
     //Second row
-    t0 = shared[16];
-    t1 = shared[17];
-    t2 = shared[18];
-    t3 = shared[19];
-    t4 = shared[20];
-    t5 = shared[21];
-    t6 = shared[22];
-    t7 = shared[23];
+    t0 = cipher[16];
+    t1 = cipher[17];
+    t2 = cipher[18];
+    t3 = cipher[19];
+    t4 = cipher[20];
+    t5 = cipher[21];
+    t6 = cipher[22];
+    t7 = cipher[23];
 
-    shared[16] = shared[80];
-    shared[17] = shared[81];
-    shared[18] = shared[82];
-    shared[19] = shared[83];
-    shared[20] = shared[84];
-    shared[21] = shared[85];
-    shared[22] = shared[86];
-    shared[23] = shared[87];
+    cipher[16] = cipher[80];
+    cipher[17] = cipher[81];
+    cipher[18] = cipher[82];
+    cipher[19] = cipher[83];
+    cipher[20] = cipher[84];
+    cipher[21] = cipher[85];
+    cipher[22] = cipher[86];
+    cipher[23] = cipher[87];
 
-    shared[80] = t0;
-    shared[81] = t1;
-    shared[82] = t2;
-    shared[83] = t3;
-    shared[84] = t4;
-    shared[85] = t5;
-    shared[86] = t6;
-    shared[87] = t7;
+    cipher[80] = t0;
+    cipher[81] = t1;
+    cipher[82] = t2;
+    cipher[83] = t3;
+    cipher[84] = t4;
+    cipher[85] = t5;
+    cipher[86] = t6;
+    cipher[87] = t7;
 
-    t0 = shared[48];
-    t1 = shared[49];
-    t2 = shared[50];
-    t3 = shared[51];
-    t4 = shared[52];
-    t5 = shared[53];
-    t6 = shared[54];
-    t7 = shared[55];
+    t0 = cipher[48];
+    t1 = cipher[49];
+    t2 = cipher[50];
+    t3 = cipher[51];
+    t4 = cipher[52];
+    t5 = cipher[53];
+    t6 = cipher[54];
+    t7 = cipher[55];
 
-    shared[48] = shared[112];
-    shared[49] = shared[113];
-    shared[50] = shared[114];
-    shared[51] = shared[115];
-    shared[52] = shared[116];
-    shared[53] = shared[117];
-    shared[54] = shared[118];
-    shared[55] = shared[119];
+    cipher[48] = cipher[112];
+    cipher[49] = cipher[113];
+    cipher[50] = cipher[114];
+    cipher[51] = cipher[115];
+    cipher[52] = cipher[116];
+    cipher[53] = cipher[117];
+    cipher[54] = cipher[118];
+    cipher[55] = cipher[119];
 
-    shared[112] = t0;
-    shared[113] = t1;
-    shared[114] = t2;
-    shared[115] = t3;
-    shared[116] = t4;
-    shared[117] = t5;
-    shared[118] = t6;
-    shared[119] = t7;
+    cipher[112] = t0;
+    cipher[113] = t1;
+    cipher[114] = t2;
+    cipher[115] = t3;
+    cipher[116] = t4;
+    cipher[117] = t5;
+    cipher[118] = t6;
+    cipher[119] = t7;
 
     //Last row
-    t0 = shared[24];
-    t1 = shared[25];
-    t2 = shared[26];
-    t3 = shared[27];
-    t4 = shared[28];
-    t5 = shared[29];
-    t6 = shared[30];
-    t7 = shared[31];
+    t0 = cipher[24];
+    t1 = cipher[25];
+    t2 = cipher[26];
+    t3 = cipher[27];
+    t4 = cipher[28];
+    t5 = cipher[29];
+    t6 = cipher[30];
+    t7 = cipher[31];
 
-    shared[24] = shared[120];
-    shared[25] = shared[121];
-    shared[26] = shared[122];
-    shared[27] = shared[123];
-    shared[28] = shared[124];
-    shared[29] = shared[125];
-    shared[30] = shared[126];
-    shared[31] = shared[127];
+    cipher[24] = cipher[120];
+    cipher[25] = cipher[121];
+    cipher[26] = cipher[122];
+    cipher[27] = cipher[123];
+    cipher[28] = cipher[124];
+    cipher[29] = cipher[125];
+    cipher[30] = cipher[126];
+    cipher[31] = cipher[127];
 
-    shared[120] = shared[88];
-    shared[121] = shared[89];
-    shared[122] = shared[90];
-    shared[123] = shared[91];
-    shared[124] = shared[92];
-    shared[125] = shared[93];
-    shared[126] = shared[94];
-    shared[127] = shared[95];
+    cipher[120] = cipher[88];
+    cipher[121] = cipher[89];
+    cipher[122] = cipher[90];
+    cipher[123] = cipher[91];
+    cipher[124] = cipher[92];
+    cipher[125] = cipher[93];
+    cipher[126] = cipher[94];
+    cipher[127] = cipher[95];
 
-    shared[88] = shared[56];
-    shared[89] = shared[57];
-    shared[90] = shared[58];
-    shared[91] = shared[59];
-    shared[92] = shared[60];
-    shared[93] = shared[61];
-    shared[94] = shared[62];
-    shared[95] = shared[63];
+    cipher[88] = cipher[56];
+    cipher[89] = cipher[57];
+    cipher[90] = cipher[58];
+    cipher[91] = cipher[59];
+    cipher[92] = cipher[60];
+    cipher[93] = cipher[61];
+    cipher[94] = cipher[62];
+    cipher[95] = cipher[63];
 
-    shared[56] = t0;
-    shared[57] = t1;
-    shared[58] = t2;
-    shared[59] = t3;
-    shared[60] = t4;
-    shared[61] = t5;
-    shared[62] = t6;
-    shared[63] = t7;
+    cipher[56] = t0;
+    cipher[57] = t1;
+    cipher[58] = t2;
+    cipher[59] = t3;
+    cipher[60] = t4;
+    cipher[61] = t5;
+    cipher[62] = t6;
+    cipher[63] = t7;
+}
+
+
+__device__ void shiftFirstRow(uint32_t a8[8], uint32_t b40[8], uint32_t c72[8], uint32_t d104[8]){    
+    uint32_t t0, t1, t2, t3, t4, t5, t6, t7;
+
+    //First row
+    t0 = a8[0];
+    t1 = a8[1];
+    t2 = a8[2];
+    t3 = a8[3];
+    t4 = a8[4];
+    t5 = a8[5];
+    t6 = a8[6];
+    t7 = a8[7];
+
+    a8[0] = b40[0];
+    a8[1] = b40[1];
+    a8[2] = b40[2];
+    a8[3] = b40[3];
+    a8[4] = b40[4];
+    a8[5] = b40[5];
+    a8[6] = b40[6];
+    a8[7] = b40[7];
+
+    b40[0] = c72[0];
+    b40[1] = c72[1];
+    b40[2] = c72[2];
+    b40[3] = c72[3];
+    b40[4] = c72[4];
+    b40[5] = c72[5];
+    b40[6] = c72[6];
+    b40[7] = c72[7];
+
+    c72[0] = d104[0];
+    c72[1] = d104[1];
+    c72[2] = d104[2];
+    c72[3] = d104[3];
+    c72[4] = d104[4];
+    c72[5] = d104[5];
+    c72[6] = d104[6];
+    c72[7] = d104[7];
+
+    d104[0] = t0;
+    d104[1] = t1;
+    d104[2] = t2;
+    d104[3] = t3;
+    d104[4] = t4;
+    d104[5] = t5;
+    d104[6] = t6;
+    d104[7] = t7;
+}
+
+__device__ void shiftSecondRow(uint32_t a16[8], uint32_t b80[8], uint32_t c48[8], uint32_t d112[8]){ 
+
+    uint32_t t0, t1, t2, t3, t4, t5, t6, t7;
+    //Second row
+    t0 = a16[0];
+    t1 = a16[1];
+    t2 = a16[2];
+    t3 = a16[3];
+    t4 = a16[4];
+    t5 = a16[5];
+    t6 = a16[6];
+    t7 = a16[7];
+
+    a16[0] = b80[0];
+    a16[1] = b80[1];
+    a16[2] = b80[2];
+    a16[3] = b80[3];
+    a16[4] = b80[4];
+    a16[5] = b80[5];
+    a16[6] = b80[6];
+    a16[7] = b80[7];
+
+    b80[0] = t0;
+    b80[1] = t1;
+    b80[2] = t2;
+    b80[3] = t3;
+    b80[4] = t4;
+    b80[5] = t5;
+    b80[6] = t6;
+    b80[7] = t7;
+
+    t0 = c48[0];
+    t1 = c48[1];
+    t2 = c48[2];
+    t3 = c48[3];
+    t4 = c48[4];
+    t5 = c48[5];
+    t6 = c48[6];
+    t7 = c48[7];
+
+    c48[0] = d112[0];
+    c48[1] = d112[1];
+    c48[2] = d112[2];
+    c48[3] = d112[3];
+    c48[4] = d112[4];
+    c48[5] = d112[5];
+    c48[6] = d112[6];
+    c48[7] = d112[7];
+
+    d112[0] = t0;
+    d112[1] = t1;
+    d112[2] = t2;
+    d112[3] = t3;
+    d112[4] = t4;
+    d112[5] = t5;
+    d112[6] = t6;
+    d112[7] = t7;
+}
+
+__device__ void shiftThirdRow(uint32_t a24[8], uint32_t b120[8], uint32_t c88[8], uint32_t d56[8]){ 
+
+    uint32_t t0, t1, t2, t3, t4, t5, t6, t7;
+    //Last row
+    t0 = a24[0];
+    t1 = a24[1];
+    t2 = a24[2];
+    t3 = a24[3];
+    t4 = a24[4];
+    t5 = a24[5];
+    t6 = a24[6];
+    t7 = a24[7];
+
+    a24[0] = b120[0];
+    a24[1] = b120[1];
+    a24[2] = b120[2];
+    a24[3] = b120[3];
+    a24[4] = b120[4];
+    a24[5] = b120[5];
+    a24[6] = b120[6];
+    a24[7] = b120[7];
+
+    b120[0] = c88[0];
+    b120[1] = c88[1];
+    b120[2] = c88[2];
+    b120[3] = c88[3];
+    b120[4] = c88[4];
+    b120[5] = c88[5];
+    b120[6] = c88[6];
+    b120[7] = c88[7];
+
+    c88[0] = d56[0];
+    c88[1] = d56[1];
+    c88[2] = d56[2];
+    c88[3] = d56[3];
+    c88[4] = d56[4];
+    c88[5] = d56[5];
+    c88[6] = d56[6];
+    c88[7] = d56[7];
+
+    d56[0] = t0;
+    d56[1] = t1;
+    d56[2] = t2;
+    d56[3] = t3;
+    d56[4] = t4;
+    d56[5] = t5;
+    d56[6] = t6;
+    d56[7] = t7;
 }
 
 #endif //_SHIFT_ROWS_H_

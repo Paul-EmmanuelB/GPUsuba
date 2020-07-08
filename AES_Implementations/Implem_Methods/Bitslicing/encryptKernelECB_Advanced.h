@@ -12,19 +12,14 @@
 __global__ void encrypt_Kernel( uint32_t* dev_input, uint32_t* dev_output, size_t inputSize)
 {
     // Index calculations
-    int tid         = threadIdx.y* blockDim.x + threadIdx.x;     //local id
-    int x           = blockIdx.x * blockDim.x + threadIdx.x;    //global x id
-    int y           = blockIdx.y * blockDim.y + threadIdx.y;    //global y id
-    int xwidth      = blockDim.x * gridDim.x;                   //X width of the grid
-    int ywidth      = blockDim.y * gridDim.y;
-    int global_tid  = y*xwidth + x;                             //global id
-    //int block_width = blockDim.x * blockDim.y;                  //block width
+    int tid         = threadIdx.x;                  //** Local id
+    int global_tid  = threadIdx.x*blockDim.x+tid;   //** Global id
     
-    int warps  = xwidth*ywidth/warpSize; // Warps in the grid
+    int warps  = (blockDim.x*gridDim.x)/warpSize;   //** Warps in the grid
     int global_warpID = global_tid/warpSize;
     int local_warpID  = tid/warpSize;
     int local_laneID  = tid%warpSize;
-    int elements = inputSize/16384; // One warp treat 16384 bytes
+    int elements = inputSize/16384;                 //** One warp treat 16384 bytes
     
     // store the expended key in shared memory.
     //__shared__ uint32_t sm_key[1408];
@@ -37,7 +32,6 @@ __global__ void encrypt_Kernel( uint32_t* dev_input, uint32_t* dev_output, size_
     __syncthreads(); */
 
     for(int i = global_warpID; i < elements; i += warps) {
-
         //Loading plaintext
         for(int k=0; k<128; k++){
             int l = 32*k+local_laneID;

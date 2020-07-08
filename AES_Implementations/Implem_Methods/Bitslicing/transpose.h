@@ -3,9 +3,13 @@
 
 #include <stdint.h>
 
+
+// ***Transposition***
+
+//* Typical bitsliced transposition with 32 states for 128 registers
 void transpose(uint32_t data[128])
 {
-    // transposing data in a local array
+    //** Transposing data in a local array
     uint32_t transposed_data[128] = { 0 };
     for (int i = 0; i < 32; i++){
         for (int j = 0; j < 32; j++){
@@ -15,13 +19,15 @@ void transpose(uint32_t data[128])
             transposed_data[j+96] |= ((data[4*i+3] >> j) & 1) << i;
         }
     }
-    // copying the local array
+    //** Copying the local array
     memcpy(data, transposed_data, 128 * sizeof(uint32_t));
 }
 
+
+//* Inverse transposition 
 void invTranspose(uint32_t transposed_data[128])
 {
-    // transposing data in a local array
+    //** Transposing data in a local array
     uint32_t data[128] = { 0 };
     for (int i = 0; i < 32; i++){
         for (int j = 0; j < 32; j++){
@@ -31,12 +37,46 @@ void invTranspose(uint32_t transposed_data[128])
             data[4*i+3] |= ((transposed_data[j+96] >> i) & 1) << j;
         }
     }
-    // copying the local array
+    //** Copying the local array
     memcpy(transposed_data, data, 128 * sizeof(uint32_t));
 }
 
+
+//* Transposition with reorganization for easier lecture from GPU's threads within a warp
+void transposeBts(uint32_t data[4096])
+{
+    uint32_t result[4096] = {0};
+    for(int h=0; h<32; h++){
+        transpose(&data[h*128]);
+    }
+    //** Reorganization
+    for(int i=0; i<32; i++){
+        for(int j=0; j<128; j++){
+            result[32*j+i] = data[128*i+j];
+        }
+    }
+    memcpy(data, result, 4096 * sizeof(uint32_t));
+}
+
+
+void invTransposeBts(uint32_t transposed_data[4096])
+{
+    uint32_t temp[4096] = {0};
+    //** Reorganization
+    for(int i=0; i<32; i++){
+        for(int j=0; j<128; j++){
+            temp[128*i+j] = transposed_data[32*j+i];
+        }
+    }
+    for(int i=0; i<32; i++){
+        invTranspose(&temp[i*128]);
+    }
+    memcpy(transposed_data, temp, 4096 * sizeof(uint32_t));
+}
+
+//* Transposition for the expanded key. Each bit is expanded into a 32 bit register.
 void transposeKey(uint32_t key[44], uint32_t output[1408]){
-    // transposing data in a local array
+    //** Transposing data in a local array
     uint32_t transposed_key[1408] = { 0 };
     for (int i = 0; i < 44; i++) {
         for (int j = 0; j < 32 ; j++) {
@@ -74,7 +114,7 @@ void transposeKey(uint32_t key[44], uint32_t output[1408]){
             transposed_key[32*i+31] |= ((key[i] >> 31) & 1) << j;
         }
     }
-    // copying the local array
+    //** Copying the local array
     memcpy(output, transposed_key, 1408 * sizeof(uint32_t));
 }
 

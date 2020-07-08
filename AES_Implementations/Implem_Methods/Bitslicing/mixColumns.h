@@ -205,8 +205,8 @@ uint32_t &r24, uint32_t &r25, uint32_t &r26, uint32_t &r27, uint32_t &r28, uint3
  }
 
 
- __device__ inline void Mixcl(uint32_t shared[]){
-    
+//__device__ inline void Mixcl(uint32_t shared[]){
+__device__  void Mixcl(uint32_t shared[]){
     uint32_t o0  = 0 , o1  = 0 , o2  = 0, o3  = 0, o4  = 0, o5  = 0, o6  = 0, o7  = 0;
     uint32_t o8  = 0 , o9  = 0 , o10 = 0, o11 = 0, o12 = 0, o13 = 0, o14 = 0, o15 = 0;
     uint32_t o16 = 0 , o17 = 0 , o18 = 0, o19 = 0, o20 = 0, o21 = 0, o22 = 0, o23 = 0;

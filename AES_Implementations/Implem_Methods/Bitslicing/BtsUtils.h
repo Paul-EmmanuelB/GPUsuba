@@ -95,24 +95,12 @@ void ExpandKey (uint8 *key, uint8 *expkey) {
 }
 
 
-unsigned char rconf(unsigned char in) {
-        unsigned char c=1;
-        if(in == 0)  
-                return 0; 
-        while(in != 1) {
-		unsigned char b;
-		b = c & 0x80;
-		c <<= 1;
-		if(b == 0x80) {
-			c ^= 0x1b;
-		}
-                in--;
-        }
-        return c;
-}
 
+/***********************************************************************
+                    Print functions
+************************************************************************/
 
-//Print functions
+//* Return a byte from 8 32-bit registers
 uint8_t byte_from_8_bits(uint32_t x0, uint32_t x1, uint32_t x2, uint32_t x3,
                          uint32_t x4, uint32_t x5, uint32_t x6, uint32_t x7,
                          int stateNum) {
@@ -127,6 +115,7 @@ uint8_t byte_from_8_bits(uint32_t x0, uint32_t x1, uint32_t x2, uint32_t x3,
     (( (x7 >> stateNum) & 1) << 7);
 }
 
+//* Print the state of a transposed state
 void print_state_128(uint32_t state[128], int stateNum) {
   for (int i = 0; i < 16; i++) {
       printf("%02X ",byte_from_8_bits(state[i*8],state[i*8+1],state[i*8+2],state[i*8+3],
@@ -135,5 +124,16 @@ void print_state_128(uint32_t state[128], int stateNum) {
   }
   printf("\n");
 }
+
+//* Print the state of a transposed state
+void print_state_4096(uint32_t state[4096], int stateNum) {
+  for (int i = 0; i < 16; i++) {
+      printf("%02X ",byte_from_8_bits(state[i*256+stateNum],state[i*256+32+stateNum],state[i*256+64+stateNum],state[i*256+96+stateNum],
+                                    state[i*256+128+stateNum],state[i*256+160+stateNum],state[i*256+192+stateNum],state[i*256+224+stateNum],
+                                    stateNum));
+  }
+  printf("\n");
+}
+
 
 #endif // _BTS_UTILS_H_
