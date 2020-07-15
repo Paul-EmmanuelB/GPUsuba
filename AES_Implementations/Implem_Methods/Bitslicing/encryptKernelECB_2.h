@@ -44,6 +44,108 @@ __device__ void dev_print_state_128(uint32_t state[128], int stateNum) {
 #ifdef Opti
 __global__ void encrypt_Kernel( uint32_t* dev_input, uint32_t* dev_output, size_t inputSize)
 {
+
+    //* Index calculations
+    int tid             = threadIdx.x;                           //** localID
+    int laneID          = tid%warpSize;                          //** laneID 
+    int global_warpID   = (blockIdx.x*blockDim.x+tid)/warpSize;  //** global warpID
+    int warps           = (blockDim.x*gridDim.x)/warpSize;       //** Warps in the grid
+    int elements        = inputSize/16384;                       //** One warp treat 16384 bytes
+    
+    for(int i = global_warpID; i < elements; i += warps) {
+        //* Loading plaintext
+        register uint32_t r[128];
+        //* Input
+        #pragma unroll
+        for(int k=0; k<128; k++){
+            r[k] = dev_input[i*4096+k*32+laneID];        
+            addRoundKey(r[k], const_expkey[k]);
+        }
+        
+        //printf("\nState\n");
+        //PRINT
+        //if(blockIdx.x*blockDim.x+tid==0){
+        //    printf("\nState\n");
+        //    dev_print_state_128(r,0);
+            /*for(int a=0; a<128; a++){
+                if(a%32==0)
+                    printf("\n");
+                printf("%x ",r[a]);
+            }*/
+        //}
+
+        //* Round transformation: a set of table lookups operations.
+        //#pragma unroll(10)
+        for (int j = 1; j < 10; j++) {
+            //* subBytes
+            Sbox( &r[0  ] );
+            Sbox( &r[8  ] );
+            Sbox( &r[16 ] );
+            Sbox( &r[24 ] );
+            Sbox( &r[32 ] );
+            Sbox( &r[40 ] );
+            Sbox( &r[48 ] );
+            Sbox( &r[56 ] );
+            Sbox( &r[64 ] );
+            Sbox( &r[72 ] );
+            Sbox( &r[80 ] );
+            Sbox( &r[88 ] );
+            Sbox( &r[96 ] );
+            Sbox( &r[104] );
+            Sbox( &r[112] );
+            Sbox( &r[120] );
+            
+            //* shiftRows
+            shiftRows( r );
+
+
+            //* mixcolums
+            Mixcl( &r[0 ] );
+            Mixcl( &r[32] );
+            Mixcl( &r[64] );
+            Mixcl( &r[96] );
+            
+            //* addRoundKey
+            //addRoundKey(r, &const_expkey[j*128]);
+            //#pragma unroll
+            for(int k=0; k<128; k++){
+                addRoundKey(r[k], const_expkey[j*128+k]);
+            }
+        } 
+
+        //* The final round doesn’t include the MixColumns step
+        //* subBytes   
+        Sbox( &r[0  ] );
+        Sbox( &r[8  ] );
+        Sbox( &r[16 ] );
+        Sbox( &r[24 ] );
+        Sbox( &r[32 ] );
+        Sbox( &r[40 ] );
+        Sbox( &r[48 ] );
+        Sbox( &r[56 ] );
+        Sbox( &r[64 ] );
+        Sbox( &r[72 ] );
+        Sbox( &r[80 ] );
+        Sbox( &r[88 ] );
+        Sbox( &r[96 ] );
+        Sbox( &r[104] );
+        Sbox( &r[112] );
+        Sbox( &r[120] );
+
+        //* shiftRows
+        shiftRows( r );
+
+        //* Output
+        #pragma unroll
+        for(int k=0; k<128; k++){
+            addRoundKey(r[k], const_expkey[1280+k]);
+            dev_output[i*4096+k*32+laneID] = r[k];        
+        }
+    }
+}
+#else
+__global__ void encrypt_Kernel( uint32_t* dev_input, uint32_t* dev_output, size_t inputSize)
+{
     //* Index calculations
     int tid             = threadIdx.x;                           //** localID
     int laneID          = tid%warpSize;                          //** laneID 
@@ -92,6 +194,7 @@ __global__ void encrypt_Kernel( uint32_t* dev_input, uint32_t* dev_output, size_
             addRoundKey(r[k], const_expkey[k]);
         }
 
+
         //BIG LOOP
         for (int j = 1; j < 10; j++) {
 
@@ -101,7 +204,6 @@ __global__ void encrypt_Kernel( uint32_t* dev_input, uint32_t* dev_output, size_
                 Sbox( &r[8+l*32] );
             }
             /*          
-            Sbox( &r[0  ] );
             Sbox( &r[8  ] );
             Sbox( &r[40 ] );
             Sbox( &r[72 ] );
@@ -114,9 +216,7 @@ __global__ void encrypt_Kernel( uint32_t* dev_input, uint32_t* dev_output, size_
             }
          /*   
             Sbox( &r[16 ] );
-            Sbox( &r[32 ] );
             Sbox( &r[48 ] );
-            Sbox( &r[64 ] );
             Sbox( &r[80 ] );
             Sbox( &r[112] );    */
             shiftSecondRow( &r[16 ], &r[80 ], &r[48 ], &r[112]);
@@ -126,7 +226,6 @@ __global__ void encrypt_Kernel( uint32_t* dev_input, uint32_t* dev_output, size_
                 Sbox( &r[24+l*32] );
             }
             /*      
-            Sbox( &r[96 ] );
             Sbox( &r[24 ] );
             Sbox( &r[56 ] );
             Sbox( &r[88 ] );
@@ -137,6 +236,12 @@ __global__ void encrypt_Kernel( uint32_t* dev_input, uint32_t* dev_output, size_
             for(int l=0; l<4; l++){
                 Sbox( &r[l*32] );
             }
+            /*
+            Sbox( &r[0  ] );
+            Sbox( &r[32 ] );
+            Sbox( &r[64 ] );
+            Sbox( &r[96 ] );
+            */
 
             //** Mix + RoundKey
             //#pragma unroll(4)
@@ -145,20 +250,20 @@ __global__ void encrypt_Kernel( uint32_t* dev_input, uint32_t* dev_output, size_
             //    addRoundKey( &r[l*32 ],  &const_expkey[128*j+l*32]);
             //}            
             Mixcl( &r[0] );
-            addRoundKey( &r[0 ], &const_expkey[128*j+0]);
+            addRoundKey32( &r[0 ], &const_expkey[128*j+0]);
             Mixcl( &r[32] );
-            addRoundKey( &r[32 ], &const_expkey[128*j+32]);
+            addRoundKey32( &r[32 ], &const_expkey[128*j+32]);
             Mixcl( &r[64] );
-            addRoundKey( &r[64 ], &const_expkey[128*j+64]);
+            addRoundKey32( &r[64 ], &const_expkey[128*j+64]);
             Mixcl( &r[96] );
-            addRoundKey( &r[96 ], &const_expkey[128*j+96]);
-            
+            addRoundKey32( &r[96 ], &const_expkey[128*j+96]);
+
             //* addRoundKey
             //addRoundKey(r, &const_expkey[128*j]);
         }
 
         //** FINAL ROUND
-        //#pragma unroll(4)
+        #pragma unroll(4)
         for(int l=0; l<4; l++){
             Sbox( &r[l*32] );
         }
@@ -168,7 +273,7 @@ __global__ void encrypt_Kernel( uint32_t* dev_input, uint32_t* dev_output, size_
         Sbox( &r[64 ] );
         Sbox( &r[96 ] ); */
 
-        //#pragma unroll
+        #pragma unroll
         for(int k=0; k<4; k++){
             #pragma unroll(8)
             for(int l=0; l<8; l++){
@@ -178,7 +283,7 @@ __global__ void encrypt_Kernel( uint32_t* dev_input, uint32_t* dev_output, size_
             }
 		}
 
-        //#pragma unroll(4)
+        #pragma unroll(4)
         for(int l=0; l<4; l++){
             Sbox( &r[8+l*32] );
         }
@@ -188,7 +293,7 @@ __global__ void encrypt_Kernel( uint32_t* dev_input, uint32_t* dev_output, size_
         Sbox( &r[104] ); */
         shiftFirstRow(  &r[8  ], &r[40 ], &r[72 ], &r[104]);
 
-        //#pragma unroll
+        #pragma unroll
         for(int k=0; k<4; k++){
             #pragma unroll(8)
             for(int l=0; l<8; l++){
@@ -198,7 +303,7 @@ __global__ void encrypt_Kernel( uint32_t* dev_input, uint32_t* dev_output, size_
             }
 		}
 
-        //#pragma unroll(4)
+        #pragma unroll(4)
         for(int l=0; l<4; l++){
             Sbox( &r[16+l*32] );
         }
@@ -208,7 +313,7 @@ __global__ void encrypt_Kernel( uint32_t* dev_input, uint32_t* dev_output, size_
         Sbox( &r[112] ); */
         shiftSecondRow( &r[16 ], &r[80 ], &r[48 ], &r[112]);
 
-        //#pragma unroll
+        #pragma unroll
         for(int k=0; k<4; k++){
             #pragma unroll(8)
             for(int l=0; l<8; l++){
@@ -218,7 +323,7 @@ __global__ void encrypt_Kernel( uint32_t* dev_input, uint32_t* dev_output, size_
             }
 		}
 
-        //#pragma unroll(4)
+        #pragma unroll(4)
         for(int l=0; l<4; l++){
             Sbox( &r[24+l*32] );
         }
@@ -228,7 +333,7 @@ __global__ void encrypt_Kernel( uint32_t* dev_input, uint32_t* dev_output, size_
         Sbox( &r[120] ); */
         shiftThirdRow(  &r[24 ], &r[120], &r[88 ], &r[56 ]);
 
-        //#pragma unroll
+        #pragma unroll
         for(int k=0; k<4; k++){
             #pragma unroll(8)
             for(int l=0; l<8; l++){
@@ -237,108 +342,9 @@ __global__ void encrypt_Kernel( uint32_t* dev_input, uint32_t* dev_output, size_
 			    dev_output[i*4096+m*32+laneID] = r[m];        
             }
 		}
-    
     }
 }
 
-#else
-__global__ void encrypt_Kernel( uint32_t* dev_input, uint32_t* dev_output, size_t inputSize)
-{
-
-    //* Index calculations
-    int tid             = threadIdx.x;                           //** localID
-    int laneID          = tid%warpSize;                          //** laneID 
-    int global_warpID   = (blockIdx.x*blockDim.x+tid)/warpSize;  //** global warpID
-    int warps           = (blockDim.x*gridDim.x)/warpSize;       //** Warps in the grid
-    int elements        = inputSize/16384;                       //** One warp treat 16384 bytes
-    
-    for(int i = global_warpID; i < elements; i += warps) {
-        //* Loading plaintext
-        register uint32_t r[128];
-        //* Input
-        #pragma unroll
-        for(int k=0; k<128; k++){
-            r[k] = dev_input[i*4096+k*32+laneID];        
-            addRoundKey(r[k], const_expkey[k]);
-        }
-        printf("\nState\n");
-        //PRINT
-        if(blockIdx.x*blockDim.x+tid==0){
-            printf("\nState\n");
-            dev_print_state_128(r,0);
-            /*for(int a=0; a<128; a++){
-                if(a%32==0)
-                    printf("\n");
-                printf("%x ",r[a]);
-            }*/
-
-        //* Round transformation: a set of table lookups operations.
-        for (int j = 1; j < 10; j++) {
-            //* subBytes
-            Sbox( &r[0  ] );
-            Sbox( &r[8  ] );
-            Sbox( &r[16 ] );
-            Sbox( &r[24 ] );
-            Sbox( &r[32 ] );
-            Sbox( &r[40 ] );
-            Sbox( &r[48 ] );
-            Sbox( &r[56 ] );
-            Sbox( &r[64 ] );
-            Sbox( &r[72 ] );
-            Sbox( &r[80 ] );
-            Sbox( &r[88 ] );
-            Sbox( &r[96 ] );
-            Sbox( &r[104] );
-            Sbox( &r[112] );
-            Sbox( &r[120] );
-            
-            //* shiftRows
-            shiftRows( r );
-
-            //* mixcolums
-            Mixcl( &r[0 ] );
-            Mixcl( &r[32] );
-            Mixcl( &r[64] );
-            Mixcl( &r[96] );
-            
-            //* addRoundKey
-            //addRoundKey(r, &const_expkey[j*128]);
-            #pragma unroll
-            for(int k=0; k<128; k++){
-                addRoundKey(r[k], const_expkey[j*128+k]);
-            }
-        } 
-
-        //* The final round doesn’t include the MixColumns step
-        //* subBytes   
-        Sbox( &r[0  ] );
-        Sbox( &r[8  ] );
-        Sbox( &r[16 ] );
-        Sbox( &r[24 ] );
-        Sbox( &r[32 ] );
-        Sbox( &r[40 ] );
-        Sbox( &r[48 ] );
-        Sbox( &r[56 ] );
-        Sbox( &r[64 ] );
-        Sbox( &r[72 ] );
-        Sbox( &r[80 ] );
-        Sbox( &r[88 ] );
-        Sbox( &r[96 ] );
-        Sbox( &r[104] );
-        Sbox( &r[112] );
-        Sbox( &r[120] );
-
-        //* shiftRows
-        shiftRows( r );
-
-        //* Output
-        #pragma unroll
-        for(int k=0; k<128; k++){
-            addRoundKey(r[k], const_expkey[1280+k]);
-            dev_output[i*4096+k*32+laneID] = r[k];        
-        }
-    }
-}
 #endif // Opti
 
 #endif //_ENCRYPT_ECB_H_

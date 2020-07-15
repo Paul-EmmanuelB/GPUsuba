@@ -13,7 +13,7 @@ __global__ void encrypt_Kernel( uint32_t* dev_input, uint32_t* dev_output, size_
 {
     // Index calculations
     int tid         = threadIdx.x;                  //** Local id
-    int global_tid  = threadIdx.x*blockDim.x+tid;   //** Global id
+    int global_tid  = blockIdx.x*blockDim.x+tid;    //** Global id
     
     int warps  = (blockDim.x*gridDim.x)/warpSize;   //** Warps in the grid
     int global_warpID = global_tid/warpSize;

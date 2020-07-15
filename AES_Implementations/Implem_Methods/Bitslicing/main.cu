@@ -24,8 +24,8 @@
 	@author Broux Paul-Emmanuel <paulemmanuelb@gmail.com>
  */
 
-//#define BENCH_ON //Deactivate print messages and introduce warm up and average timing
-#define ADV_BTS
+#define BENCH_ON //Deactivate print messages and introduce warm up and average timing
+//#define ADV_BTS
 
 #include <stdio.h>
 #include <cstdlib>
@@ -34,9 +34,10 @@
 #include "transpose.h"
 
 #ifdef ADV_BTS
-#include "encryptKernelECB_Advanced.h"
+#include "encryptKernelECB_1.h"
 #else
-#include "encryptKernelECB_TEST.h"
+//#include "encryptKernelECB_2.h"
+#include "encryptKernelECB_3.h"
 #endif //ADV_BTS
 
 int main(int argc, char * argv[]) {
@@ -175,8 +176,15 @@ int main(int argc, char * argv[]) {
     filesize += padElmt;
 
     //* Creating required arrays
-    uint8_t inputData[filesize]  = {0};
-    uint8_t outputData[filesize] = {0};
+    uint8_t* inputData;
+    uint8_t* outputData;
+    inputData = (uint8_t*)malloc(filesize * sizeof(uint8_t));
+    outputData = (uint8_t*)malloc(filesize * sizeof(uint8_t));
+
+    for (int i = 0; i < filesize; i++) {
+        inputData[i] = 0;
+        outputData[i] = 0;
+    }
 
     //* Opening the file
     FILE * inputFile;
@@ -208,15 +216,20 @@ int main(int argc, char * argv[]) {
     // ***Transposition for bitslicing***
 #ifdef ADV_BTS
     //** Typical bitsliced transposition with 32 states for 128 registers
+    uint32_t * transp = (uint32_t*)inputData;
     for(int i=0; i<filesize/512; i++){
-        transpose( (uint32_t*)&inputData[i*128] );
+        //transpose( (uint32_t*)&inputData[i*128] );
+        transpose( transp );
+        transp+=128;
     }
 #else
     //** Transposition with reorganization within each 1024 states
     //** As such that a warp will read all i-bit position registers at i instruction
-    memcpy(outputData, inputData, filesize * sizeof(uint8_t));
+    uint32_t * transp = (uint32_t*)inputData;
     for(int i=0; i<filesize/16384; i++){
-        transposeBts( (uint32_t*)&inputData[i*4096] );
+        //transposeBts( (uint32_t*)&inputData[i*4096] );
+        transposeBts( transp );
+        transp+=4096;
     }
 #endif //ADV_BTS
 
@@ -328,12 +341,18 @@ int main(int argc, char * argv[]) {
 #endif //BENCH_ON    
 
     #ifdef ADV_BTS
+    transp  = (uint32_t*)outputData;
     for(int i=0; i<filesize/512; i++){
-        invTranspose( (uint32_t*)&outputData[128*i] );
+        //invTranspose( (uint32_t*)&outputData[128*i] );
+        invTranspose( transp );
+        transp+=128;
     }
     #else
+    transp  = (uint32_t*)outputData;
     for(int i=0; i<filesize/16384; i++){
-        invTransposeBts( (uint32_t*)&outputData[i*4096] );
+        //invTransposeBts( (uint32_t*)&outputData[i*4096] );
+        invTransposeBts( transp );
+        transp+=4096;
     }
     #endif //ADV_BTS
 
@@ -360,6 +379,10 @@ int main(int argc, char * argv[]) {
         exit(1);
     }
     fclose(outputFile); 
+
+    //Free Host memory
+    free(inputData);
+    free(outputData);
 
     // Free device memory
     cudaFree(devInput);

@@ -184,7 +184,7 @@ __global__ void encrypt_Kernel( uint32_t* dev_input, uint32_t* dev_output, size_
                     sm_key);
 
         // Round transformation: a set of table lookups operations.
-        #pragma unroll
+        //#pragma unroll
         for (int j = 1; j < 10; j++) {
             //subBytes
             Sbox( r0  , r1  , r2  , r3  , r4  , r5  , r6  , r7  );
