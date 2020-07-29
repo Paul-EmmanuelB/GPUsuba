@@ -8,17 +8,18 @@
  // Trans1[8]= {0x58, 0x2D, 0x9E, 0x0B, 0xDC, 0x04, 0x03, 0x24};
  /*Bitsliced Avalanche GF() -Sbox:*/
 
-__device__ void Sbox(uint32_t &r0,uint32_t &r1,uint32_t &r2,uint32_t &r3,uint32_t &r4,uint32_t &r5,uint32_t &r6,uint32_t &r7){
+template <typename T>
+__device__ __forceinline__ void Sbox(T &r0,T &r1,T &r2,T &r3,T &r4,T &r5,T &r6,T &r7){
     /*Changing Basic Matrix
     By : (Trans1)={0x58, 0x2D, 0x9E, 0x0B, 0xDC, 0x04, 0x03, 0x24}*/
-    uint32_t y0 = (r0^r1^r2^r3^r6);
-    uint32_t y1 = (r0^r5^r6);
-    uint32_t y2 = (r0);
-    uint32_t y3 = (r0^r1^r3^r4^r7);
-    uint32_t y4 = (r0^r5^r6^r7);
-    uint32_t y5 = (r0^r1^r5^r6);
-    uint32_t y6 = (r0^r4^r5^r6);
-    uint32_t y7 = (r0^r1^r2^r5^r6^r7);
+    T y0 = (r0^r1^r2^r3^r6);
+    T y1 = (r0^r5^r6);
+    T y2 = (r0);
+    T y3 = (r0^r1^r3^r4^r7);
+    T y4 = (r0^r5^r6^r7);
+    T y5 = (r0^r1^r5^r6);
+    T y6 = (r0^r4^r5^r6);
+    T y7 = (r0^r1^r2^r5^r6^r7);
 
     /* Sbox-Logic Circuit */
 
@@ -28,18 +29,18 @@ __device__ void Sbox(uint32_t &r0,uint32_t &r1,uint32_t &r2,uint32_t &r3,uint32_
     /* 1-2 Scale in GF(2^2) */
     /* 1-3 Square in GF(2^2) */
     /* 1-4 Back to GF(2^4) */
-    uint32_t v0=y0^y4^y6^y2;
-    uint32_t v1=y1^y5^y7^y3;
-    uint32_t m0=y1^y5;
-    uint32_t m1=y0^y4;
-    uint32_t c0=m1;
-    uint32_t c1=m0^m1;
-    uint32_t c2=v1;
-    uint32_t c3=v0;
-    uint32_t e=(y4^y5^y6^y7)&(y0^y1^y2^y3);
-    uint32_t e0=((y6^y4)&(y0^y2))^e;
-    uint32_t e1=((y5^y7)&(y1^y3))^e;
-    uint32_t d1=e1;
+    T v0=y0^y4^y6^y2;
+    T v1=y1^y5^y7^y3;
+    T m0=y1^y5;
+    T m1=y0^y4;
+    T c0=m1;
+    T c1=m0^m1;
+    T c2=v1;
+    T c3=v0;
+    T e=(y4^y5^y6^y7)&(y0^y1^y2^y3);
+    T e0=((y6^y4)&(y0^y2))^e;
+    T e1=((y5^y7)&(y1^y3))^e;
+    T d1=e1;
     e1=e0;
     e0=d1^e0;
 
@@ -50,11 +51,11 @@ __device__ void Sbox(uint32_t &r0,uint32_t &r1,uint32_t &r2,uint32_t &r3,uint32_
 
     /* 2-4 Back to GF(2^4) */
 
-    uint32_t p=(y7^y6)&(y2^y3);
-    uint32_t d2=(y6&y2)^p^e0;
-    uint32_t d3=(y7&y3)^p^e1;
-    uint32_t q=(y5^y4)&(y1^y0);
-    uint32_t d0=(y4&y0)^q^e0;
+    T p=(y7^y6)&(y2^y3);
+    T d2=(y6&y2)^p^e0;
+    T d3=(y7&y3)^p^e1;
+    T q=(y5^y4)&(y1^y0);
+    T d0=(y4&y0)^q^e0;
     d1=(y5&y1)^q^e1;
     v0=c2^d2;
     v1=c3^d3;
@@ -71,19 +72,19 @@ __device__ void Sbox(uint32_t &r0,uint32_t &r1,uint32_t &r2,uint32_t &r3,uint32_
     /* 3-4 Multiply in GF(2^2)*/
     /* 3-5 Square in GF(2^2)*/
     /* 3-6 Back to GF(2^4) */
-    uint32_t d=(v1^v0)&(m1^m0);
+    T d=(v1^v0)&(m1^m0);
     d0=(v0&m0)^d;
     d1=(v1&m1)^d;
     e0=c1^d1;
     e1=c0^d0;
     p=(e1^e0)&(m1^m0);
-    uint32_t p0=(e0&m0)^p;
-    uint32_t p1=(e1&m1)^p;
+    T p0=(e0&m0)^p;
+    T p1=(e1&m1)^p;
     q=(e1^e0)&(v1^v0);
-    uint32_t q0=(e0&v0)^q;
-    uint32_t q1=(e1&v1)^q;
-    uint32_t e3=p1;
-    uint32_t e2=p0;
+    T q0=(e0&v0)^q;
+    T q1=(e1&v1)^q;
+    T e3=p1;
+    T e2=p0;
     e1=q1;
     e0=q0;
     v0=e2;
@@ -97,16 +98,16 @@ __device__ void Sbox(uint32_t &r0,uint32_t &r1,uint32_t &r2,uint32_t &r3,uint32_
     /* 4-4 Back to GF(2^4) */
     /* Back to GF(2^8) */
 
-    uint32_t c=(v1^m1^v0^m0)&(y0^y1^y2^y3);
+    T c=(v1^m1^v0^m0)&(y0^y1^y2^y3);
 
     c0=((v0^m0)&(y2^y0))^c;
     c1=((v1^m1)&(y3^y1))^c;
-    uint32_t temp=c1;
+    T temp=c1;
     c1=c0;
     c0=temp^c0;
     p=(v1^v0)&(y3^y2);
-    uint32_t p2=(v0&y2)^p^c0;
-    uint32_t p3=(v1&y3)^p^c1;
+    T p2=(v0&y2)^p^c0;
+    T p3=(v1&y3)^p^c1;
     q=(m1^m0)&(y1^y0);
     p0=(m0&y0)^q^c0;
     p1=(m1&y1)^q^c1;
@@ -145,7 +146,6 @@ __device__ void Sbox(uint32_t &r0,uint32_t &r1,uint32_t &r2,uint32_t &r3,uint32_
 }
 
 
-//__device__ inline void Sbox(uint32_t *shared){
 __device__ void Sbox(uint32_t *shared){
     /*Changing Basic Matrix
     By : (Trans1)={0x58, 0x2D, 0x9E, 0x0B, 0xDC, 0x04, 0x03, 0x24}*/

@@ -1,16 +1,74 @@
 #ifndef _ADD_ROUND_KEY_H_
 #define _ADD_ROUND_KEY_H_
 
-//__device__  inline  void addRoundKey(uint32_t shared[128], uint32_t sm_key[128]) {
-__device__ void addRoundKey(uint32_t &cipher, uint32_t key) {
+//test with only one value
+template<typename T>
+__device__  __forceinline__ void addRoundKey(T &r0 , T &r1 , T &r2 , T &r3 , T &r4 , T &r5 , T &r6 , T &r7 ,
+                             T &r8 , T &r9 , T &r10, T &r11, T &r12, T &r13, T &r14, T &r15,
+                             T &r16, T &r17, T &r18, T &r19, T &r20, T &r21, T &r22, T &r23,
+                             T &r24, T &r25, T &r26, T &r27, T &r28, T &r29, T &r30, T &r31,
+                             int val){
+    r0   ^= val;
+    r1   ^= val;
+    r2   ^= val;
+    r3   ^= val;
+    r4   ^= val;
+    r5   ^= val;
+    r6   ^= val;
+    r7   ^= val;
+    r8   ^= val;
+    r9   ^= val;
+    r10  ^= val;
+    r11  ^= val;
+    r12  ^= val;
+    r13  ^= val;
+    r14  ^= val;
+    r15  ^= val;
+    r16  ^= val;
+    r17  ^= val;
+    r18  ^= val;
+    r19  ^= val;
+    r20  ^= val;
+    r21  ^= val;
+    r22  ^= val;
+    r23  ^= val;
+    r24  ^= val;
+    r25  ^= val;
+    r26  ^= val;
+    r27  ^= val;
+    r28  ^= val;
+    r29  ^= val;
+    r30  ^= val;
+    r31  ^= val;
+}
+
+
+
+template<typename T>
+__device__  __forceinline__ void addRoundKey(T &r0 , T &r1 , T &r2 , T &r3 , T &r4 , T &r5 , T &r6 , T &r7 ,
+                             int val){
+    r0   ^= val;
+    r1   ^= val;
+    r2   ^= val;
+    r3   ^= val;
+    r4   ^= val;
+    r5   ^= val;
+    r6   ^= val;
+    r7   ^= val;
+}
+
+//Function with registers
+template<typename T>
+__device__ __forceinline__ void addRoundKey(T &cipher, T key) {
     cipher   ^= key;
 }
 
-__device__ inline void addRoundKey(uint32_t &r0 , uint32_t &r1 , uint32_t &r2 , uint32_t &r3 , uint32_t &r4 , uint32_t &r5 , uint32_t &r6 , uint32_t &r7 ,
-                             uint32_t &r8 , uint32_t &r9 , uint32_t &r10, uint32_t &r11, uint32_t &r12, uint32_t &r13, uint32_t &r14, uint32_t &r15,
-                             uint32_t &r16, uint32_t &r17, uint32_t &r18, uint32_t &r19, uint32_t &r20, uint32_t &r21, uint32_t &r22, uint32_t &r23,
-                             uint32_t &r24, uint32_t &r25, uint32_t &r26, uint32_t &r27, uint32_t &r28, uint32_t &r29, uint32_t &r30, uint32_t &r31,
-                             uint32_t key[32]){
+template<typename T>
+__device__  __forceinline__ void addRoundKey(T &r0 , T &r1 , T &r2 , T &r3 , T &r4 , T &r5 , T &r6 , T &r7 ,
+                             T &r8 , T &r9 , T &r10, T &r11, T &r12, T &r13, T &r14, T &r15,
+                             T &r16, T &r17, T &r18, T &r19, T &r20, T &r21, T &r22, T &r23,
+                             T &r24, T &r25, T &r26, T &r27, T &r28, T &r29, T &r30, T &r31,
+                             T key[32]){
     r0   ^= key[0  ];
     r1   ^= key[1  ];
     r2   ^= key[2  ];
@@ -45,8 +103,9 @@ __device__ inline void addRoundKey(uint32_t &r0 , uint32_t &r1 , uint32_t &r2 , 
     r31  ^= key[31 ];
 }
 
-__device__ inline void addRoundKey(uint32_t &r0 , uint32_t &r1 , uint32_t &r2 , uint32_t &r3 , uint32_t &r4 , uint32_t &r5 , uint32_t &r6 , uint32_t &r7 ,
-                             uint32_t key[8]){
+template<typename T>
+__device__ __forceinline__ void addRoundKey(T &r0 , T &r1 , T &r2 , T &r3 , T &r4 , T &r5 , T &r6 , T &r7 ,
+                             T key[8]){
     r0   ^= key[0  ];
     r1   ^= key[1  ];
     r2   ^= key[2  ];
@@ -57,22 +116,23 @@ __device__ inline void addRoundKey(uint32_t &r0 , uint32_t &r1 , uint32_t &r2 , 
     r7   ^= key[7  ];
 }
 
-__device__  void addRoundKey(uint32_t &r0  , uint32_t &r1  , uint32_t &r2  , uint32_t &r3  , uint32_t &r4  , uint32_t &r5  , uint32_t &r6  , uint32_t &r7  ,
-                 uint32_t &r8  , uint32_t &r9  , uint32_t &r10 , uint32_t &r11 , uint32_t &r12 , uint32_t &r13 , uint32_t &r14 , uint32_t &r15 ,
-                 uint32_t &r16 , uint32_t &r17 , uint32_t &r18 , uint32_t &r19 , uint32_t &r20 , uint32_t &r21 , uint32_t &r22 , uint32_t &r23 ,
-                 uint32_t &r24 , uint32_t &r25 , uint32_t &r26 , uint32_t &r27 , uint32_t &r28 , uint32_t &r29 , uint32_t &r30 , uint32_t &r31 ,
-                 uint32_t &r32 , uint32_t &r33 , uint32_t &r34 , uint32_t &r35 , uint32_t &r36 , uint32_t &r37 , uint32_t &r38 , uint32_t &r39 ,
-                 uint32_t &r40 , uint32_t &r41 , uint32_t &r42 , uint32_t &r43 , uint32_t &r44 , uint32_t &r45 , uint32_t &r46 , uint32_t &r47 ,
-                 uint32_t &r48 , uint32_t &r49 , uint32_t &r50 , uint32_t &r51 , uint32_t &r52 , uint32_t &r53 , uint32_t &r54 , uint32_t &r55 ,
-                 uint32_t &r56 , uint32_t &r57 , uint32_t &r58 , uint32_t &r59 , uint32_t &r60 , uint32_t &r61 , uint32_t &r62 , uint32_t &r63 ,
-                 uint32_t &r64 , uint32_t &r65 , uint32_t &r66 , uint32_t &r67 , uint32_t &r68 , uint32_t &r69 , uint32_t &r70 , uint32_t &r71 ,
-                 uint32_t &r72 , uint32_t &r73 , uint32_t &r74 , uint32_t &r75 , uint32_t &r76 , uint32_t &r77 , uint32_t &r78 , uint32_t &r79 ,
-                 uint32_t &r80 , uint32_t &r81 , uint32_t &r82 , uint32_t &r83 , uint32_t &r84 , uint32_t &r85 , uint32_t &r86 , uint32_t &r87 ,
-                 uint32_t &r88 , uint32_t &r89 , uint32_t &r90 , uint32_t &r91 , uint32_t &r92 , uint32_t &r93 , uint32_t &r94 , uint32_t &r95 ,
-                 uint32_t &r96 , uint32_t &r97 , uint32_t &r98 , uint32_t &r99 , uint32_t &r100, uint32_t &r101, uint32_t &r102, uint32_t &r103,
-                 uint32_t &r104, uint32_t &r105, uint32_t &r106, uint32_t &r107, uint32_t &r108, uint32_t &r109, uint32_t &r110, uint32_t &r111,
-                 uint32_t &r112, uint32_t &r113, uint32_t &r114, uint32_t &r115, uint32_t &r116, uint32_t &r117, uint32_t &r118, uint32_t &r119,
-                 uint32_t &r120, uint32_t &r121, uint32_t &r122, uint32_t &r123, uint32_t &r124, uint32_t &r125, uint32_t &r126, uint32_t &r127,
+template<typename T>
+__device__ __forceinline__ void addRoundKey(T &r0  , T &r1  , T &r2  , T &r3  , T &r4  , T &r5  , T &r6  , T &r7  ,
+                 T &r8  , T &r9  , T &r10 , T &r11 , T &r12 , T &r13 , T &r14 , T &r15 ,
+                 T &r16 , T &r17 , T &r18 , T &r19 , T &r20 , T &r21 , T &r22 , T &r23 ,
+                 T &r24 , T &r25 , T &r26 , T &r27 , T &r28 , T &r29 , T &r30 , T &r31 ,
+                 T &r32 , T &r33 , T &r34 , T &r35 , T &r36 , T &r37 , T &r38 , T &r39 ,
+                 T &r40 , T &r41 , T &r42 , T &r43 , T &r44 , T &r45 , T &r46 , T &r47 ,
+                 T &r48 , T &r49 , T &r50 , T &r51 , T &r52 , T &r53 , T &r54 , T &r55 ,
+                 T &r56 , T &r57 , T &r58 , T &r59 , T &r60 , T &r61 , T &r62 , T &r63 ,
+                 T &r64 , T &r65 , T &r66 , T &r67 , T &r68 , T &r69 , T &r70 , T &r71 ,
+                 T &r72 , T &r73 , T &r74 , T &r75 , T &r76 , T &r77 , T &r78 , T &r79 ,
+                 T &r80 , T &r81 , T &r82 , T &r83 , T &r84 , T &r85 , T &r86 , T &r87 ,
+                 T &r88 , T &r89 , T &r90 , T &r91 , T &r92 , T &r93 , T &r94 , T &r95 ,
+                 T &r96 , T &r97 , T &r98 , T &r99 , T &r100, T &r101, T &r102, T &r103,
+                 T &r104, T &r105, T &r106, T &r107, T &r108, T &r109, T &r110, T &r111,
+                 T &r112, T &r113, T &r114, T &r115, T &r116, T &r117, T &r118, T &r119,
+                 T &r120, T &r121, T &r122, T &r123, T &r124, T &r125, T &r126, T &r127,
                  uint32_t key[128]) {
     r0   ^= key[0  ];
     r1   ^= key[1  ];
@@ -205,7 +265,7 @@ __device__  void addRoundKey(uint32_t &r0  , uint32_t &r1  , uint32_t &r2  , uin
 }
 
 
-//** With arrays
+//** With regiter as array
 __device__ void addRoundKey32(uint32_t cipher[32], uint32_t key[32]) {
     cipher[0]   ^= key[0  ];
     cipher[1]   ^= key[1  ];
@@ -242,7 +302,7 @@ __device__ void addRoundKey32(uint32_t cipher[32], uint32_t key[32]) {
 }
 
 
-//__device__  inline  void addRoundKey(uint32_t shared[128], uint32_t sm_key[128]) {
+//__device__    void addRoundKey(uint32_t shared[128], uint32_t sm_key[128]) {
 __device__ void addRoundKey(uint32_t cipher[128], uint32_t key[128]) {
     cipher[0]   ^= key[0  ];
     cipher[1]   ^= key[1  ];

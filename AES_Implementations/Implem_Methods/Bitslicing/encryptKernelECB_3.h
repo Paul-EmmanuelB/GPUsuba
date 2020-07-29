@@ -1,7 +1,7 @@
 #ifndef _ENCRYPT_ECB_H_
 #define _ENCRYPT_ECB_H_
 
-//#define Opti
+#define BS_Loop
 
 #include "BtsUtils.h"
 #include "addRoundKey.h"
@@ -9,23 +9,6 @@
 #include "shiftRows.h"
 #include "mixColumns.h"
 
-__device__ inline void addRoundKey(uint32_t &r0 , uint32_t &r1 , uint32_t &r2 , uint32_t &r3 , uint32_t &r4 , uint32_t &r5 , uint32_t &r6 , uint32_t &r7 ,
-                             uint32_t &r8 , uint32_t &r9 , uint32_t &r10, uint32_t &r11, uint32_t &r12, uint32_t &r13, uint32_t &r14, uint32_t &r15,
-                             uint32_t &r16, uint32_t &r17, uint32_t &r18, uint32_t &r19, uint32_t &r20, uint32_t &r21, uint32_t &r22, uint32_t &r23,
-                             uint32_t &r24, uint32_t &r25, uint32_t &r26, uint32_t &r27, uint32_t &r28, uint32_t &r29, uint32_t &r30, uint32_t &r31,
-                             uint32_t key[32]) __attribute__((always_inline));
-__device__ inline void shiftFirstRow(uint32_t &r0 , uint32_t &r1 , uint32_t &r2 , uint32_t &r3 , uint32_t &r4 , uint32_t &r5 , uint32_t &r6 , uint32_t &r7 ,
-                              uint32_t &r8 , uint32_t &r9 , uint32_t &r10, uint32_t &r11, uint32_t &r12, uint32_t &r13, uint32_t &r14, uint32_t &r15,
-                              uint32_t &r16, uint32_t &r17, uint32_t &r18, uint32_t &r19, uint32_t &r20, uint32_t &r21, uint32_t &r22, uint32_t &r23,
-                              uint32_t &r24, uint32_t &r25, uint32_t &r26, uint32_t &r27, uint32_t &r28, uint32_t &r29, uint32_t &r30, uint32_t &r31) __attribute__((always_inline));
-__device__ inline void shiftSecondRow(uint32_t &r0 , uint32_t &r1 , uint32_t &r2 , uint32_t &r3 , uint32_t &r4 , uint32_t &r5 , uint32_t &r6 , uint32_t &r7 ,
-                              uint32_t &r8 , uint32_t &r9 , uint32_t &r10, uint32_t &r11, uint32_t &r12, uint32_t &r13, uint32_t &r14, uint32_t &r15,
-                              uint32_t &r16, uint32_t &r17, uint32_t &r18, uint32_t &r19, uint32_t &r20, uint32_t &r21, uint32_t &r22, uint32_t &r23,
-                              uint32_t &r24, uint32_t &r25, uint32_t &r26, uint32_t &r27, uint32_t &r28, uint32_t &r29, uint32_t &r30, uint32_t &r31) __attribute__((always_inline));
-__device__ inline void shiftThirdRow(uint32_t &r0 , uint32_t &r1 , uint32_t &r2 , uint32_t &r3 , uint32_t &r4 , uint32_t &r5 , uint32_t &r6 , uint32_t &r7 ,
-                              uint32_t &r8 , uint32_t &r9 , uint32_t &r10, uint32_t &r11, uint32_t &r12, uint32_t &r13, uint32_t &r14, uint32_t &r15,
-                              uint32_t &r16, uint32_t &r17, uint32_t &r18, uint32_t &r19, uint32_t &r20, uint32_t &r21, uint32_t &r22, uint32_t &r23,
-                              uint32_t &r24, uint32_t &r25, uint32_t &r26, uint32_t &r27, uint32_t &r28, uint32_t &r29, uint32_t &r30, uint32_t &r31) __attribute__((always_inline));
 
 #define reg128(x) x##0  , x##1  , x##2  , x##3  , x##4  , x##5  , x##6  , x##7  , \
                   x##8  , x##9  , x##10 , x##11 , x##12 , x##13 , x##14 , x##15 , \
@@ -44,19 +27,21 @@ __device__ inline void shiftThirdRow(uint32_t &r0 , uint32_t &r1 , uint32_t &r2 
                   x##112, x##113, x##114, x##115, x##116, x##117, x##118, x##119, \
                   x##120, x##121, x##122, x##123, x##124, x##125, x##126, x##127
 
-#ifdef Opti
-__global__ void encrypt_Kernel( uint32_t* dev_input, uint32_t* dev_output, size_t inputSize)
+#ifdef BS_Loop
+
+template <typename T>
+__global__ void encrypt_Kernel( T* dev_input, T* dev_output, size_t inputSize)
 {
     //* Index calculations
     int tid             = threadIdx.x;                           //** localID
     int laneID          = tid%warpSize;                          //** laneID 
     int global_warpID   = (blockIdx.x*blockDim.x+tid)/warpSize;  //** global warpID
     int warps           = (blockDim.x*gridDim.x)/warpSize;       //** Warps in the grid
-    int elements        = inputSize/16384;                       //** One warp treat 16384 bytes
+    int elements        = inputSize/(4096*sizeof(T));              //** One warp treat 4096*sizeof(T) bytes
 
     for(int i = global_warpID; i < elements; i += warps) {
         //* Loading plaintext
-        uint32_t reg128(r);
+        T reg128(r);
         r0   = dev_input[i*4096+laneID+0   ];
         r1   = dev_input[i*4096+laneID+32  ];
         r2   = dev_input[i*4096+laneID+64  ];
@@ -89,7 +74,7 @@ __global__ void encrypt_Kernel( uint32_t* dev_input, uint32_t* dev_output, size_
         r29  = dev_input[i*4096+laneID+928 ];
         r30  = dev_input[i*4096+laneID+960 ];
         r31  = dev_input[i*4096+laneID+992 ];
-        addRoundKey(r0  , r1  , r2  , r3  , r4  , r5  , r6  , r7  ,
+        addRoundKey<T>(r0  , r1  , r2  , r3  , r4  , r5  , r6  , r7  ,
                         r8  , r9  , r10 , r11 , r12 , r13 , r14 , r15 ,
                         r16 , r17 , r18 , r19 , r20 , r21 , r22 , r23 ,
                         r24 , r25 , r26 , r27 , r28 , r29 , r30 , r31 , 
@@ -126,7 +111,7 @@ __global__ void encrypt_Kernel( uint32_t* dev_input, uint32_t* dev_output, size_
         r61  = dev_input[i*4096+laneID+1952];
         r62  = dev_input[i*4096+laneID+1984];
         r63  = dev_input[i*4096+laneID+2016];
-        addRoundKey(r32 , r33 , r34 , r35 , r36 , r37 , r38 , r39 ,
+        addRoundKey<T>(r32 , r33 , r34 , r35 , r36 , r37 , r38 , r39 ,
                     r40 , r41 , r42 , r43 , r44 , r45 , r46 , r47 ,
                     r48 , r49 , r50 , r51 , r52 , r53 , r54 , r55 ,
                     r56 , r57 , r58 , r59 , r60 , r61 , r62 , r63 , 
@@ -163,7 +148,7 @@ __global__ void encrypt_Kernel( uint32_t* dev_input, uint32_t* dev_output, size_
         r93  = dev_input[i*4096+laneID+2976];
         r94  = dev_input[i*4096+laneID+3008];
         r95  = dev_input[i*4096+laneID+3040];
-        addRoundKey(r64 , r65 , r66 , r67 , r68 , r69 , r70 , r71 ,
+        addRoundKey<T>(r64 , r65 , r66 , r67 , r68 , r69 , r70 , r71 ,
                         r72 , r73 , r74 , r75 , r76 , r77 , r78 , r79 ,
                         r80 , r81 , r82 , r83 , r84 , r85 , r86 , r87 ,
                         r88 , r89 , r90 , r91 , r92 , r93 , r94 , r95 ,
@@ -200,7 +185,7 @@ __global__ void encrypt_Kernel( uint32_t* dev_input, uint32_t* dev_output, size_
         r125 = dev_input[i*4096+laneID+4000];
         r126 = dev_input[i*4096+laneID+4032];
         r127 = dev_input[i*4096+laneID+4064];            
-        addRoundKey(r96 , r97 , r98 , r99 , r100, r101, r102, r103,
+        addRoundKey<T>(r96 , r97 , r98 , r99 , r100, r101, r102, r103,
                         r104, r105, r106, r107, r108, r109, r110, r111,
                         r112, r113, r114, r115, r116, r117, r118, r119,
                         r120, r121, r122, r123, r124, r125, r126, r127,
@@ -335,98 +320,223 @@ __global__ void encrypt_Kernel( uint32_t* dev_input, uint32_t* dev_output, size_
         addRoundKey(r127, const_expkey[127]);*/
 
         //BIG LOOP
-        #pragma unroll(2)
+        #pragma nounroll
         for (int j = 1; j < 10; j++) {
 
             //** SubBytes + Shift
-            Sbox(r8 , r9 , r10, r11, r12, r13, r14, r15);
-            Sbox(r40, r41, r42, r43, r44, r45, r46, r47);
-            Sbox(r72, r73, r74, r75, r76, r77, r78, r79);
-            Sbox(r104, r105, r106, r107, r108, r109, r110, r111);
-            shiftFirstRow(r8  , r9  , r10 , r11 , r12 , r13 , r14 , r15,
+            Sbox<T>(r8 , r9 , r10, r11, r12, r13, r14, r15);
+            Sbox<T>(r40, r41, r42, r43, r44, r45, r46, r47);
+            Sbox<T>(r72, r73, r74, r75, r76, r77, r78, r79);
+            Sbox<T>(r104, r105, r106, r107, r108, r109, r110, r111);
+            shiftFirstRow<T>(r8  , r9  , r10 , r11 , r12 , r13 , r14 , r15,
                           r40 , r41 , r42 , r43 , r44 , r45 , r46 , r47,
                           r72 , r73 , r74 , r75 , r76 , r77 , r78 , r79,
                           r104, r105, r106, r107, r108, r109, r110, r111);
 
             
-            Sbox(r16 , r17 , r18 , r19 , r20 , r21 , r22 , r23);
-            Sbox(r48 , r49 , r50 , r51 , r52 , r53 , r54 , r55);
-            Sbox(r80 , r81 , r82 , r83 , r84 , r85 , r86 , r87);
-            Sbox(r112, r113, r114, r115, r116, r117, r118, r119);
-            shiftSecondRow(r16 , r17 , r18 , r19 , r20 , r21 , r22 , r23,
+            Sbox<T>(r16 , r17 , r18 , r19 , r20 , r21 , r22 , r23);
+            Sbox<T>(r48 , r49 , r50 , r51 , r52 , r53 , r54 , r55);
+            Sbox<T>(r80 , r81 , r82 , r83 , r84 , r85 , r86 , r87);
+            Sbox<T>(r112, r113, r114, r115, r116, r117, r118, r119);
+            shiftSecondRow<T>(r16 , r17 , r18 , r19 , r20 , r21 , r22 , r23,
                            r80 , r81 , r82 , r83 , r84 , r85 , r86 , r87,
                            r48 , r49 , r50 , r51 , r52 , r53 , r54 , r55,
                            r112, r113, r114, r115, r116, r117, r118, r119);
 
 
-            Sbox(r24 , r25 , r26 , r27 , r28 , r29 , r30 , r31);
-            Sbox(r56 , r57 , r58 , r59 , r60 , r61 , r62 , r63);
-            Sbox(r88 , r89 , r90 , r91 , r92 , r93 , r94 , r95);
-            Sbox(r120, r121, r122, r123, r124, r125, r126, r127);
-            shiftThirdRow(r24 , r25 , r26 , r27 , r28 , r29 , r30 , r31,
+            Sbox<T>(r24 , r25 , r26 , r27 , r28 , r29 , r30 , r31);
+            Sbox<T>(r56 , r57 , r58 , r59 , r60 , r61 , r62 , r63);
+            Sbox<T>(r88 , r89 , r90 , r91 , r92 , r93 , r94 , r95);
+            Sbox<T>(r120, r121, r122, r123, r124, r125, r126, r127);
+            shiftThirdRow<T>(r24 , r25 , r26 , r27 , r28 , r29 , r30 , r31,
                           r120, r121, r122, r123, r124, r125, r126, r127,
                           r88 , r89 , r90 , r91 , r92 , r93 , r94 , r95,
                           r56 , r57 , r58 , r59 , r60 , r61 , r62 , r63);
 
             
-            Sbox(r0 , r1 , r2 , r3 , r4  , r5  , r6  , r7);
-            Sbox(r32, r33, r34, r35, r36 , r37 , r38 , r39);
-            Sbox(r64, r65, r66, r67, r68 , r69 , r70 , r71);
-            Sbox(r96, r97, r98, r99, r100, r101, r102, r103);
+            Sbox<T>(r0 , r1 , r2 , r3 , r4  , r5  , r6  , r7);
+            Sbox<T>(r32, r33, r34, r35, r36 , r37 , r38 , r39);
+            Sbox<T>(r64, r65, r66, r67, r68 , r69 , r70 , r71);
+            Sbox<T>(r96, r97, r98, r99, r100, r101, r102, r103);
 
-            //** Mix + RoundKey
-            //#pragma unroll(4)
-            //for(int l=0; l<4; l++){
-            //    Mixcl( &r[l*32 ] );
-            //    addRoundKey( &r[l*32 ],  &const_expkey[128*j+l*32]);
-            //}
-            Mixcl(r0 , r1 , r2 , r3 , r4 , r5 , r6 , r7 ,
+
+            Mixcl<T>(r0 , r1 , r2 , r3 , r4 , r5 , r6 , r7 ,
                      r8 , r9 , r10, r11, r12, r13, r14, r15,
                      r16, r17, r18, r19, r20, r21, r22, r23,
                      r24, r25, r26, r27, r28, r29, r30, r31);
-            addRoundKey(r0  , r1  , r2  , r3  , r4  , r5  , r6  , r7  ,
+            addRoundKey<T>(r0  , r1  , r2  , r3  , r4  , r5  , r6  , r7  ,
                         r8  , r9  , r10 , r11 , r12 , r13 , r14 , r15 ,
                         r16 , r17 , r18 , r19 , r20 , r21 , r22 , r23 ,
                         r24 , r25 , r26 , r27 , r28 , r29 , r30 , r31 , 
                         &const_expkey[128*j+0]);
-            Mixcl(r32, r33, r34, r35, r36, r37, r38, r39,
+            Mixcl<T>(r32, r33, r34, r35, r36, r37, r38, r39,
                      r40, r41, r42, r43, r44, r45, r46, r47,
                      r48, r49, r50, r51, r52, r53, r54, r55,
                      r56, r57, r58, r59, r60, r61, r62, r63);
-            addRoundKey(r32 , r33 , r34 , r35 , r36 , r37 , r38 , r39 ,
+            addRoundKey<T>(r32 , r33 , r34 , r35 , r36 , r37 , r38 , r39 ,
                         r40 , r41 , r42 , r43 , r44 , r45 , r46 , r47 ,
                         r48 , r49 , r50 , r51 , r52 , r53 , r54 , r55 ,
                         r56 , r57 , r58 , r59 , r60 , r61 , r62 , r63 , 
                         &const_expkey[128*j+32]);
-            Mixcl(r64, r65, r66, r67, r68, r69, r70, r71,
+            Mixcl<T>(r64, r65, r66, r67, r68, r69, r70, r71,
                      r72, r73, r74, r75, r76, r77, r78, r79,
                      r80, r81, r82, r83, r84, r85, r86, r87,
                      r88, r89, r90, r91, r92, r93, r94, r95);
-            addRoundKey(r64 , r65 , r66 , r67 , r68 , r69 , r70 , r71 ,
+            addRoundKey<T>(r64 , r65 , r66 , r67 , r68 , r69 , r70 , r71 ,
                           r72 , r73 , r74 , r75 , r76 , r77 , r78 , r79 ,
                           r80 , r81 , r82 , r83 , r84 , r85 , r86 , r87 ,
                           r88 , r89 , r90 , r91 , r92 , r93 , r94 , r95 ,
                           &const_expkey[128*j+64]);
-            Mixcl(r96 , r97 , r98 , r99 , r100, r101, r102, r103,
+            Mixcl<T>(r96 , r97 , r98 , r99 , r100, r101, r102, r103,
                      r104, r105, r106, r107, r108, r109, r110, r111,
                      r112, r113, r114, r115, r116, r117, r118, r119,
                      r120, r121, r122, r123, r124, r125, r126, r127);            
-            addRoundKey(r96 , r97 , r98 , r99 , r100, r101, r102, r103,
+            addRoundKey<T>(r96 , r97 , r98 , r99 , r100, r101, r102, r103,
                           r104, r105, r106, r107, r108, r109, r110, r111,
                           r112, r113, r114, r115, r116, r117, r118, r119,
                           r120, r121, r122, r123, r124, r125, r126, r127,
                           &const_expkey[128*j+96]);
         }
 
+        //** Prefteching
+        /* T p0   = dev_input[(i+1)*4096+laneID+0   ];
+        T p1   = dev_input[(i+1)*4096+laneID+32  ];
+        T p2   = dev_input[(i+1)*4096+laneID+64  ];
+        T p3   = dev_input[(i+1)*4096+laneID+96  ];
+        T p4   = dev_input[(i+1)*4096+laneID+128 ];
+        T p5   = dev_input[(i+1)*4096+laneID+160 ];
+        T p6   = dev_input[(i+1)*4096+laneID+192 ];
+        T p7   = dev_input[(i+1)*4096+laneID+224 ];
+        T p8   = dev_input[(i+1)*4096+laneID+256 ];
+        T p9   = dev_input[(i+1)*4096+laneID+288 ];
+        T p10  = dev_input[(i+1)*4096+laneID+320 ];
+        T p11  = dev_input[(i+1)*4096+laneID+352 ];
+        T p12  = dev_input[(i+1)*4096+laneID+384 ];
+        T p13  = dev_input[(i+1)*4096+laneID+416 ];
+        T p14  = dev_input[(i+1)*4096+laneID+448 ];
+        T p15  = dev_input[(i+1)*4096+laneID+480 ];
+        T p16  = dev_input[(i+1)*4096+laneID+512 ];
+        T p17  = dev_input[(i+1)*4096+laneID+544 ];
+        T p18  = dev_input[(i+1)*4096+laneID+576 ];
+        T p19  = dev_input[(i+1)*4096+laneID+608 ];
+        T p20  = dev_input[(i+1)*4096+laneID+640 ];
+        T p21  = dev_input[(i+1)*4096+laneID+672 ];
+        T p22  = dev_input[(i+1)*4096+laneID+704 ];
+        T p23  = dev_input[(i+1)*4096+laneID+736 ];
+        T p24  = dev_input[(i+1)*4096+laneID+768 ];
+        T p25  = dev_input[(i+1)*4096+laneID+800 ];
+        T p26  = dev_input[(i+1)*4096+laneID+832 ];
+        T p27  = dev_input[(i+1)*4096+laneID+864 ];
+        T p28  = dev_input[(i+1)*4096+laneID+896 ];
+        T p29  = dev_input[(i+1)*4096+laneID+928 ];
+        T p30  = dev_input[(i+1)*4096+laneID+960 ];
+        T p31  = dev_input[(i+1)*4096+laneID+992 ];
+        T p32  = dev_input[(i+1)*4096+laneID+1024];
+        T p33  = dev_input[(i+1)*4096+laneID+1056];
+        T p34  = dev_input[(i+1)*4096+laneID+1088];
+        T p35  = dev_input[(i+1)*4096+laneID+1120];
+        T p36  = dev_input[(i+1)*4096+laneID+1152];
+        T p37  = dev_input[(i+1)*4096+laneID+1184];
+        T p38  = dev_input[(i+1)*4096+laneID+1216];
+        T p39  = dev_input[(i+1)*4096+laneID+1248];
+        T p40  = dev_input[(i+1)*4096+laneID+1280];
+        T p41  = dev_input[(i+1)*4096+laneID+1312];
+        T p42  = dev_input[(i+1)*4096+laneID+1344];
+        T p43  = dev_input[(i+1)*4096+laneID+1376];
+        T p44  = dev_input[(i+1)*4096+laneID+1408];
+        T p45  = dev_input[(i+1)*4096+laneID+1440];
+        T p46  = dev_input[(i+1)*4096+laneID+1472];
+        T p47  = dev_input[(i+1)*4096+laneID+1504];
+        T p48  = dev_input[(i+1)*4096+laneID+1536];
+        T p49  = dev_input[(i+1)*4096+laneID+1568];
+        T p50  = dev_input[(i+1)*4096+laneID+1600];
+        T p51  = dev_input[(i+1)*4096+laneID+1632];
+        T p52  = dev_input[(i+1)*4096+laneID+1664];
+        T p53  = dev_input[(i+1)*4096+laneID+1696];
+        T p54  = dev_input[(i+1)*4096+laneID+1728];
+        T p55  = dev_input[(i+1)*4096+laneID+1760];
+        T p56  = dev_input[(i+1)*4096+laneID+1792];
+        T p57  = dev_input[(i+1)*4096+laneID+1824];
+        T p58  = dev_input[(i+1)*4096+laneID+1856];
+        T p59  = dev_input[(i+1)*4096+laneID+1888];
+        T p60  = dev_input[(i+1)*4096+laneID+1920];
+        T p61  = dev_input[(i+1)*4096+laneID+1952];
+        T p62  = dev_input[(i+1)*4096+laneID+1984];
+        T p63  = dev_input[(i+1)*4096+laneID+2016];
+        T p64  = dev_input[(i+1)*4096+laneID+2048];
+        T p65  = dev_input[(i+1)*4096+laneID+2080];
+        T p66  = dev_input[(i+1)*4096+laneID+2112];
+        T p67  = dev_input[(i+1)*4096+laneID+2144];
+        T p68  = dev_input[(i+1)*4096+laneID+2176];
+        T p69  = dev_input[(i+1)*4096+laneID+2208];
+        T p70  = dev_input[(i+1)*4096+laneID+2240];
+        T p71  = dev_input[(i+1)*4096+laneID+2272];
+        T p72  = dev_input[(i+1)*4096+laneID+2304];
+        T p73  = dev_input[(i+1)*4096+laneID+2336];
+        T p74  = dev_input[(i+1)*4096+laneID+2368];
+        T p75  = dev_input[(i+1)*4096+laneID+2400];
+        T p76  = dev_input[(i+1)*4096+laneID+2432];
+        T p77  = dev_input[(i+1)*4096+laneID+2464];
+        T p78  = dev_input[(i+1)*4096+laneID+2496];
+        T p79  = dev_input[(i+1)*4096+laneID+2528];
+        T p80  = dev_input[(i+1)*4096+laneID+2560];
+        T p81  = dev_input[(i+1)*4096+laneID+2592];
+        T p82  = dev_input[(i+1)*4096+laneID+2624];
+        T p83  = dev_input[(i+1)*4096+laneID+2656];
+        T p84  = dev_input[(i+1)*4096+laneID+2688];
+        T p85  = dev_input[(i+1)*4096+laneID+2720];
+        T p86  = dev_input[(i+1)*4096+laneID+2752];
+        T p87  = dev_input[(i+1)*4096+laneID+2784];
+        T p88  = dev_input[(i+1)*4096+laneID+2816];
+        T p89  = dev_input[(i+1)*4096+laneID+2848];
+        T p90  = dev_input[(i+1)*4096+laneID+2880];
+        T p91  = dev_input[(i+1)*4096+laneID+2912];
+        T p92  = dev_input[(i+1)*4096+laneID+2944];
+        T p93  = dev_input[(i+1)*4096+laneID+2976];
+        T p94  = dev_input[(i+1)*4096+laneID+3008];
+        T p95  = dev_input[(i+1)*4096+laneID+3040];
+        T p96  = dev_input[(i+1)*4096+laneID+3072];
+        T p97  = dev_input[(i+1)*4096+laneID+3104];
+        T p98  = dev_input[(i+1)*4096+laneID+3136];
+        T p99  = dev_input[(i+1)*4096+laneID+3168];
+        T p100 = dev_input[(i+1)*4096+laneID+3200];
+        T p101 = dev_input[(i+1)*4096+laneID+3232];
+        T p102 = dev_input[(i+1)*4096+laneID+3264];
+        T p103 = dev_input[(i+1)*4096+laneID+3296];
+        T p104 = dev_input[(i+1)*4096+laneID+3328];
+        T p105 = dev_input[(i+1)*4096+laneID+3360];
+        T p106 = dev_input[(i+1)*4096+laneID+3392];
+        T p107 = dev_input[(i+1)*4096+laneID+3424];
+        T p108 = dev_input[(i+1)*4096+laneID+3456];
+        T p109 = dev_input[(i+1)*4096+laneID+3488];
+        T p110 = dev_input[(i+1)*4096+laneID+3520];
+        T p111 = dev_input[(i+1)*4096+laneID+3552];
+        T p112 = dev_input[(i+1)*4096+laneID+3584];
+        T p113 = dev_input[(i+1)*4096+laneID+3616];
+        T p114 = dev_input[(i+1)*4096+laneID+3648];
+        T p115 = dev_input[(i+1)*4096+laneID+3680];
+        T p116 = dev_input[(i+1)*4096+laneID+3712];
+        T p117 = dev_input[(i+1)*4096+laneID+3744];
+        T p118 = dev_input[(i+1)*4096+laneID+3776];
+        T p119 = dev_input[(i+1)*4096+laneID+3808];
+        T p120 = dev_input[(i+1)*4096+laneID+3840];
+        T p121 = dev_input[(i+1)*4096+laneID+3872];
+        T p122 = dev_input[(i+1)*4096+laneID+3904];
+        T p123 = dev_input[(i+1)*4096+laneID+3936];
+        T p124 = dev_input[(i+1)*4096+laneID+3968];
+        T p125 = dev_input[(i+1)*4096+laneID+4000];
+        T p126 = dev_input[(i+1)*4096+laneID+4032];
+        T p127 = dev_input[(i+1)*4096+laneID+4064]; */
+
         //** FINAL ROUND
-        Sbox(r0 , r1 , r2 , r3 , r4  , r5  , r6  , r7);
-        addRoundKey(r0 , r1 , r2 , r3 , r4 , r5 , r6 , r7 , &const_expkey[1280+0]);
-        Sbox(r32, r33, r34, r35, r36 , r37 , r38 , r39);
-        addRoundKey(r32, r33, r34, r35, r36 , r37 , r38 , r39 , &const_expkey[1280+32]);
-        Sbox(r64, r65, r66, r67, r68 , r69 , r70 , r71);
-        addRoundKey(r64, r65, r66, r67, r68 , r69 , r70 , r71, &const_expkey[1280+64]);
-        Sbox(r96, r97, r98, r99, r100, r101, r102, r103);
-        addRoundKey(r96, r97, r98, r99, r100, r101, r102, r103, &const_expkey[1280+96]);
+        Sbox<T>(r0 , r1 , r2 , r3 , r4  , r5  , r6  , r7);
+        addRoundKey<T>(r0 , r1 , r2 , r3 , r4 , r5 , r6 , r7 , &const_expkey[1280+0]);
+        Sbox<T>(r32, r33, r34, r35, r36 , r37 , r38 , r39);
+        addRoundKey<T>(r32, r33, r34, r35, r36 , r37 , r38 , r39 , &const_expkey[1280+32]);
+        Sbox<T>(r64, r65, r66, r67, r68 , r69 , r70 , r71);
+        addRoundKey<T>(r64, r65, r66, r67, r68 , r69 , r70 , r71, &const_expkey[1280+64]);
+        Sbox<T>(r96, r97, r98, r99, r100, r101, r102, r103);
+        addRoundKey<T>(r96, r97, r98, r99, r100, r101, r102, r103, &const_expkey[1280+96]);
         dev_output[i*4096+laneID+0   ]   = r0 ;
         dev_output[i*4096+laneID+32  ]   = r1 ;
         dev_output[i*4096+laneID+64  ]   = r2 ;
@@ -461,15 +571,15 @@ __global__ void encrypt_Kernel( uint32_t* dev_input, uint32_t* dev_output, size_
         dev_output[i*4096+laneID+3296] = r103 ;
     
 
-        Sbox(r8 , r9 , r10, r11, r12, r13, r14, r15);
-        Sbox(r40, r41, r42, r43, r44, r45, r46, r47);
-        Sbox(r72, r73, r74, r75, r76, r77, r78, r79);
-        Sbox(r104, r105, r106, r107, r108, r109, r110, r111);
-        shiftFirstRow(r8  , r9  , r10 , r11 , r12 , r13 , r14 , r15,
+        Sbox<T>(r8 , r9 , r10, r11, r12, r13, r14, r15);
+        Sbox<T>(r40, r41, r42, r43, r44, r45, r46, r47);
+        Sbox<T>(r72, r73, r74, r75, r76, r77, r78, r79);
+        Sbox<T>(r104, r105, r106, r107, r108, r109, r110, r111);
+        shiftFirstRow<T>(r8  , r9  , r10 , r11 , r12 , r13 , r14 , r15,
                       r40 , r41 , r42 , r43 , r44 , r45 , r46 , r47,
                       r72 , r73 , r74 , r75 , r76 , r77 , r78 , r79,
                       r104, r105, r106, r107, r108, r109, r110, r111);
-        addRoundKey(r8 , r9 , r10, r11, r12, r13, r14, r15, &const_expkey[1280+8]);
+        addRoundKey<T>(r8 , r9 , r10, r11, r12, r13, r14, r15, &const_expkey[1280+8]);
         dev_output[i*4096+laneID+256 ]   = r8 ;
         dev_output[i*4096+laneID+288 ]   = r9 ;
         dev_output[i*4096+laneID+320 ]  = r10 ;
@@ -478,7 +588,7 @@ __global__ void encrypt_Kernel( uint32_t* dev_input, uint32_t* dev_output, size_
         dev_output[i*4096+laneID+416 ]  = r13 ;
         dev_output[i*4096+laneID+448 ]  = r14 ;
         dev_output[i*4096+laneID+480 ]  = r15 ;
-        addRoundKey(r40, r41, r42, r43, r44, r45, r46, r47, &const_expkey[1280+40]);
+        addRoundKey<T>(r40, r41, r42, r43, r44, r45, r46, r47, &const_expkey[1280+40]);
         dev_output[i*4096+laneID+1280]  = r40 ;
         dev_output[i*4096+laneID+1312]  = r41 ;
         dev_output[i*4096+laneID+1344]  = r42 ;
@@ -487,7 +597,7 @@ __global__ void encrypt_Kernel( uint32_t* dev_input, uint32_t* dev_output, size_
         dev_output[i*4096+laneID+1440]  = r45 ;
         dev_output[i*4096+laneID+1472]  = r46 ;
         dev_output[i*4096+laneID+1504]  = r47 ;
-        addRoundKey(r72 , r73 , r74 , r75 , r76 , r77 , r78 , r79, &const_expkey[1280+72]);
+        addRoundKey<T>(r72 , r73 , r74 , r75 , r76 , r77 , r78 , r79, &const_expkey[1280+72]);
         dev_output[i*4096+laneID+2304]  = r72 ;
         dev_output[i*4096+laneID+2336]  = r73 ;
         dev_output[i*4096+laneID+2368]  = r74 ;
@@ -496,7 +606,7 @@ __global__ void encrypt_Kernel( uint32_t* dev_input, uint32_t* dev_output, size_
         dev_output[i*4096+laneID+2464]  = r77 ;
         dev_output[i*4096+laneID+2496]  = r78 ;
         dev_output[i*4096+laneID+2528]  = r79 ;
-        addRoundKey(r104, r105, r106, r107, r108, r109, r110, r111, &const_expkey[1280+104]);
+        addRoundKey<T>(r104, r105, r106, r107, r108, r109, r110, r111, &const_expkey[1280+104]);
         dev_output[i*4096+laneID+3328] = r104 ;
         dev_output[i*4096+laneID+3360] = r105 ;
         dev_output[i*4096+laneID+3392] = r106 ;
@@ -507,15 +617,15 @@ __global__ void encrypt_Kernel( uint32_t* dev_input, uint32_t* dev_output, size_
         dev_output[i*4096+laneID+3552] = r111 ;
         
 
-        Sbox(r16 , r17 , r18 , r19 , r20 , r21 , r22 , r23);
-        Sbox(r48 , r49 , r50 , r51 , r52 , r53 , r54 , r55);
-        Sbox(r80 , r81 , r82 , r83 , r84 , r85 , r86 , r87);
-        Sbox(r112, r113, r114, r115, r116, r117, r118, r119);
-        shiftSecondRow(r16 , r17 , r18 , r19 , r20 , r21 , r22 , r23,
+        Sbox<T>(r16 , r17 , r18 , r19 , r20 , r21 , r22 , r23);
+        Sbox<T>(r48 , r49 , r50 , r51 , r52 , r53 , r54 , r55);
+        Sbox<T>(r80 , r81 , r82 , r83 , r84 , r85 , r86 , r87);
+        Sbox<T>(r112, r113, r114, r115, r116, r117, r118, r119);
+        shiftSecondRow<T>(r16 , r17 , r18 , r19 , r20 , r21 , r22 , r23,
                        r80 , r81 , r82 , r83 , r84 , r85 , r86 , r87,
                        r48 , r49 , r50 , r51 , r52 , r53 , r54 , r55,
                        r112, r113, r114, r115, r116, r117, r118, r119);
-        addRoundKey(r16 , r17 , r18 , r19 , r20 , r21 , r22 , r23, &const_expkey[1280+16]);
+        addRoundKey<T>(r16 , r17 , r18 , r19 , r20 , r21 , r22 , r23, &const_expkey[1280+16]);
         dev_output[i*4096+laneID+512 ]  = r16 ;
         dev_output[i*4096+laneID+544 ]  = r17 ;
         dev_output[i*4096+laneID+576 ]  = r18 ;
@@ -524,7 +634,7 @@ __global__ void encrypt_Kernel( uint32_t* dev_input, uint32_t* dev_output, size_
         dev_output[i*4096+laneID+672 ]  = r21 ;
         dev_output[i*4096+laneID+704 ]  = r22 ;
         dev_output[i*4096+laneID+736 ]  = r23 ;
-        addRoundKey(r48 , r49 , r50 , r51 , r52 , r53 , r54 , r55, &const_expkey[1280+48]);
+        addRoundKey<T>(r48 , r49 , r50 , r51 , r52 , r53 , r54 , r55, &const_expkey[1280+48]);
         dev_output[i*4096+laneID+1536]  = r48 ;
         dev_output[i*4096+laneID+1568]  = r49 ;
         dev_output[i*4096+laneID+1600]  = r50 ;
@@ -533,7 +643,7 @@ __global__ void encrypt_Kernel( uint32_t* dev_input, uint32_t* dev_output, size_
         dev_output[i*4096+laneID+1696]  = r53 ;
         dev_output[i*4096+laneID+1728]  = r54 ;
         dev_output[i*4096+laneID+1760]  = r55 ;
-        addRoundKey(r80 , r81 , r82 , r83 , r84 , r85 , r86 , r87, &const_expkey[1280+80]);
+        addRoundKey<T>(r80 , r81 , r82 , r83 , r84 , r85 , r86 , r87, &const_expkey[1280+80]);
         dev_output[i*4096+laneID+2560]  = r80 ;
         dev_output[i*4096+laneID+2592]  = r81 ;
         dev_output[i*4096+laneID+2624]  = r82 ;
@@ -542,7 +652,7 @@ __global__ void encrypt_Kernel( uint32_t* dev_input, uint32_t* dev_output, size_
         dev_output[i*4096+laneID+2720]  = r85 ;
         dev_output[i*4096+laneID+2752]  = r86 ;
         dev_output[i*4096+laneID+2784]  = r87 ;
-        addRoundKey(r112, r113, r114, r115, r116, r117, r118, r119, &const_expkey[1280+112]);
+        addRoundKey<T>(r112, r113, r114, r115, r116, r117, r118, r119, &const_expkey[1280+112]);
         dev_output[i*4096+laneID+3584] = r112 ;
         dev_output[i*4096+laneID+3616] = r113 ;
         dev_output[i*4096+laneID+3648] = r114 ;
@@ -553,15 +663,15 @@ __global__ void encrypt_Kernel( uint32_t* dev_input, uint32_t* dev_output, size_
         dev_output[i*4096+laneID+3808] = r119 ;
 
 
-        Sbox(r24 , r25 , r26 , r27 , r28 , r29 , r30 , r31);
-        Sbox(r56 , r57 , r58 , r59 , r60 , r61 , r62 , r63);
-        Sbox(r88 , r89 , r90 , r91 , r92 , r93 , r94 , r95);
-        Sbox(r120, r121, r122, r123, r124, r125, r126, r127);
-        shiftThirdRow(r24 , r25 , r26 , r27 , r28 , r29 , r30 , r31 ,
+        Sbox<T>(r24 , r25 , r26 , r27 , r28 , r29 , r30 , r31);
+        Sbox<T>(r56 , r57 , r58 , r59 , r60 , r61 , r62 , r63);
+        Sbox<T>(r88 , r89 , r90 , r91 , r92 , r93 , r94 , r95);
+        Sbox<T>(r120, r121, r122, r123, r124, r125, r126, r127);
+        shiftThirdRow<T>(r24 , r25 , r26 , r27 , r28 , r29 , r30 , r31 ,
                       r120, r121, r122, r123, r124, r125, r126, r127,
                       r88 , r89 , r90 , r91 , r92 , r93 , r94 , r95 ,
                       r56 , r57 , r58 , r59 , r60 , r61 , r62 , r63);
-        addRoundKey(r24 , r25 , r26 , r27 , r28 , r29 , r30 , r31, &const_expkey[1280+24]);
+        addRoundKey<T>(r24 , r25 , r26 , r27 , r28 , r29 , r30 , r31, &const_expkey[1280+24]);
         dev_output[i*4096+laneID+768 ]  = r24 ;
         dev_output[i*4096+laneID+800 ]  = r25 ;
         dev_output[i*4096+laneID+832 ]  = r26 ;
@@ -570,7 +680,7 @@ __global__ void encrypt_Kernel( uint32_t* dev_input, uint32_t* dev_output, size_
         dev_output[i*4096+laneID+928 ]  = r29 ;
         dev_output[i*4096+laneID+960 ]  = r30 ;
         dev_output[i*4096+laneID+992 ]  = r31 ;
-        addRoundKey(r56 , r57 , r58 , r59 , r60 , r61 , r62 , r63, &const_expkey[1280+56]);
+        addRoundKey<T>(r56 , r57 , r58 , r59 , r60 , r61 , r62 , r63, &const_expkey[1280+56]);
         dev_output[i*4096+laneID+1792]  = r56 ;
         dev_output[i*4096+laneID+1824]  = r57 ;
         dev_output[i*4096+laneID+1856]  = r58 ;
@@ -579,7 +689,7 @@ __global__ void encrypt_Kernel( uint32_t* dev_input, uint32_t* dev_output, size_
         dev_output[i*4096+laneID+1952]  = r61 ;
         dev_output[i*4096+laneID+1984]  = r62 ;
         dev_output[i*4096+laneID+2016]  = r63 ;
-        addRoundKey(r88 , r89 , r90 , r91 , r92 , r93 , r94 , r95 , &const_expkey[1280+88]);
+        addRoundKey<T>(r88 , r89 , r90 , r91 , r92 , r93 , r94 , r95 , &const_expkey[1280+88]);
         dev_output[i*4096+laneID+2816]  = r88 ;
         dev_output[i*4096+laneID+2848]  = r89 ;
         dev_output[i*4096+laneID+2880]  = r90 ;
@@ -588,7 +698,7 @@ __global__ void encrypt_Kernel( uint32_t* dev_input, uint32_t* dev_output, size_
         dev_output[i*4096+laneID+2976]  = r93 ;
         dev_output[i*4096+laneID+3008]  = r94 ;
         dev_output[i*4096+laneID+3040]  = r95 ;
-        addRoundKey(r120, r121, r122, r123, r124, r125, r126, r127, &const_expkey[1280+120]);
+        addRoundKey<T>(r120, r121, r122, r123, r124, r125, r126, r127, &const_expkey[1280+120]);
         dev_output[i*4096+laneID+3840] = r120 ;
         dev_output[i*4096+laneID+3872] = r121 ;
         dev_output[i*4096+laneID+3904] = r122 ;
@@ -600,8 +710,8 @@ __global__ void encrypt_Kernel( uint32_t* dev_input, uint32_t* dev_output, size_
     }
 }
 
-#else
 
+#else
 __global__ void encrypt_Kernel(uint32_t* dev_input, uint32_t* dev_output, size_t inputSize)
 {
     //* Index calculations
@@ -930,12 +1040,6 @@ __global__ void encrypt_Kernel(uint32_t* dev_input, uint32_t* dev_output, size_t
             Sbox(r64, r65, r66, r67, r68, r69, r70, r71);
             Sbox(r96, r97, r98, r99, r100, r101, r102, r103);
 
-            //** Mix + RoundKey
-            //#pragma unroll(4)
-            //for(int l=0; l<4; l++){
-            //    Mixcl( &r[l*32 ] );
-            //    addRoundKey( &r[l*32 ],  &const_expkey[128*j+l*32]);
-            //}
             Mixcl(r0, r1, r2, r3, r4, r5, r6, r7,
                 r8, r9, r10, r11, r12, r13, r14, r15,
                 r16, r17, r18, r19, r20, r21, r22, r23,

@@ -1,7 +1,7 @@
 #ifndef _ENCRYPT_ECB_H_
 #define _ENCRYPT_ECB_H_
 
-//#define Opti
+#define Opti
 
 #include "BtsUtils.h"
 #include "addRoundKey.h"
@@ -35,13 +35,15 @@ __device__ void dev_print_state_128(uint32_t state[128], int stateNum) {
 } 
 
 
-//__device__ inline void addRoundKey(uint32_t shared[128], uint32_t sm_key[128])  __attribute__((always_inline));
-//__device__ inline void shiftRows(uint32_t shared[128])  __attribute__((always_inline));
-//__device__ inline void Mixcl(uint32_t shared[]) __attribute__((always_inline));
-//__device__ inline void Sbox(uint32_t *shared) __attribute__((always_inline));
+__device__ inline void addRoundKey(uint32_t shared[128], uint32_t sm_key[128])  __attribute__((always_inline));
+__device__ inline void shiftRows(uint32_t shared[128])  __attribute__((always_inline));
+__device__ inline void Mixcl(uint32_t shared[]) __attribute__((always_inline));
+__device__ inline void Sbox(uint32_t *shared) __attribute__((always_inline));
 
 
 #ifdef Opti
+
+//** Essai 1 
 __global__ void encrypt_Kernel( uint32_t* dev_input, uint32_t* dev_output, size_t inputSize)
 {
 
@@ -61,21 +63,9 @@ __global__ void encrypt_Kernel( uint32_t* dev_input, uint32_t* dev_output, size_
             r[k] = dev_input[i*4096+k*32+laneID];        
             addRoundKey(r[k], const_expkey[k]);
         }
-        
-        //printf("\nState\n");
-        //PRINT
-        //if(blockIdx.x*blockDim.x+tid==0){
-        //    printf("\nState\n");
-        //    dev_print_state_128(r,0);
-            /*for(int a=0; a<128; a++){
-                if(a%32==0)
-                    printf("\n");
-                printf("%x ",r[a]);
-            }*/
-        //}
 
         //* Round transformation: a set of table lookups operations.
-        //#pragma unroll(10)
+        //#pragma unroll
         for (int j = 1; j < 10; j++) {
             //* subBytes
             Sbox( &r[0  ] );
@@ -107,7 +97,7 @@ __global__ void encrypt_Kernel( uint32_t* dev_input, uint32_t* dev_output, size_
             
             //* addRoundKey
             //addRoundKey(r, &const_expkey[j*128]);
-            //#pragma unroll
+            #pragma unroll
             for(int k=0; k<128; k++){
                 addRoundKey(r[k], const_expkey[j*128+k]);
             }
@@ -144,6 +134,8 @@ __global__ void encrypt_Kernel( uint32_t* dev_input, uint32_t* dev_output, size_
     }
 }
 #else
+
+//** Essai 2 
 __global__ void encrypt_Kernel( uint32_t* dev_input, uint32_t* dev_output, size_t inputSize)
 {
     //* Index calculations

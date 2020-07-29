@@ -25,6 +25,7 @@
  */
 
 #define BENCH_ON //Deactivate print messages and introduce warm up and average timing
+#define T uint32_t //Data type to treat in kernels
 //#define ADV_BTS
 
 #include <stdio.h>
@@ -32,12 +33,14 @@
 
 #include "BtsUtils.h"
 #include "transpose.h"
+#include "occupancy.h"
 
 #ifdef ADV_BTS
 #include "encryptKernelECB_1.h"
 #else
 //#include "encryptKernelECB_2.h"
 #include "encryptKernelECB_3.h"
+//#include "encrypttest.h"
 #endif //ADV_BTS
 
 int main(int argc, char * argv[]) {
@@ -169,10 +172,8 @@ int main(int argc, char * argv[]) {
 
     //* CMS padding to have 16KB blocks of data
     uint32_t padElmt;
-/*     uint32_t mod512 = filesize%512;
-    padElmt = 512 - mod512; */
-    uint32_t mod512 = filesize%16384;
-    padElmt = 16384 - mod512;
+    uint32_t mod16 = filesize%16384;
+    padElmt = 16384 - mod16;
     filesize += padElmt;
 
     //* Creating required arrays
@@ -253,7 +254,7 @@ int main(int argc, char * argv[]) {
 
     // ***Device allocations and transfers***
     //* Device vectors declarations and allocations
-    uint32_t * devInput, * devOutput;
+    T * devInput, * devOutput;
     cudaMalloc( (void **) &devInput  , filesize*sizeof(uint8_t));
     cudaMalloc( (void **) &devOutput , filesize*sizeof(uint8_t));
 
@@ -282,7 +283,7 @@ int main(int argc, char * argv[]) {
     #ifdef ADV_BTS
     //** ADV_BTS kernel with static shared
     checkCudaErrors(cudaEventRecord(startHost, NULL));
-    for(int j=0; j<1000; j++){ //** For benchmarking
+    for(int j=0; j<100; j++){ //** For benchmarking
         encrypt_Kernel<<<blockNum,threadNum>>>(devInput, devOutput, filesize);
     }
     //checkCudaErrors(cudaGetLastError());
@@ -290,7 +291,7 @@ int main(int argc, char * argv[]) {
     #else
     //** Kernel with dynamic shared
     checkCudaErrors(cudaEventRecord(startHost, NULL));
-    for(int j=0; j<1000; j++){ //** For benchmarking
+    for(int j=0; j<100; j++){ //** For benchmarking
         //** Third argument is shared memory space per block. Each warp need 128*sizeof(uint32_t)
         //encrypt_Kernel<<<blockNum,threadNum,4*threadNum*sizeof(uint32_t)>>>(devInput, devOutput, filesize);
 		encrypt_Kernel<<<blockNum,threadNum>>>(devInput, devOutput, filesize);
@@ -323,7 +324,7 @@ int main(int argc, char * argv[]) {
     double throughput;
     checkCudaErrors(cudaEventElapsedTime(&Hostmsec, startHost, stopHost));
 #ifdef BENCH_ON
-    Hostmsec /= 1000;
+    Hostmsec /= 100;
 #endif
     throughput = 1.0e-9f*8*filesize/(Hostmsec*1.0e-3f);
     printf("\nTotal processing time: %f (ms)", Hostmsec);
@@ -363,7 +364,7 @@ int main(int argc, char * argv[]) {
         printf("%2x ",outputData[i]);
     }
     printf("\n");
-#endif //BENCH_ON
+
 
     //Writing results inside a file
     FILE * outputFile;
@@ -379,6 +380,7 @@ int main(int argc, char * argv[]) {
         exit(1);
     }
     fclose(outputFile); 
+#endif //BENCH_ON
 
     //Free Host memory
     free(inputData);

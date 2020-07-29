@@ -1,20 +1,23 @@
 #ifndef _MIXCOLUMNS_H_
 #define _MIXCOLUMNS_H_
 
-__device__ void Mixcl( 
-uint32_t &r0 , uint32_t &r1 , uint32_t &r2 , uint32_t &r3 , uint32_t &r4 , uint32_t &r5 , uint32_t &r6 , uint32_t &r7,
-uint32_t &r8 , uint32_t &r9 , uint32_t &r10, uint32_t &r11, uint32_t &r12, uint32_t &r13, uint32_t &r14, uint32_t &r15,
-uint32_t &r16, uint32_t &r17, uint32_t &r18, uint32_t &r19, uint32_t &r20, uint32_t &r21, uint32_t &r22, uint32_t &r23,
-uint32_t &r24, uint32_t &r25, uint32_t &r26, uint32_t &r27, uint32_t &r28, uint32_t &r29, uint32_t &r30, uint32_t &r31){
+
+// Register version
+template<typename T>
+__device__ __forceinline__ void Mixcl( 
+T &r0 , T &r1 , T &r2 , T &r3 , T &r4 , T &r5 , T &r6 , T &r7,
+T &r8 , T &r9 , T &r10, T &r11, T &r12, T &r13, T &r14, T &r15,
+T &r16, T &r17, T &r18, T &r19, T &r20, T &r21, T &r22, T &r23,
+T &r24, T &r25, T &r26, T &r27, T &r28, T &r29, T &r30, T &r31){
     
-    uint32_t o0  = 0 , o1  = 0 , o2  = 0, o3  = 0, o4  = 0, o5  = 0, o6  = 0, o7  = 0;
-    uint32_t o8  = 0 , o9  = 0 , o10 = 0, o11 = 0, o12 = 0, o13 = 0, o14 = 0, o15 = 0;
-    uint32_t o16 = 0 , o17 = 0 , o18 = 0, o19 = 0, o20 = 0, o21 = 0, o22 = 0, o23 = 0;
-    uint32_t o24 = 0 , o25 = 0 , o26 = 0, o27 = 0, o28 = 0, o29 = 0, o30 = 0, o31 = 0;
+    T o0  = 0 , o1  = 0 , o2  = 0, o3  = 0, o4  = 0, o5  = 0, o6  = 0, o7  = 0;
+    T o8  = 0 , o9  = 0 , o10 = 0, o11 = 0, o12 = 0, o13 = 0, o14 = 0, o15 = 0;
+    T o16 = 0 , o17 = 0 , o18 = 0, o19 = 0, o20 = 0, o21 = 0, o22 = 0, o23 = 0;
+    T o24 = 0 , o25 = 0 , o26 = 0, o27 = 0, o28 = 0, o29 = 0, o30 = 0, o31 = 0;
 
 
-    uint32_t a0,a1,a2,a3,a4,a5,a6,a7;//Mul2
-    uint32_t tmp;
+    T a0,a1,a2,a3,a4,a5,a6,a7;//Mul2
+    T tmp;
     /*
     Mix Columns in GF(2^8) with Primitive Polynomial g(x)=x^8+x^4+x^3+x+1
     Bitsliced Implementation 32-bit
@@ -205,16 +208,17 @@ uint32_t &r24, uint32_t &r25, uint32_t &r26, uint32_t &r27, uint32_t &r28, uint3
  }
 
 
-//__device__ inline void Mixcl(uint32_t shared[]){
-__device__  void Mixcl(uint32_t shared[]){
-    uint32_t o0  = 0 , o1  = 0 , o2  = 0, o3  = 0, o4  = 0, o5  = 0, o6  = 0, o7  = 0;
-    uint32_t o8  = 0 , o9  = 0 , o10 = 0, o11 = 0, o12 = 0, o13 = 0, o14 = 0, o15 = 0;
-    uint32_t o16 = 0 , o17 = 0 , o18 = 0, o19 = 0, o20 = 0, o21 = 0, o22 = 0, o23 = 0;
-    uint32_t o24 = 0 , o25 = 0 , o26 = 0, o27 = 0, o28 = 0, o29 = 0, o30 = 0, o31 = 0;
+// Array version
+template<typename T>
+__device__  void Mixcl(T shared[]){
+    T o0  = 0 , o1  = 0 , o2  = 0, o3  = 0, o4  = 0, o5  = 0, o6  = 0, o7  = 0;
+    T o8  = 0 , o9  = 0 , o10 = 0, o11 = 0, o12 = 0, o13 = 0, o14 = 0, o15 = 0;
+    T o16 = 0 , o17 = 0 , o18 = 0, o19 = 0, o20 = 0, o21 = 0, o22 = 0, o23 = 0;
+    T o24 = 0 , o25 = 0 , o26 = 0, o27 = 0, o28 = 0, o29 = 0, o30 = 0, o31 = 0;
 
 
-    uint32_t a0,a1,a2,a3,a4,a5,a6,a7;//Mul2
-    uint32_t tmp;
+    T a0,a1,a2,a3,a4,a5,a6,a7;//Mul2
+    T tmp;
     /*
     Mix Columns in GF(2^8) with Primitive Polynomial g(x)=x^8+x^4+x^3+x+1
     Bitsliced Implementation 32-bit

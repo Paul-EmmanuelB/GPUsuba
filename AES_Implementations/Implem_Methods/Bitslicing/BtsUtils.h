@@ -53,7 +53,7 @@ int fsize(char * filename) {
 #define Nk 4			// number of columns in a key
 #define Nr 10			// number of rounds in encryption
 
-__constant__ uint32_t const_expkey[1408]; // The expended key to put into the constant memory
+__constant__ T const_expkey[5632/sizeof(T)]; // The expended key to put into the constant memory
 
 
 const uint32_t rcon[] = {

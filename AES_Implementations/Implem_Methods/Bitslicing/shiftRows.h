@@ -1,12 +1,185 @@
 #ifndef _SHIFT_ROWS_H_
 #define _SHIFT_ROWS_H_
 
-__device__ void shiftRows(uint32_t &r8  , uint32_t &r9  , uint32_t &r10 , uint32_t &r11 , uint32_t &r12 , uint32_t &r13 , uint32_t &r14 , uint32_t &r15 , uint32_t &r16 , uint32_t &r17 , uint32_t &r18 , uint32_t &r19 , uint32_t &r20 , uint32_t &r21 , uint32_t &r22 , uint32_t &r23 , uint32_t &r24 , uint32_t &r25 , uint32_t &r26 , uint32_t &r27 , uint32_t &r28 , uint32_t &r29 , uint32_t &r30 , uint32_t &r31 ,
-                          uint32_t &r40 , uint32_t &r41 , uint32_t &r42 , uint32_t &r43 , uint32_t &r44 , uint32_t &r45 , uint32_t &r46 , uint32_t &r47 , uint32_t &r48 , uint32_t &r49 , uint32_t &r50 , uint32_t &r51 , uint32_t &r52 , uint32_t &r53 , uint32_t &r54 , uint32_t &r55 , uint32_t &r56 , uint32_t &r57 , uint32_t &r58 , uint32_t &r59 , uint32_t &r60 , uint32_t &r61 , uint32_t &r62 , uint32_t &r63 ,
-                          uint32_t &r72 , uint32_t &r73 , uint32_t &r74 , uint32_t &r75 , uint32_t &r76 , uint32_t &r77 , uint32_t &r78 , uint32_t &r79 , uint32_t &r80 , uint32_t &r81 , uint32_t &r82 , uint32_t &r83 , uint32_t &r84 , uint32_t &r85 , uint32_t &r86 , uint32_t &r87 , uint32_t &r88 , uint32_t &r89 , uint32_t &r90 , uint32_t &r91 , uint32_t &r92 , uint32_t &r93 , uint32_t &r94 , uint32_t &r95 ,
-                          uint32_t &r104, uint32_t &r105, uint32_t &r106, uint32_t &r107, uint32_t &r108, uint32_t &r109, uint32_t &r110, uint32_t &r111, uint32_t &r112, uint32_t &r113, uint32_t &r114, uint32_t &r115, uint32_t &r116, uint32_t &r117, uint32_t &r118, uint32_t &r119, uint32_t &r120, uint32_t &r121, uint32_t &r122, uint32_t &r123, uint32_t &r124, uint32_t &r125, uint32_t &r126, uint32_t &r127){
+// Register version
+template<typename T>
+__device__ __forceinline__ void shiftFirstRow(T &r0 , T &r1 , T &r2 , T &r3 , T &r4 , T &r5 , T &r6 , T &r7 ,
+                              T &r8 , T &r9 , T &r10, T &r11, T &r12, T &r13, T &r14, T &r15,
+                              T &r16, T &r17, T &r18, T &r19, T &r20, T &r21, T &r22, T &r23,
+                              T &r24, T &r25, T &r26, T &r27, T &r28, T &r29, T &r30, T &r31){    
+    T t0, t1, t2, t3, t4, t5, t6, t7;
+
+    //First row
+    t0 = r0;
+    t1 = r1;
+    t2 = r2;
+    t3 = r3;
+    t4 = r4;
+    t5 = r5;
+    t6 = r6;
+    t7 = r7;
+
+    r0 = r8;
+    r1 = r9;
+    r2 = r10;
+    r3 = r11;
+    r4 = r12;
+    r5 = r13;
+    r6 = r14;
+    r7 = r15;
+
+    r8  = r16;
+    r9  = r17;
+    r10 = r18;
+    r11 = r19;
+    r12 = r20;
+    r13 = r21;
+    r14 = r22;
+    r15 = r23;
+
+    r16 = r24;
+    r17 = r25;
+    r18 = r26;
+    r19 = r27;
+    r20 = r28;
+    r21 = r29;
+    r22 = r30;
+    r23 = r31;
+
+    r24 = t0;
+    r25 = t1;
+    r26 = t2;
+    r27 = t3;
+    r28 = t4;
+    r29 = t5;
+    r30 = t6;
+    r31 = t7;
+}
+
+template<typename T>
+__device__ __forceinline__ void shiftSecondRow(T &r0 , T &r1 , T &r2 , T &r3 , T &r4 , T &r5 , T &r6 , T &r7 ,
+                               T &r8 , T &r9 , T &r10, T &r11, T &r12, T &r13, T &r14, T &r15,
+                               T &r16, T &r17, T &r18, T &r19, T &r20, T &r21, T &r22, T &r23,
+                               T &r24, T &r25, T &r26, T &r27, T &r28, T &r29, T &r30, T &r31){
+    T t0, t1, t2, t3, t4, t5, t6, t7;
+    //Second row
+    t0 = r0;
+    t1 = r1;
+    t2 = r2;
+    t3 = r3;
+    t4 = r4;
+    t5 = r5;
+    t6 = r6;
+    t7 = r7;
+
+    r0 = r8;
+    r1 = r9;
+    r2 = r10;
+    r3 = r11;
+    r4 = r12;
+    r5 = r13;
+    r6 = r14;
+    r7 = r15;
+
+    r8 = t0;
+    r9 = t1;
+    r10 = t2;
+    r11 = t3;
+    r12 = t4;
+    r13 = t5;
+    r14 = t6;
+    r15 = t7;
+
+    t0 = r16;
+    t1 = r17;
+    t2 = r18;
+    t3 = r19;
+    t4 = r20;
+    t5 = r21;
+    t6 = r22;
+    t7 = r23;
+
+    r16 = r24;
+    r17 = r25;
+    r18 = r26;
+    r19 = r27;
+    r20 = r28;
+    r21 = r29;
+    r22 = r30;
+    r23 = r31;
+
+    r24 = t0;
+    r25 = t1;
+    r26 = t2;
+    r27 = t3;
+    r28 = t4;
+    r29 = t5;
+    r30 = t6;
+    r31 = t7;
+}
+
+template<typename T>
+__device__ __forceinline__ void shiftThirdRow(T &r0 , T &r1 , T &r2 , T &r3 , T &r4 , T &r5 , T &r6 , T &r7 ,
+                              T &r8 , T &r9 , T &r10, T &r11, T &r12, T &r13, T &r14, T &r15,
+                              T &r16, T &r17, T &r18, T &r19, T &r20, T &r21, T &r22, T &r23,
+                              T &r24, T &r25, T &r26, T &r27, T &r28, T &r29, T &r30, T &r31){
+
+    T t0, t1, t2, t3, t4, t5, t6, t7;
+    //Last row
+    t0 = r0;
+    t1 = r1;
+    t2 = r2;
+    t3 = r3;
+    t4 = r4;
+    t5 = r5;
+    t6 = r6;
+    t7 = r7;
+
+    r0 = r8;
+    r1 = r9;
+    r2 = r10;
+    r3 = r11;
+    r4 = r12;
+    r5 = r13;
+    r6 = r14;
+    r7 = r15;
+
+    r8  = r16;
+    r9  = r17;
+    r10 = r18;
+    r11 = r19;
+    r12 = r20;
+    r13 = r21;
+    r14 = r22;
+    r15 = r23;
+
+    r16 = r24;
+    r17 = r25;
+    r18 = r26;
+    r19 = r27;
+    r20 = r28;
+    r21 = r29;
+    r22 = r30;
+    r23 = r31;
+
+    r24 = t0;
+    r25 = t1;
+    r26 = t2;
+    r27 = t3;
+    r28 = t4;
+    r29 = t5;
+    r30 = t6;
+    r31 = t7;
+}
+
+
+template<typename T>
+__device__ __forceinline__ void shiftRows(T &r8  , T &r9  , T &r10 , T &r11 , T &r12 , T &r13 , T &r14 , T &r15 , T &r16 , T &r17 , T &r18 , T &r19 , T &r20 , T &r21 , T &r22 , T &r23 , T &r24 , T &r25 , T &r26 , T &r27 , T &r28 , T &r29 , T &r30 , T &r31 ,
+                          T &r40 , T &r41 , T &r42 , T &r43 , T &r44 , T &r45 , T &r46 , T &r47 , T &r48 , T &r49 , T &r50 , T &r51 , T &r52 , T &r53 , T &r54 , T &r55 , T &r56 , T &r57 , T &r58 , T &r59 , T &r60 , T &r61 , T &r62 , T &r63 ,
+                          T &r72 , T &r73 , T &r74 , T &r75 , T &r76 , T &r77 , T &r78 , T &r79 , T &r80 , T &r81 , T &r82 , T &r83 , T &r84 , T &r85 , T &r86 , T &r87 , T &r88 , T &r89 , T &r90 , T &r91 , T &r92 , T &r93 , T &r94 , T &r95 ,
+                          T &r104, T &r105, T &r106, T &r107, T &r108, T &r109, T &r110, T &r111, T &r112, T &r113, T &r114, T &r115, T &r116, T &r117, T &r118, T &r119, T &r120, T &r121, T &r122, T &r123, T &r124, T &r125, T &r126, T &r127){
     
-    uint32_t t0, t1, t2, t3, t4, t5, t6, t7;
+    T t0, t1, t2, t3, t4, t5, t6, t7;
 
     //First row
     t0 = r8 ;
@@ -156,10 +329,10 @@ __device__ void shiftRows(uint32_t &r8  , uint32_t &r9  , uint32_t &r10 , uint32
     r63 = t7;
 }
 
-
-//__device__ inline void shiftRows(uint32_t cipher[128]){
-__device__ void shiftRows(uint32_t cipher[128]){    
-    uint32_t t0, t1, t2, t3, t4, t5, t6, t7;
+// Array version
+template<typename T>
+__device__ void shiftRows(T cipher[128]){    
+    T t0, t1, t2, t3, t4, t5, t6, t7;
 
     //First row
     t0 = cipher[8] ;
@@ -310,8 +483,9 @@ __device__ void shiftRows(uint32_t cipher[128]){
 }
 
 
-__device__ void shiftFirstRow(uint32_t a8[8], uint32_t b40[8], uint32_t c72[8], uint32_t d104[8]){    
-    uint32_t t0, t1, t2, t3, t4, t5, t6, t7;
+template<typename T>
+__device__ void shiftFirstRow(T a8[8], T b40[8], T c72[8], T d104[8]){    
+    T t0, t1, t2, t3, t4, t5, t6, t7;
 
     //First row
     t0 = a8[0];
@@ -360,9 +534,10 @@ __device__ void shiftFirstRow(uint32_t a8[8], uint32_t b40[8], uint32_t c72[8], 
     d104[7] = t7;
 }
 
-__device__ void shiftSecondRow(uint32_t a16[8], uint32_t b80[8], uint32_t c48[8], uint32_t d112[8]){ 
+template<typename T>
+__device__ void shiftSecondRow(T a16[8], T b80[8], T c48[8], T d112[8]){ 
 
-    uint32_t t0, t1, t2, t3, t4, t5, t6, t7;
+    T t0, t1, t2, t3, t4, t5, t6, t7;
     //Second row
     t0 = a16[0];
     t1 = a16[1];
@@ -419,9 +594,9 @@ __device__ void shiftSecondRow(uint32_t a16[8], uint32_t b80[8], uint32_t c48[8]
     d112[7] = t7;
 }
 
-__device__ void shiftThirdRow(uint32_t a24[8], uint32_t b120[8], uint32_t c88[8], uint32_t d56[8]){ 
-
-    uint32_t t0, t1, t2, t3, t4, t5, t6, t7;
+template<typename T>
+__device__ void shiftThirdRow(T a24[8], T b120[8], T c88[8], T d56[8]){ 
+    T t0, t1, t2, t3, t4, t5, t6, t7;
     //Last row
     t0 = a24[0];
     t1 = a24[1];
@@ -468,177 +643,5 @@ __device__ void shiftThirdRow(uint32_t a24[8], uint32_t b120[8], uint32_t c88[8]
     d56[6] = t6;
     d56[7] = t7;
 }
-
-
-//* For last version 
-__device__ inline void shiftFirstRow(uint32_t &r0 , uint32_t &r1 , uint32_t &r2 , uint32_t &r3 , uint32_t &r4 , uint32_t &r5 , uint32_t &r6 , uint32_t &r7 ,
-                              uint32_t &r8 , uint32_t &r9 , uint32_t &r10, uint32_t &r11, uint32_t &r12, uint32_t &r13, uint32_t &r14, uint32_t &r15,
-                              uint32_t &r16, uint32_t &r17, uint32_t &r18, uint32_t &r19, uint32_t &r20, uint32_t &r21, uint32_t &r22, uint32_t &r23,
-                              uint32_t &r24, uint32_t &r25, uint32_t &r26, uint32_t &r27, uint32_t &r28, uint32_t &r29, uint32_t &r30, uint32_t &r31){    
-    uint32_t t0, t1, t2, t3, t4, t5, t6, t7;
-
-    //First row
-    t0 = r0;
-    t1 = r1;
-    t2 = r2;
-    t3 = r3;
-    t4 = r4;
-    t5 = r5;
-    t6 = r6;
-    t7 = r7;
-
-    r0 = r8;
-    r1 = r9;
-    r2 = r10;
-    r3 = r11;
-    r4 = r12;
-    r5 = r13;
-    r6 = r14;
-    r7 = r15;
-
-    r8  = r16;
-    r9  = r17;
-    r10 = r18;
-    r11 = r19;
-    r12 = r20;
-    r13 = r21;
-    r14 = r22;
-    r15 = r23;
-
-    r16 = r24;
-    r17 = r25;
-    r18 = r26;
-    r19 = r27;
-    r20 = r28;
-    r21 = r29;
-    r22 = r30;
-    r23 = r31;
-
-    r24 = t0;
-    r25 = t1;
-    r26 = t2;
-    r27 = t3;
-    r28 = t4;
-    r29 = t5;
-    r30 = t6;
-    r31 = t7;
-}
-
-__device__ inline void shiftSecondRow(uint32_t &r0 , uint32_t &r1 , uint32_t &r2 , uint32_t &r3 , uint32_t &r4 , uint32_t &r5 , uint32_t &r6 , uint32_t &r7 ,
-                               uint32_t &r8 , uint32_t &r9 , uint32_t &r10, uint32_t &r11, uint32_t &r12, uint32_t &r13, uint32_t &r14, uint32_t &r15,
-                               uint32_t &r16, uint32_t &r17, uint32_t &r18, uint32_t &r19, uint32_t &r20, uint32_t &r21, uint32_t &r22, uint32_t &r23,
-                               uint32_t &r24, uint32_t &r25, uint32_t &r26, uint32_t &r27, uint32_t &r28, uint32_t &r29, uint32_t &r30, uint32_t &r31){
-    uint32_t t0, t1, t2, t3, t4, t5, t6, t7;
-    //Second row
-    t0 = r0;
-    t1 = r1;
-    t2 = r2;
-    t3 = r3;
-    t4 = r4;
-    t5 = r5;
-    t6 = r6;
-    t7 = r7;
-
-    r0 = r8;
-    r1 = r9;
-    r2 = r10;
-    r3 = r11;
-    r4 = r12;
-    r5 = r13;
-    r6 = r14;
-    r7 = r15;
-
-    r8 = t0;
-    r9 = t1;
-    r10 = t2;
-    r11 = t3;
-    r12 = t4;
-    r13 = t5;
-    r14 = t6;
-    r15 = t7;
-
-    t0 = r16;
-    t1 = r17;
-    t2 = r18;
-    t3 = r19;
-    t4 = r20;
-    t5 = r21;
-    t6 = r22;
-    t7 = r23;
-
-    r16 = r24;
-    r17 = r25;
-    r18 = r26;
-    r19 = r27;
-    r20 = r28;
-    r21 = r29;
-    r22 = r30;
-    r23 = r31;
-
-    r24 = t0;
-    r25 = t1;
-    r26 = t2;
-    r27 = t3;
-    r28 = t4;
-    r29 = t5;
-    r30 = t6;
-    r31 = t7;
-}
-
-__device__ inline void shiftThirdRow(uint32_t &r0 , uint32_t &r1 , uint32_t &r2 , uint32_t &r3 , uint32_t &r4 , uint32_t &r5 , uint32_t &r6 , uint32_t &r7 ,
-                              uint32_t &r8 , uint32_t &r9 , uint32_t &r10, uint32_t &r11, uint32_t &r12, uint32_t &r13, uint32_t &r14, uint32_t &r15,
-                              uint32_t &r16, uint32_t &r17, uint32_t &r18, uint32_t &r19, uint32_t &r20, uint32_t &r21, uint32_t &r22, uint32_t &r23,
-                              uint32_t &r24, uint32_t &r25, uint32_t &r26, uint32_t &r27, uint32_t &r28, uint32_t &r29, uint32_t &r30, uint32_t &r31){
-
-    uint32_t t0, t1, t2, t3, t4, t5, t6, t7;
-    //Last row
-    t0 = r0;
-    t1 = r1;
-    t2 = r2;
-    t3 = r3;
-    t4 = r4;
-    t5 = r5;
-    t6 = r6;
-    t7 = r7;
-
-    r0 = r8;
-    r1 = r9;
-    r2 = r10;
-    r3 = r11;
-    r4 = r12;
-    r5 = r13;
-    r6 = r14;
-    r7 = r15;
-
-    r8  = r16;
-    r9  = r17;
-    r10 = r18;
-    r11 = r19;
-    r12 = r20;
-    r13 = r21;
-    r14 = r22;
-    r15 = r23;
-
-    r16 = r24;
-    r17 = r25;
-    r18 = r26;
-    r19 = r27;
-    r20 = r28;
-    r21 = r29;
-    r22 = r30;
-    r23 = r31;
-
-    r24 = t0;
-    r25 = t1;
-    r26 = t2;
-    r27 = t3;
-    r28 = t4;
-    r29 = t5;
-    r30 = t6;
-    r31 = t7;
-}
-
-
-
 
 #endif //_SHIFT_ROWS_H_
