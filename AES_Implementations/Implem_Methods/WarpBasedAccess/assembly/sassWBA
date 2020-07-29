@@ -1,0 +1,2743 @@
+	.headerflags	@"EF_CUDA_TEXMODE_UNIFIED EF_CUDA_64BIT_ADDRESS EF_CUDA_SM62 EF_CUDA_VIRTUAL_SM(EF_CUDA_SM62)"
+	.elftype	@"ET_EXEC"
+
+
+//--------------------- .nv.info                  --------------------------
+	.section	.nv.info,"",@"SHT_CUDA_INFO"
+	.align	4
+
+
+	//----- nvinfo : EIATTR_MAX_STACK_SIZE
+	.align		4
+        /*0000*/ 	.byte	0x04, 0x23
+        /*0002*/ 	.short	(.L_14 - .L_13)
+	.align		4
+.L_13:
+        /*0004*/ 	.word	index@(_Z14encrypt_KernelPjS_mS_S_S_S_Ph)
+        /*0008*/ 	.word	0x00000000
+
+
+	//----- nvinfo : EIATTR_MIN_STACK_SIZE
+	.align		4
+.L_14:
+        /*000c*/ 	.byte	0x04, 0x12
+        /*000e*/ 	.short	(.L_16 - .L_15)
+	.align		4
+.L_15:
+        /*0010*/ 	.word	index@(_Z14encrypt_KernelPjS_mS_S_S_S_Ph)
+        /*0014*/ 	.word	0x00000000
+
+
+	//----- nvinfo : EIATTR_FRAME_SIZE
+	.align		4
+.L_16:
+        /*0018*/ 	.byte	0x04, 0x11
+        /*001a*/ 	.short	(.L_18 - .L_17)
+	.align		4
+.L_17:
+        /*001c*/ 	.word	index@(_Z14encrypt_KernelPjS_mS_S_S_S_Ph)
+        /*0020*/ 	.word	0x00000000
+
+
+	//----- nvinfo : EIATTR_MAX_STACK_SIZE
+	.align		4
+.L_18:
+        /*0024*/ 	.byte	0x04, 0x23
+        /*0026*/ 	.short	(.L_20 - .L_19)
+	.align		4
+.L_19:
+        /*0028*/ 	.word	index@(_Z14decrypt_KernelPjS_mS_S_S_S_Ph)
+        /*002c*/ 	.word	0x00000000
+
+
+	//----- nvinfo : EIATTR_MIN_STACK_SIZE
+	.align		4
+.L_20:
+        /*0030*/ 	.byte	0x04, 0x12
+        /*0032*/ 	.short	(.L_22 - .L_21)
+	.align		4
+.L_21:
+        /*0034*/ 	.word	index@(_Z14decrypt_KernelPjS_mS_S_S_S_Ph)
+        /*0038*/ 	.word	0x00000000
+
+
+	//----- nvinfo : EIATTR_FRAME_SIZE
+	.align		4
+.L_22:
+        /*003c*/ 	.byte	0x04, 0x11
+        /*003e*/ 	.short	(.L_24 - .L_23)
+	.align		4
+.L_23:
+        /*0040*/ 	.word	index@(_Z14decrypt_KernelPjS_mS_S_S_S_Ph)
+        /*0044*/ 	.word	0x00000000
+.L_24:
+
+
+//--------------------- .nv.info._Z14decrypt_KernelPjS_mS_S_S_S_Ph --------------------------
+	.section	.nv.info._Z14decrypt_KernelPjS_mS_S_S_S_Ph,"",@"SHT_CUDA_INFO"
+	.align	4
+
+
+	//----- nvinfo : EIATTR_SW1850030_WAR
+	.align		4
+        /*0000*/ 	.byte	0x01, 0x2a
+	.zero		2
+
+
+	//----- nvinfo : EIATTR_PARAM_CBANK
+	.align		4
+        /*0004*/ 	.byte	0x04, 0x0a
+        /*0006*/ 	.short	(.L_26 - .L_25)
+	.align		4
+.L_25:
+        /*0008*/ 	.word	index@(.nv.constant0._Z14decrypt_KernelPjS_mS_S_S_S_Ph)
+        /*000c*/ 	.short	0x0140
+        /*000e*/ 	.short	0x0040
+
+
+	//----- nvinfo : EIATTR_CBANK_PARAM_SIZE
+	.align		4
+.L_26:
+        /*0010*/ 	.byte	0x03, 0x19
+        /*0012*/ 	.short	0x0040
+
+
+	//----- nvinfo : EIATTR_KPARAM_INFO
+	.align		4
+        /*0014*/ 	.byte	0x04, 0x17
+        /*0016*/ 	.short	(.L_28 - .L_27)
+.L_27:
+        /*0018*/ 	.word	0x00000000
+        /*001c*/ 	.short	0x0007
+        /*001e*/ 	.short	0x0038
+        /*0020*/ 	.byte	0x00, 0xf0, 0x21, 0x00
+
+
+	//----- nvinfo : EIATTR_KPARAM_INFO
+	.align		4
+.L_28:
+        /*0024*/ 	.byte	0x04, 0x17
+        /*0026*/ 	.short	(.L_30 - .L_29)
+.L_29:
+        /*0028*/ 	.word	0x00000000
+        /*002c*/ 	.short	0x0006
+        /*002e*/ 	.short	0x0030
+        /*0030*/ 	.byte	0x00, 0xf0, 0x21, 0x00
+
+
+	//----- nvinfo : EIATTR_KPARAM_INFO
+	.align		4
+.L_30:
+        /*0034*/ 	.byte	0x04, 0x17
+        /*0036*/ 	.short	(.L_32 - .L_31)
+.L_31:
+        /*0038*/ 	.word	0x00000000
+        /*003c*/ 	.short	0x0005
+        /*003e*/ 	.short	0x0028
+        /*0040*/ 	.byte	0x00, 0xf0, 0x21, 0x00
+
+
+	//----- nvinfo : EIATTR_KPARAM_INFO
+	.align		4
+.L_32:
+        /*0044*/ 	.byte	0x04, 0x17
+        /*0046*/ 	.short	(.L_34 - .L_33)
+.L_33:
+        /*0048*/ 	.word	0x00000000
+        /*004c*/ 	.short	0x0004
+        /*004e*/ 	.short	0x0020
+        /*0050*/ 	.byte	0x00, 0xf0, 0x21, 0x00
+
+
+	//----- nvinfo : EIATTR_KPARAM_INFO
+	.align		4
+.L_34:
+        /*0054*/ 	.byte	0x04, 0x17
+        /*0056*/ 	.short	(.L_36 - .L_35)
+.L_35:
+        /*0058*/ 	.word	0x00000000
+        /*005c*/ 	.short	0x0003
+        /*005e*/ 	.short	0x0018
+        /*0060*/ 	.byte	0x00, 0xf0, 0x21, 0x00
+
+
+	//----- nvinfo : EIATTR_KPARAM_INFO
+	.align		4
+.L_36:
+        /*0064*/ 	.byte	0x04, 0x17
+        /*0066*/ 	.short	(.L_38 - .L_37)
+.L_37:
+        /*0068*/ 	.word	0x00000000
+        /*006c*/ 	.short	0x0002
+        /*006e*/ 	.short	0x0010
+        /*0070*/ 	.byte	0x00, 0xf0, 0x21, 0x00
+
+
+	//----- nvinfo : EIATTR_KPARAM_INFO
+	.align		4
+.L_38:
+        /*0074*/ 	.byte	0x04, 0x17
+        /*0076*/ 	.short	(.L_40 - .L_39)
+.L_39:
+        /*0078*/ 	.word	0x00000000
+        /*007c*/ 	.short	0x0001
+        /*007e*/ 	.short	0x0008
+        /*0080*/ 	.byte	0x00, 0xf0, 0x21, 0x00
+
+
+	//----- nvinfo : EIATTR_KPARAM_INFO
+	.align		4
+.L_40:
+        /*0084*/ 	.byte	0x04, 0x17
+        /*0086*/ 	.short	(.L_42 - .L_41)
+.L_41:
+        /*0088*/ 	.word	0x00000000
+        /*008c*/ 	.short	0x0000
+        /*008e*/ 	.short	0x0000
+        /*0090*/ 	.byte	0x00, 0xf0, 0x21, 0x00
+
+
+	//----- nvinfo : EIATTR_MAXREG_COUNT
+	.align		4
+.L_42:
+        /*0094*/ 	.byte	0x03, 0x1b
+        /*0096*/ 	.short	0x00ff
+
+
+	//----- nvinfo : EIATTR_S2RCTAID_INSTR_OFFSETS
+	.align		4
+        /*0098*/ 	.byte	0x04, 0x1d
+        /*009a*/ 	.short	(.L_44 - .L_43)
+
+
+	//   ....[0]....
+.L_43:
+        /*009c*/ 	.word	0x000000f0
+
+
+	//   ....[1]....
+        /*00a0*/ 	.word	0x00000138
+
+
+	//----- nvinfo : EIATTR_EXIT_INSTR_OFFSETS
+	.align		4
+.L_44:
+        /*00a4*/ 	.byte	0x04, 0x1c
+        /*00a6*/ 	.short	(.L_46 - .L_45)
+
+
+	//   ....[0]....
+.L_45:
+        /*00a8*/ 	.word	0x00000b48
+
+
+	//   ....[1]....
+        /*00ac*/ 	.word	0x000041d0
+
+
+	//----- nvinfo : EIATTR_CRS_STACK_SIZE
+	.align		4
+.L_46:
+        /*00b0*/ 	.byte	0x04, 0x1e
+        /*00b2*/ 	.short	(.L_48 - .L_47)
+.L_47:
+        /*00b4*/ 	.word	0x00000020
+.L_48:
+
+
+//--------------------- .nv.info._Z14encrypt_KernelPjS_mS_S_S_S_Ph --------------------------
+	.section	.nv.info._Z14encrypt_KernelPjS_mS_S_S_S_Ph,"",@"SHT_CUDA_INFO"
+	.align	4
+
+
+	//----- nvinfo : EIATTR_SW1850030_WAR
+	.align		4
+        /*0000*/ 	.byte	0x01, 0x2a
+	.zero		2
+
+
+	//----- nvinfo : EIATTR_PARAM_CBANK
+	.align		4
+        /*0004*/ 	.byte	0x04, 0x0a
+        /*0006*/ 	.short	(.L_50 - .L_49)
+	.align		4
+.L_49:
+        /*0008*/ 	.word	index@(.nv.constant0._Z14encrypt_KernelPjS_mS_S_S_S_Ph)
+        /*000c*/ 	.short	0x0140
+        /*000e*/ 	.short	0x0040
+
+
+	//----- nvinfo : EIATTR_CBANK_PARAM_SIZE
+	.align		4
+.L_50:
+        /*0010*/ 	.byte	0x03, 0x19
+        /*0012*/ 	.short	0x0040
+
+
+	//----- nvinfo : EIATTR_KPARAM_INFO
+	.align		4
+        /*0014*/ 	.byte	0x04, 0x17
+        /*0016*/ 	.short	(.L_52 - .L_51)
+.L_51:
+        /*0018*/ 	.word	0x00000000
+        /*001c*/ 	.short	0x0007
+        /*001e*/ 	.short	0x0038
+        /*0020*/ 	.byte	0x00, 0xf0, 0x21, 0x00
+
+
+	//----- nvinfo : EIATTR_KPARAM_INFO
+	.align		4
+.L_52:
+        /*0024*/ 	.byte	0x04, 0x17
+        /*0026*/ 	.short	(.L_54 - .L_53)
+.L_53:
+        /*0028*/ 	.word	0x00000000
+        /*002c*/ 	.short	0x0006
+        /*002e*/ 	.short	0x0030
+        /*0030*/ 	.byte	0x00, 0xf0, 0x21, 0x00
+
+
+	//----- nvinfo : EIATTR_KPARAM_INFO
+	.align		4
+.L_54:
+        /*0034*/ 	.byte	0x04, 0x17
+        /*0036*/ 	.short	(.L_56 - .L_55)
+.L_55:
+        /*0038*/ 	.word	0x00000000
+        /*003c*/ 	.short	0x0005
+        /*003e*/ 	.short	0x0028
+        /*0040*/ 	.byte	0x00, 0xf0, 0x21, 0x00
+
+
+	//----- nvinfo : EIATTR_KPARAM_INFO
+	.align		4
+.L_56:
+        /*0044*/ 	.byte	0x04, 0x17
+        /*0046*/ 	.short	(.L_58 - .L_57)
+.L_57:
+        /*0048*/ 	.word	0x00000000
+        /*004c*/ 	.short	0x0004
+        /*004e*/ 	.short	0x0020
+        /*0050*/ 	.byte	0x00, 0xf0, 0x21, 0x00
+
+
+	//----- nvinfo : EIATTR_KPARAM_INFO
+	.align		4
+.L_58:
+        /*0054*/ 	.byte	0x04, 0x17
+        /*0056*/ 	.short	(.L_60 - .L_59)
+.L_59:
+        /*0058*/ 	.word	0x00000000
+        /*005c*/ 	.short	0x0003
+        /*005e*/ 	.short	0x0018
+        /*0060*/ 	.byte	0x00, 0xf0, 0x21, 0x00
+
+
+	//----- nvinfo : EIATTR_KPARAM_INFO
+	.align		4
+.L_60:
+        /*0064*/ 	.byte	0x04, 0x17
+        /*0066*/ 	.short	(.L_62 - .L_61)
+.L_61:
+        /*0068*/ 	.word	0x00000000
+        /*006c*/ 	.short	0x0002
+        /*006e*/ 	.short	0x0010
+        /*0070*/ 	.byte	0x00, 0xf0, 0x21, 0x00
+
+
+	//----- nvinfo : EIATTR_KPARAM_INFO
+	.align		4
+.L_62:
+        /*0074*/ 	.byte	0x04, 0x17
+        /*0076*/ 	.short	(.L_64 - .L_63)
+.L_63:
+        /*0078*/ 	.word	0x00000000
+        /*007c*/ 	.short	0x0001
+        /*007e*/ 	.short	0x0008
+        /*0080*/ 	.byte	0x00, 0xf0, 0x21, 0x00
+
+
+	//----- nvinfo : EIATTR_KPARAM_INFO
+	.align		4
+.L_64:
+        /*0084*/ 	.byte	0x04, 0x17
+        /*0086*/ 	.short	(.L_66 - .L_65)
+.L_65:
+        /*0088*/ 	.word	0x00000000
+        /*008c*/ 	.short	0x0000
+        /*008e*/ 	.short	0x0000
+        /*0090*/ 	.byte	0x00, 0xf0, 0x21, 0x00
+
+
+	//----- nvinfo : EIATTR_MAXREG_COUNT
+	.align		4
+.L_66:
+        /*0094*/ 	.byte	0x03, 0x1b
+        /*0096*/ 	.short	0x00ff
+
+
+	//----- nvinfo : EIATTR_S2RCTAID_INSTR_OFFSETS
+	.align		4
+        /*0098*/ 	.byte	0x04, 0x1d
+        /*009a*/ 	.short	(.L_68 - .L_67)
+
+
+	//   ....[0]....
+.L_67:
+        /*009c*/ 	.word	0x00000038
+
+
+	//----- nvinfo : EIATTR_EXIT_INSTR_OFFSETS
+	.align		4
+.L_68:
+        /*00a0*/ 	.byte	0x04, 0x1c
+        /*00a2*/ 	.short	(.L_70 - .L_69)
+
+
+	//   ....[0]....
+.L_69:
+        /*00a4*/ 	.word	0x000003b8
+
+
+	//   ....[1]....
+        /*00a8*/ 	.word	0x00001b38
+
+
+	//----- nvinfo : EIATTR_CRS_STACK_SIZE
+	.align		4
+.L_70:
+        /*00ac*/ 	.byte	0x04, 0x1e
+        /*00ae*/ 	.short	(.L_72 - .L_71)
+.L_71:
+        /*00b0*/ 	.word	0x00000210
+.L_72:
+
+
+//--------------------- .nv.constant3             --------------------------
+	.section	.nv.constant3,"a",@progbits
+	.align	4
+	.type		const_IK0,@object
+	.size		const_IK0,(const_expkey - const_IK0)
+const_IK0:
+.nv.constant3:
+	.zero		1024
+	.type		const_expkey,@object
+	.size		const_expkey,(.L_2 - const_expkey)
+const_expkey:
+	.zero		176
+.L_2:
+
+
+//--------------------- .nv.constant2._Z14decrypt_KernelPjS_mS_S_S_S_Ph --------------------------
+	.section	.nv.constant2._Z14decrypt_KernelPjS_mS_S_S_S_Ph,"a",@progbits
+	.align	4
+.nv.constant2._Z14decrypt_KernelPjS_mS_S_S_S_Ph:
+        /*0000*/ 	.byte	0x00, 0x01, 0x00, 0x00
+
+
+//--------------------- .nv.constant0._Z14decrypt_KernelPjS_mS_S_S_S_Ph --------------------------
+	.section	.nv.constant0._Z14decrypt_KernelPjS_mS_S_S_S_Ph,"a",@progbits
+	.align	4
+.nv.constant0._Z14decrypt_KernelPjS_mS_S_S_S_Ph:
+	.zero		384
+
+
+//--------------------- .nv.constant0._Z14encrypt_KernelPjS_mS_S_S_S_Ph --------------------------
+	.section	.nv.constant0._Z14encrypt_KernelPjS_mS_S_S_S_Ph,"a",@progbits
+	.align	4
+.nv.constant0._Z14encrypt_KernelPjS_mS_S_S_S_Ph:
+	.zero		384
+
+
+//--------------------- .text._Z14decrypt_KernelPjS_mS_S_S_S_Ph --------------------------
+	.section	.text._Z14decrypt_KernelPjS_mS_S_S_S_Ph,"ax",@progbits
+	.sectionflags	@"SHF_BARRIERS=1"
+	.sectioninfo	@"SHI_REGISTERS=32"
+	.align	32
+
+
+
+
+.text._Z14decrypt_KernelPjS_mS_S_S_S_Ph:
+        .type           _Z14decrypt_KernelPjS_mS_S_S_S_Ph,@function
+        .size           _Z14decrypt_KernelPjS_mS_S_S_S_Ph,(.L_73 - _Z14decrypt_KernelPjS_mS_S_S_S_Ph)
+        .other          _Z14decrypt_KernelPjS_mS_S_S_S_Ph,@"STO_CUDA_ENTRY STV_DEFAULT"
+_Z14decrypt_KernelPjS_mS_S_S_S_Ph:
+        /*0008*/                   MOV R1, c[0x0][0x20] ;
+        /*0010*/         {         MOV R3, c[0x0][0xc] ;
+        /*0018*/                   SSY `(.L_3)         }
+        /*0028*/                   XMAD R0, R3.reuse, c[0x0] [0x8], RZ ;
+        /*0030*/                   XMAD.MRG R2, R3.reuse, c[0x0] [0x8].H1, RZ ;
+        /*0038*/                   XMAD.PSL.CBCC R0, R3.H1, R2.H1, R0 ;
+        /*0048*/                   I2F.F32.S32.RP R2, |R0| ;
+        /*0050*/                   I2I.S32.S32 R10, |R0| ;
+        /*0058*/                   I2I.S32.S32 R7, -|R0| ;
+        /*0068*/                   MUFU.RCP R2, R2 ;
+        /*0070*/                   IADD32I R3, R2, 0xffffffe ;
+        /*0078*/                   F2I.FTZ.U32.F32.TRUNC R3, R3 ;
+        /*0088*/                   XMAD R4, R10.reuse, R3.reuse, RZ ;
+        /*0090*/                   XMAD.MRG R5, R10.reuse, R3.H1, RZ ;
+        /*0098*/                   XMAD.PSL.CBCC R4, R10.H1, R5.H1, R4 ;
+        /*00a8*/                   IADD R9, -R4, RZ ;
+        /*00b0*/                   XMAD R4, R3.reuse, R9.reuse, RZ ;
+        /*00b8*/                   XMAD R5, R3, R9.H1, RZ ;
+        /*00c8*/                   XMAD R6, R3.H1.reuse, R9.H1.reuse, R3 ;
+        /*00d0*/         {         XMAD.CHI R4, R3.H1, R9, R4   SLOT 0;
+        /*00d8*/                   S2R R9, SR_TID.X   SLOT 1        }
+        /*00e8*/         {         IADD3.RS R2, R4, R5, R6   SLOT 0;
+        /*00f0*/                   S2R R6, SR_CTAID.X   SLOT 1        }
+        /*00f8*/                   SHR.U32 R2, R2, 0x18 ;
+        /*0108*/                   XMAD R4, R7.reuse, R2.reuse, c[0x2][0x0] ;
+        /*0110*/                   XMAD.MRG R5, R7.reuse, R2.H1, RZ ;
+        /*0118*/         {         XMAD.PSL.CBCC R3, R7.H1, R5.H1, R4   SLOT 0;
+        /*0128*/                   S2R R4, SR_TID.Y   SLOT 1        }
+        /*0130*/         {         LOP32I.XOR R7, R0, 0x100 ;
+        /*0138*/                   S2R R5, SR_CTAID.Y         }
+        /*0148*/                   ISETP.GT.U32.AND P1, PT, R10, R3, PT ;
+        /*0150*/              @!P1 IADD R3, R3, -R10 ;
+        /*0158*/              @!P1 IADD32I R2, R2, 0x1 ;
+        /*0168*/                   ISETP.GE.AND P1, PT, R7, RZ, PT ;
+        /*0170*/                   ISETP.GE.U32.AND P0, PT, R3, R10, PT ;
+        /*0178*/                   XMAD R3, R5.reuse, c[0x0] [0xc], R4 ;
+        /*0188*/                   XMAD.MRG R8, R5, c[0x0] [0xc].H1, RZ ;
+        /*0190*/                   XMAD.MRG R7, R4, c[0x0] [0x8].H1, RZ ;
+        /*0198*/                   XMAD.PSL.CBCC R3, R5.H1, R8.H1, R3 ;
+        /*01a8*/               @P0 IADD32I R2, R2, 0x1 ;
+        /*01b0*/                   XMAD R8, R3.reuse, c[0x0] [0x14], R6 ;
+        /*01b8*/                   LOP.PASS_B R6, RZ, ~R0 ;
+        /*01c8*/                   XMAD.MRG R10, R3, c[0x0] [0x14].H1, RZ ;
+        /*01d0*/                   MOV R5, R2 ;
+        /*01d8*/                   XMAD R2, R4.reuse, c[0x0] [0x8], R9.reuse ;
+        /*01e8*/                   XMAD.PSL.CBCC R3, R3.H1, R10.H1, R8 ;
+        /*01f0*/              @!P1 IADD R5, -R5, RZ ;
+        /*01f8*/                   XMAD.PSL.CBCC R2, R4.H1, R7.H1, R2 ;
+        /*0208*/                   XMAD R8, R3, c[0x0] [0x8], R9 ;
+        /*0210*/                   ICMP.EQ R0, R6, R5, R0 ;
+        /*0218*/                   XMAD.MRG R5, R3, c[0x0] [0x8].H1, RZ ;
+        /*0228*/                   ISETP.GE.AND P0, PT, R2, 0x100, PT ;
+        /*0230*/                   ISET.EQ.AND RZ.CC, R0, RZ, PT ;
+        /*0238*/         {         XMAD.PSL.CBCC R8, R3.H1, R5.H1, R8 ;
+        /*0248*/              @!P0 BRA CC.NEU, `(.L_4)         }
+        /*0250*/                   ISETP.GE.AND P0, PT, R0, 0x1, PT ;
+        /*0258*/              @!P0 SYNC                                                 (*"TARGET= .L_3 "*);
+        /*0268*/                   LOP32I.AND R3, R0.reuse, 0x3 ;
+        /*0270*/                   XMAD R9, R0.reuse, R2.reuse, RZ ;
+        /*0278*/                   XMAD.MRG R2, R0, R2.H1, RZ ;
+        /*0288*/                   MOV R12, RZ ;
+        /*0290*/                   ISETP.NE.AND P0, PT, R3, RZ, PT ;
+        /*0298*/         {         XMAD.PSL.CBCC R9, R0.H1, R2.H1, R9 ;
+        /*02a8*/              @!P0 BRA `(.L_5)         }
+        /*02b0*/                   ISETP.NE.AND P0, PT, R3, 0x1, PT ;
+        /*02b8*/              @!P0 BRA `(.L_6) ;
+        /*02c8*/                   ISETP.NE.AND P0, PT, R3, 0x2, PT ;
+        /*02d0*/              @!P0 BRA `(.L_7) ;
+        /*02d8*/                   SHL R13, R9.reuse, 0x2 ;
+        /*02e8*/                   SHR R11, R9.reuse, 0x1e ;
+        /*02f0*/                   SHR R12, R9, 0x1f ;
+        /*02f8*/                   IADD R2.CC, R13.reuse, c[0x0][0x158] ;
+        /*0308*/                   IADD.X R3, R11.reuse, c[0x0][0x15c] ;
+        /*0310*/         {         IADD R4.CC, R13, c[0x0][0x160] ;
+        /*0318*/                   LDG.E R2, [R2]         }
+        /*0328*/                   IADD.X R5, R11, c[0x0][0x164] ;
+        /*0330*/         {         IADD R6.CC, R13.reuse, c[0x0][0x168] ;
+        /*0338*/                   LDG.E R4, [R4]         }
+        /*0348*/                   IADD.X R7, R11.reuse, c[0x0][0x16c] ;
+        /*0350*/         {         IADD R10.CC, R13, c[0x0][0x170] ;
+        /*0358*/                   LDG.E R6, [R6]         }
+        /*0368*/                   IADD.X R11, R11, c[0x0][0x174] ;
+        /*0370*/         {         IADD R14.CC, R9, c[0x0][0x178] ;
+        /*0378*/                   LDG.E R10, [R10]         }
+        /*0388*/                   IADD.X R15, R12, c[0x0][0x17c] ;
+        /*0390*/                   LDG.E.U8 R14, [R14] ;
+        /*0398*/                   MOV32I R12, 0x1 ;
+        /*03a8*/                   DEPBAR.LE SB5, 0x3 ;
+        /*03b0*/                   STS [R13], R2 ;
+        /*03b8*/                   STS [R13+0x400], R4 ;
+        /*03c8*/                   DEPBAR.LE SB5, 0x1 ;
+        /*03d0*/                   STS [R13+0x800], R6 ;
+        /*03d8*/                   STS [R13+0xc00], R10 ;
+        /*03e8*/                   STS.U8 [R9+0x1000], R14 ;
+.L_7:
+        /*03f0*/                   IADD R13, R9, R12 ;
+        /*03f8*/                   SHL R17, R13.reuse, 0x2 ;
+        /*0408*/                   SHR R3, R13.reuse, 0x1e ;
+        /*0410*/                   SHR R15, R13, 0x1f ;
+        /*0418*/                   IADD R4.CC, R17, c[0x0][0x158] ;
+        /*0428*/                   IADD.X R5, R3, c[0x0][0x15c] ;
+        /*0430*/         {         IADD R6.CC, R17.reuse, c[0x0][0x160] ;
+        /*0438*/                   LDG.E R4, [R4]         }
+        /*0448*/                   IADD.X R7, R3.reuse, c[0x0][0x164] ;
+        /*0450*/         {         IADD R10.CC, R17.reuse, c[0x0][0x168] ;
+        /*0458*/                   LDG.E R6, [R6]         }
+        /*0468*/                   IADD.X R11, R3.reuse, c[0x0][0x16c] ;
+        /*0470*/         {         IADD R2.CC, R17, c[0x0][0x170] ;
+        /*0478*/                   LDG.E R10, [R10]         }
+        /*0488*/                   IADD.X R3, R3, c[0x0][0x174] ;
+        /*0490*/         {         IADD R14.CC, R13, c[0x0][0x178] ;
+        /*0498*/                   LDG.E R2, [R2]         }
+        /*04a8*/                   IADD.X R15, R15, c[0x0][0x17c] ;
+        /*04b0*/                   LDG.E.U8 R14, [R14] ;
+        /*04b8*/                   IADD32I R12, R12, 0x1 ;
+        /*04c8*/                   DEPBAR.LE SB5, 0x3 ;
+        /*04d0*/                   STS [R17], R4 ;
+        /*04d8*/                   STS [R17+0x400], R6 ;
+        /*04e8*/                   DEPBAR.LE SB5, 0x1 ;
+        /*04f0*/                   STS [R17+0x800], R10 ;
+        /*04f8*/                   STS [R17+0xc00], R2 ;
+        /*0508*/                   STS.U8 [R13+0x1000], R14 ;
+.L_6:
+        /*0510*/                   IADD R13, R9, R12 ;
+        /*0518*/                   SHL R17, R13.reuse, 0x2 ;
+        /*0528*/                   SHR R3, R13.reuse, 0x1e ;
+        /*0530*/                   SHR R15, R13, 0x1f ;
+        /*0538*/                   IADD R4.CC, R17, c[0x0][0x158] ;
+        /*0548*/                   IADD.X R5, R3, c[0x0][0x15c] ;
+        /*0550*/         {         IADD R6.CC, R17.reuse, c[0x0][0x160] ;
+        /*0558*/                   LDG.E R4, [R4]         }
+        /*0568*/                   IADD.X R7, R3.reuse, c[0x0][0x164] ;
+        /*0570*/         {         IADD R10.CC, R17.reuse, c[0x0][0x168] ;
+        /*0578*/                   LDG.E R6, [R6]         }
+        /*0588*/                   IADD.X R11, R3.reuse, c[0x0][0x16c] ;
+        /*0590*/         {         IADD R2.CC, R17, c[0x0][0x170] ;
+        /*0598*/                   LDG.E R10, [R10]         }
+        /*05a8*/                   IADD.X R3, R3, c[0x0][0x174] ;
+        /*05b0*/         {         IADD R14.CC, R13, c[0x0][0x178] ;
+        /*05b8*/                   LDG.E R2, [R2]         }
+        /*05c8*/                   IADD.X R15, R15, c[0x0][0x17c] ;
+        /*05d0*/                   LDG.E.U8 R14, [R14] ;
+        /*05d8*/                   IADD32I R12, R12, 0x1 ;
+        /*05e8*/                   DEPBAR.LE SB5, 0x3 ;
+        /*05f0*/                   STS [R17], R4 ;
+        /*05f8*/                   STS [R17+0x400], R6 ;
+        /*0608*/                   DEPBAR.LE SB5, 0x1 ;
+        /*0610*/                   STS [R17+0x800], R10 ;
+        /*0618*/                   STS [R17+0xc00], R2 ;
+        /*0628*/                   STS.U8 [R13+0x1000], R14 ;
+.L_5:
+        /*0630*/                   ISETP.GE.U32.AND P0, PT, R0, 0x4, PT ;
+        /*0638*/              @!P0 SYNC                                                 (*"TARGET= .L_3 "*);
+.L_8:
+        /*0648*/                   IADD R15, R9, R12 ;
+        /*0650*/                   SHL R19, R15.reuse, 0x2 ;
+        /*0658*/                   SHR R5, R15, 0x1e ;
+        /*0668*/                   IADD R6.CC, R19.reuse, c[0x0][0x158] ;
+        /*0670*/                   IADD.X R7, R5.reuse, c[0x0][0x15c] ;
+        /*0678*/         {         IADD R10.CC, R19.reuse, c[0x0][0x160] ;
+        /*0688*/                   LDG.E R14, [R6]         }
+        /*0690*/         {         IADD.X R11, R5.reuse, c[0x0][0x164] ;
+        /*0698*/                   LDG.E R16, [R6+0x4]         }
+        /*06a8*/         {         IADD R2.CC, R19.reuse, c[0x0][0x168] ;
+        /*06b0*/                   LDG.E R13, [R6+0x8]         }
+        /*06b8*/         {         IADD.X R3, R5.reuse, c[0x0][0x16c] ;
+        /*06c8*/                   LDG.E R21, [R6+0xc]         }
+        /*06d0*/         {         IADD R4.CC, R19, c[0x0][0x170] ;
+        /*06d8*/                   LDG.E R20, [R10]         }
+        /*06e8*/         {         IADD.X R5, R5, c[0x0][0x174] ;
+        /*06f0*/                   LDG.E R18, [R10+0x4]         }
+        /*06f8*/         {         SHR R7, R15.reuse, 0x1f ;
+        /*0708*/                   LDG.E R17, [R10+0x8]         }
+        /*0710*/         {         IADD R6.CC, R15, c[0x0][0x178] ;
+        /*0718*/                   LDG.E R26, [R10+0xc]         }
+        /*0728*/         {         IADD.X R7, R7, c[0x0][0x17c] ;
+        /*0730*/                   LDG.E R25, [R2]         }
+        /*0738*/         {         IADD32I R12, R12, 0x4 ;
+        /*0748*/                   LDG.E R24, [R2+0x4]         }
+        /*0750*/         {         ISETP.GE.AND P0, PT, R12, R0, PT ;
+        /*0758*/                   LDG.E R22, [R2+0x8]         }
+        /*0768*/                   LDG.E R28, [R2+0xc] ;
+        /*0770*/                   LDG.E R29, [R4] ;
+        /*0778*/                   LDG.E R30, [R4+0x4] ;
+        /*0788*/                   LDG.E R10, [R4+0x8] ;
+        /*0790*/                   LDG.E R11, [R4+0xc] ;
+        /*0798*/                   LDG.E.U8 R23, [R6] ;
+        /*07a8*/                   LDG.E.U8 R27, [R6+0x1] ;
+        /*07b0*/                   LDG.E.U8 R31, [R6+0x2] ;
+        /*07b8*/                   LDG.E.U8 R2, [R6+0x3] ;
+        /*07c8*/                   DEPBAR.LE SB5, 0x12 ;
+        /*07d0*/                   STS [R19], R14 ;
+        /*07d8*/                   STS [R19+0x4], R16 ;
+        /*07e8*/                   DEPBAR.LE SB5, 0xf ;
+        /*07f0*/                   STS [R19+0x8], R13 ;
+        /*07f8*/                   STS [R19+0xc], R21 ;
+        /*0808*/                   STS [R19+0x400], R20 ;
+        /*0810*/                   DEPBAR.LE SB5, 0xc ;
+        /*0818*/                   STS [R19+0x404], R18 ;
+        /*0828*/                   STS [R19+0x408], R17 ;
+        /*0830*/                   STS [R19+0x40c], R26 ;
+        /*0838*/                   DEPBAR.LE SB5, 0x9 ;
+        /*0848*/                   STS [R19+0x800], R25 ;
+        /*0850*/                   STS [R19+0x804], R24 ;
+        /*0858*/                   STS [R19+0x808], R22 ;
+        /*0868*/                   DEPBAR.LE SB5, 0x6 ;
+        /*0870*/                   STS [R19+0x80c], R28 ;
+        /*0878*/                   STS [R19+0xc00], R29 ;
+        /*0888*/                   STS [R19+0xc04], R30 ;
+        /*0890*/                   DEPBAR.LE SB5, 0x3 ;
+        /*0898*/                   STS [R19+0xc08], R10 ;
+        /*08a8*/                   STS [R19+0xc0c], R11 ;
+        /*08b0*/                   STS.U8 [R15+0x1000], R23 ;
+        /*08b8*/                   STS.U8 [R15+0x1001], R27 ;
+        /*08c8*/                   STS.U8 [R15+0x1002], R31 ;
+        /*08d0*/                   STS.U8 [R15+0x1003], R2 ;
+        /*08d8*/              @!P0 BRA `(.L_8) ;
+        /*08e8*/                   SYNC                                                 (*"TARGET= .L_3 "*);
+.L_4:
+        /*08f0*/                   SHL R3, R2.reuse, 0x2 ;
+        /*08f8*/                   SHR R9, R2.reuse, 0x1e ;
+        /*0908*/                   SHR R0, R2, 0x1f ;
+        /*0910*/                   IADD R4.CC, R3.reuse, c[0x0][0x158] ;
+        /*0918*/                   IADD.X R5, R9.reuse, c[0x0][0x15c] ;
+        /*0928*/         {         IADD R6.CC, R3, c[0x0][0x160] ;
+        /*0930*/                   LDG.E R4, [R4]         }
+        /*0938*/                   IADD.X R7, R9, c[0x0][0x164] ;
+        /*0948*/         {         IADD R10.CC, R3.reuse, c[0x0][0x168] ;
+        /*0950*/                   LDG.E R6, [R6]         }
+        /*0958*/                   IADD.X R11, R9.reuse, c[0x0][0x16c] ;
+        /*0968*/         {         IADD R12.CC, R3, c[0x0][0x170] ;
+        /*0970*/                   LDG.E R10, [R10]         }
+        /*0978*/                   IADD.X R13, R9, c[0x0][0x174] ;
+        /*0988*/         {         IADD R14.CC, R2, c[0x0][0x178] ;
+        /*0990*/                   LDG.E R12, [R12]         }
+        /*0998*/                   IADD.X R15, R0, c[0x0][0x17c] ;
+        /*09a8*/                   LDG.E.U8 R15, [R14] ;
+        /*09b0*/                   DEPBAR.LE SB5, 0x3 ;
+        /*09b8*/                   STS [R3], R4 ;
+        /*09c8*/                   STS [R3+0x400], R6 ;
+        /*09d0*/                   DEPBAR.LE SB5, 0x1 ;
+        /*09d8*/                   STS [R3+0x800], R10 ;
+        /*09e8*/                   STS [R3+0xc00], R12 ;
+        /*09f0*/                   STS.U8 [R2+0x1000], R15 ;
+        /*09f8*/                   SYNC                                                 (*"TARGET= .L_3 "*);
+.L_3:
+        /*0a08*/                   I2F.F32.U32.RP R0, 0x20 ;
+        /*0a10*/                   MUFU.RCP R0, R0 ;
+        /*0a18*/         {         IADD32I R2, R0, 0xffffffe ;
+        /*0a28*/                   I2I.S32.S32 R6, |R8|         }
+        /*0a30*/                   F2I.FTZ.U32.F32.TRUNC R2, R2 ;
+        /*0a38*/         {         ISCADD R9, -R2, RZ, 0x5 ;
+        /*0a48*/                   BAR.SYNC 0x0         }
+        /*0a50*/                   XMAD R3, R2, R9, RZ ;
+        /*0a58*/                   XMAD R4, R2, R9.H1, RZ ;
+        /*0a68*/                   XMAD R5, R2.H1, R9.H1, R2 ;
+        /*0a70*/                   XMAD.CHI R3, R2.H1, R9, R3 ;
+        /*0a78*/                   IADD3.RS R3, R3, R4, R5 ;
+        /*0a88*/                   XMAD R4, R3, R6, RZ ;
+        /*0a90*/                   XMAD R0, R3, R6.H1, RZ ;
+        /*0a98*/                   XMAD R5, R3.H1, R6.H1, RZ ;
+        /*0aa8*/                   XMAD.CHI R3, R3.H1, R6.reuse, R4 ;
+        /*0ab0*/                   IADD3.RS R0, R3, R0, R5 ;
+        /*0ab8*/                   ISCADD R2, -R0, R6, 0x5 ;
+        /*0ac8*/                   ISETP.GE.U32.AND P1, PT, R2, 0x20, PT ;
+        /*0ad0*/                   LOP32I.XOR R3, R8, 0x20 ;
+        /*0ad8*/               @P1 IADD32I R2, R2, -0x20 ;
+        /*0ae8*/               @P1 IADD32I R0, R0, 0x1 ;
+        /*0af0*/                   ISETP.GE.U32.AND P0, PT, R2, 0x20, PT ;
+        /*0af8*/                   ISETP.GE.AND P1, PT, R3, RZ, PT ;
+        /*0b08*/                   MOV R3, c[0x0][0x150] ;
+        /*0b10*/                   MOV R4, c[0x0][0x154] ;
+        /*0b18*/               @P0 IADD32I R0, R0, 0x1 ;
+        /*0b28*/                   SHF.R.U64 R3, R3, 0x9, R4 ;
+        /*0b30*/              @!P1 IADD R0, -R0, RZ ;
+        /*0b38*/                   ISETP.GE.AND P1, PT, R0, R3, PT ;
+        /*0b48*/               @P1 EXIT ;
+        /*0b50*/         {         ISETP.GE.AND P1, PT, R8, RZ, PT ;
+        /*0b58*/                   LDC.U8 R22, c[0x3][0x49c]         }
+        /*0b68*/         {         IADD32I R3, R2, -0x20 ;
+        /*0b70*/                   LDC.U8 R19, c[0x3][0x495]         }
+        /*0b78*/         {         SEL R2, R3, R2, P0 ;
+        /*0b88*/                   LDC.U8 R20, c[0x3][0x496]         }
+        /*0b90*/         {    @!P1 IADD R2, -R2, RZ ;
+        /*0b98*/                   LDC.U8 R15, c[0x3][0x491]         }
+        /*0ba8*/                   ISCADD R0, R0, R2, 0x7 ;
+        /*0bb0*/                   SHR R2, R0, 0x1e ;
+        /*0bb8*/                   ISCADD R4.CC, R0, c[0x0][0x140], 0x2 ;
+        /*0bc8*/                   IADD.X R5, R2, c[0x0][0x144] ;
+        /*0bd0*/         {         IADD32I R6.CC, R4, 0x80 ;
+        /*0bd8*/                   LDG.E R3, [R4]         }
+        /*0be8*/                   IADD.X R7, RZ, R5 ;
+        /*0bf0*/         {         IADD32I R8.CC, R6, 0x80   SLOT 0;
+        /*0bf8*/                   LDG.E R6, [R6]   SLOT 1        }
+        /*0c08*/         {         IADD.X R9, RZ, R7   SLOT 0;
+        /*0c10*/                   LDC.U8 R7, c[0x3][0x498]   SLOT 1        }
+        /*0c18*/         {         IADD32I R12.CC, R8, 0x80   SLOT 0;
+        /*0c28*/                   LDG.E R8, [R8]   SLOT 1        }
+        /*0c30*/                   IADD.X R13, RZ, R9 ;
+        /*0c38*/                   LDG.E R12, [R12] ;
+        /*0c48*/                   LDC.U8 R13, c[0x3][0x490] ;
+        /*0c50*/                   LOP32I.AND R15, R15, 0xff ;
+        /*0c58*/                   LOP32I.AND R13, R13, 0xff ;
+        /*0c68*/                   DEPBAR.LE SB5, 0x2 ;
+        /*0c70*/                   LOP.XOR R3, R3, c[0x3][0x4a0] ;
+        /*0c78*/                   SHR.U32 R10, R3.reuse, 0x18 ;
+        /*0c88*/                   BFE.U32 R2, R3, 0x808 ;
+        /*0c90*/                   LOP.XOR R11, R6, c[0x3][0x4a4] ;
+        /*0c98*/                   SHL R6, R10, 0x2 ;
+        /*0ca8*/                   LOP.XOR R21, R8, c[0x3][0x4a8] ;
+        /*0cb0*/                   LOP.XOR R18, R12, c[0x3][0x4ac] ;
+        /*0cb8*/         {         SHR.U32 R5, R21.reuse, 0x18 ;
+        /*0cc8*/                   LDC.U8 R12, c[0x3][0x494]         }
+        /*0cd0*/                   BFE.U32 R4, R18.reuse, 0x810 ;
+        /*0cd8*/                   SHL R14, R2, 0x2 ;
+        /*0ce8*/         {         SHL R10, R5, 0x2 ;
+        /*0cf0*/                   LDS.U.32 R9, [R14+0x400]         }
+        /*0cf8*/         {         SHL R8, R4, 0x2   SLOT 0;
+        /*0d08*/                   LDC.U8 R4, c[0x3][0x499]   SLOT 1        }
+        /*0d10*/         {         BFE.U32 R2, R11, 0x810 ;
+        /*0d18*/                   LDS.U.32 R10, [R10+0xc00]         }
+        /*0d28*/         {         BFE.U32 R5, R21, 0x808 ;
+        /*0d30*/                   LDS.U.32 R8, [R8+0x800]         }
+        /*0d38*/         {         SHL R16, R2, 0x2   SLOT 0;
+        /*0d48*/                   LDS.U.32 R2, [R6+0xc00]   SLOT 1        }
+        /*0d50*/         {         SHL R17, R5, 0x2   SLOT 0;
+        /*0d58*/                   LDC.U8 R5, c[0x3][0x49a]   SLOT 1        }
+        /*0d68*/         {         LOP32I.AND R14, R12, 0xff   SLOT 0;
+        /*0d70*/                   LDC.U8 R12, c[0x3][0x49e]   SLOT 1        }
+        /*0d78*/         {         BFI R24, R18, 0x802, RZ ;
+        /*0d88*/                   LDS.U.32 R16, [R16+0x800]         }
+        /*0d90*/         {         SHL R27, R14, 0x2 ;
+        /*0d98*/                   LDS.U.32 R17, [R17+0x400]         }
+        /*0da8*/                   LDC.U8 R6, c[0x3][0x49d] ;
+        /*0db0*/         {         LOP3.LUT R9, R9, R8, R10, 0x96 ;
+        /*0db8*/                   LDS.U.32 R24, [R24]         }
+        /*0dc8*/         {         LOP32I.AND R8, R22, 0xff ;
+        /*0dd0*/                   LDC.U8 R14, c[0x3][0x49f]         }
+        /*0dd8*/         {         BFI R22, R11, 0x802, RZ ;
+        /*0de8*/                   LDC R27, c[0x3][R27]         }
+        /*0df0*/         {         SHL R23, R8, 0x2 ;
+        /*0df8*/                   LDS.U.32 R22, [R22]         }
+        /*0e08*/         {         LOP32I.AND R25, R5, 0xff ;
+        /*0e10*/                   LDC.U8 R10, c[0x3][0x497]         }
+        /*0e18*/         {         LOP3.LUT R2, R17, R16, R2, 0x96 ;
+        /*0e28*/                   LDC R23, c[0x3][R23]         }
+        /*0e30*/         {         LOP32I.AND R16, R19, 0xff ;
+        /*0e38*/                   LDC.U8 R8, c[0x3][0x492]         }
+        /*0e48*/         {         LOP32I.AND R19, R7, 0xff   SLOT 0;
+        /*0e50*/                   LDC.U8 R7, c[0x3][0x49b]   SLOT 1        }
+        /*0e58*/                   LOP32I.AND R28, R12, 0xff ;
+        /*0e68*/                   LOP32I.AND R26, R6, 0xff ;
+        /*0e70*/                   SHL R12, R25, 0x2 ;
+        /*0e78*/         {         BFE.U32 R25, R3, 0x810 ;
+        /*0e88*/                   LDC R12, c[0x3][R12]         }
+        /*0e90*/                   SHL R6, R19, 0x2 ;
+        /*0e98*/                   LOP32I.AND R17, R20, 0xff ;
+        /*0ea8*/                   SHL R19, R26, 0x2 ;
+        /*0eb0*/         {         LOP32I.AND R20, R4, 0xff ;
+        /*0eb8*/                   LDC R19, c[0x3][R19]         }
+        /*0ec8*/                   SHL R26, R25, 0x2 ;
+        /*0ed0*/                   LOP3.LUT R9, R27, R9, R22, 0x96 ;
+        /*0ed8*/                   SHL R5, R15, 0x2 ;
+        /*0ee8*/         {         LOP3.LUT R2, R23, R2, R24, 0x96 ;
+        /*0ef0*/                   LDC R5, c[0x3][R5]         }
+        /*0ef8*/                   LOP32I.AND R25, R14, 0xff ;
+        /*0f08*/                   BFE.U32 R24, R11.reuse, 0x808 ;
+        /*0f10*/                   SHR.U32 R14, R18, 0x18 ;
+        /*0f18*/         {         SHR.U32 R22, R11, 0x18   SLOT 0;
+        /*0f28*/                   LDS.U.32 R11, [R26+0x800]   SLOT 1        }
+        /*0f30*/                   SHL R15, R20, 0x2 ;
+        /*0f38*/         {         SHL R20, R28, 0x2 ;
+        /*0f48*/                   LDC R15, c[0x3][R15]         }
+        /*0f50*/         {         SHL R28, R24, 0x2 ;
+        /*0f58*/                   LDC R20, c[0x3][R20]         }
+        /*0f68*/         {         SHL R29, R14, 0x2   SLOT 0;
+        /*0f70*/                   LDS.U.32 R14, [R28+0x400]   SLOT 1        }
+        /*0f78*/                   SHL R27, R22, 0x2 ;
+        /*0f88*/         {         LOP32I.AND R23, R7, 0xff   SLOT 0;
+        /*0f90*/                   LDS.U.32 R7, [R27+0xc00]   SLOT 1        }
+        /*0f98*/                   BFE.U32 R24, R21.reuse, 0x810 ;
+        /*0fa8*/         {         BFI R26, R21, 0x802, RZ   SLOT 0;
+        /*0fb0*/                   LDS.U.32 R21, [R29+0xc00]   SLOT 1        }
+        /*0fb8*/                   SHL R16, R16, 0x2 ;
+        /*0fc8*/         {         SHL R17, R17, 0x2 ;
+        /*0fd0*/                   LDC R16, c[0x3][R16]         }
+        /*0fd8*/         {         SHL R4, R13, 0x2   SLOT 0;
+        /*0fe8*/                   LDC.U8 R13, c[0x3][0x493]   SLOT 1        }
+        /*0ff0*/         {         SHL R22, R25, 0x2 ;
+        /*0ff8*/                   LDC R17, c[0x3][R17]         }
+        /*1008*/         {         BFE.U32 R25, R18, 0x808   SLOT 0;
+        /*1010*/                   LDS.U.32 R18, [R26]   SLOT 1        }
+        /*1018*/         {         LOP32I.AND R10, R10, 0xff ;
+        /*1028*/                   LDC R4, c[0x3][R4]         }
+        /*1030*/         {         LOP32I.AND R8, R8, 0xff ;
+        /*1038*/                   LDC R22, c[0x3][R22]         }
+        /*1048*/         {         SHL R28, R23, 0x2   SLOT 0;
+        /*1050*/                   LDC R23, c[0x3][R6]   SLOT 1        }
+        /*1058*/                   SHL R24, R24, 0x2 ;
+        /*1068*/         {         SHL R25, R25, 0x2 ;
+        /*1070*/                   LDS.U.32 R24, [R24+0x800]         }
+        /*1078*/         {         SHL R10, R10, 0x2 ;
+        /*1088*/                   LDS.U.32 R25, [R25+0x400]         }
+        /*1090*/         {         BFI R27, R3, 0x802, RZ ;
+        /*1098*/                   LDC R10, c[0x3][R10]         }
+        /*10a8*/         {         SHL R29, R8, 0x2   SLOT 0;
+        /*10b0*/                   LDC R8, c[0x3][R28]   SLOT 1        }
+        /*10b8*/         {         SHF.L.W R19, R19, 0x8, R19 ;
+        /*10c8*/                   LDS.U.32 R27, [R27]         }
+        /*10d0*/         {         LOP3.LUT R21, R14, R11, R21, 0x96   SLOT 0;
+        /*10d8*/                   LDC.U8 R11, c[0x3][0x480]   SLOT 1        }
+        /*10e8*/         {         SHF.L.W R20, R20, 0x10, R20 ;
+        /*10f0*/                   LDC R26, c[0x3][R29]         }
+        /*10f8*/         {         LOP32I.AND R13, R13, 0xff ;
+        /*1108*/                   LDC.U8 R14, c[0x3][0x481]         }
+        /*1110*/                   SHF.L.W R16, R16, 0x8, R16 ;
+        /*1118*/                   SHF.L.W R3, R17, 0x10, R17 ;
+        /*1128*/                   LOP3.LUT R18, R23, R21, R18, 0x96 ;
+        /*1130*/                   SHF.L.W R17, R22, 0x18, R22 ;
+        /*1138*/         {         LOP3.LUT R2, R20, R2, R19, 0x96   SLOT 0;
+        /*1148*/                   LDC.U8 R19, c[0x3][0x485]   SLOT 1        }
+        /*1150*/                   SHF.L.W R15, R15, 0x8, R15 ;
+        /*1158*/                   SHF.L.W R12, R12, 0x10, R12 ;
+        /*1168*/                   SHL R13, R13, 0x2 ;
+        /*1170*/         {         LOP3.LUT R9, R3, R9, R16, 0x96 ;
+        /*1178*/                   LDC R6, c[0x3][R13]         }
+        /*1188*/                   LOP.XOR R3, R2, R17 ;
+        /*1190*/                   LOP3.LUT R25, R25, R24, R7, 0x96 ;
+        /*1198*/         {         LOP3.LUT R12, R12, R18, R15, 0x96   SLOT 0;
+        /*11a8*/                   LDC.U8 R15, c[0x3][0x482]   SLOT 1        }
+        /*11b0*/         {         SHF.L.W R10, R10, 0x18, R10 ;
+        /*11b8*/                   LDC.U8 R18, c[0x3][0x484]         }
+        /*11c8*/                   SHF.L.W R17, R8, 0x18, R8 ;
+        /*11d0*/                   SHF.L.W R5, R5, 0x8, R5 ;
+        /*11d8*/                   LOP3.LUT R4, R4, R25, R27, 0x96 ;
+        /*11e8*/                   SHF.L.W R26, R26, 0x10, R26 ;
+        /*11f0*/                   LOP.XOR R13, R9, R10 ;
+        /*11f8*/         {         LOP.XOR R17, R12, R17   SLOT 0;
+        /*1208*/                   LDC.U8 R12, c[0x3][0x486]   SLOT 1        }
+        /*1210*/                   BFE.U32 R2, R3, 0x808 ;
+        /*1218*/                   LOP3.LUT R4, R26, R4, R5, 0x96 ;
+        /*1228*/                   SHR.U32 R7, R13, 0x18 ;
+        /*1230*/                   BFE.U32 R5, R17, 0x810 ;
+        /*1238*/                   SHL R2, R2, 0x2 ;
+        /*1248*/         {         LOP32I.AND R8, R11, 0xff ;
+        /*1250*/                   LDS.U.32 R2, [R2+0x400]         }
+        /*1258*/                   SHL R11, R7, 0x2 ;
+        /*1268*/         {         SHL R21, R5, 0x2 ;
+        /*1270*/                   LDS.U.32 R11, [R11+0xc00]         }
+        /*1278*/         {         SHF.L.W R6, R6, 0x18, R6 ;
+        /*1288*/                   LDS.U.32 R21, [R21+0x800]         }
+        /*1290*/                   BFE.U32 R5, R13, 0x808 ;
+        /*1298*/         {         LOP.XOR R20, R4, R6   SLOT 0;
+        /*12a8*/                   LDC.U8 R6, c[0x3][0x48a]   SLOT 1        }
+        /*12b0*/                   SHR.U32 R4, R3, 0x18 ;
+        /*12b8*/                   SHL R23, R8, 0x2 ;
+        /*12c8*/         {         BFI R16, R20.reuse, 0x802, RZ ;
+        /*12d0*/                   LDC R23, c[0x3][R23]         }
+        /*12d8*/         {         BFE.U32 R22, R20, 0x810 ;
+        /*12e8*/                   LDS.U.32 R16, [R16]         }
+        /*12f0*/                   SHL R9, R4, 0x2 ;
+        /*12f8*/         {         SHL R10, R5, 0x2 ;
+        /*1308*/                   LDS.U.32 R9, [R9+0xc00]         }
+        /*1310*/         {         BFE.U32 R7, R3, 0x810 ;
+        /*1318*/                   LDS.U.32 R10, [R10+0x400]         }
+        /*1328*/                   SHR.U32 R4, R17, 0x18 ;
+        /*1330*/                   BFE.U32 R5, R20, 0x808 ;
+        /*1338*/         {         SHL R26, R22, 0x2   SLOT 0;
+        /*1348*/                   LDC.U8 R22, c[0x3][0x48c]   SLOT 1        }
+        /*1350*/         {         LOP3.LUT R2, R2, R21, R11, 0x96   SLOT 0;
+        /*1358*/                   LDS.U.32 R11, [R26+0x800]   SLOT 1        }
+        /*1368*/                   SHL R7, R7, 0x2 ;
+        /*1370*/         {         SHL R8, R4, 0x2   SLOT 0;
+        /*1378*/                   LDC.U8 R4, c[0x3][0x488]   SLOT 1        }
+        /*1388*/         {         SHL R25, R5, 0x2   SLOT 0;
+        /*1390*/                   LDC.U8 R5, c[0x3][0x489]   SLOT 1        }
+        /*1398*/         {         LOP32I.AND R21, R14, 0xff ;
+        /*13a8*/                   LDS.U.32 R7, [R7+0x800]         }
+        /*13b0*/         {         LOP3.LUT R2, R23, R2, R16, 0x96   SLOT 0;
+        /*13b8*/                   LDC.U8 R16, c[0x3][0x48d]   SLOT 1        }
+        /*13c8*/         {         LOP32I.AND R23, R15, 0xff ;
+        /*13d0*/                   LDC.U8 R14, c[0x3][0x48e]         }
+        /*13d8*/         {         LOP32I.AND R24, R19, 0xff ;
+        /*13e8*/                   LDC.U8 R15, c[0x3][0x487]         }
+        /*13f0*/         {         SHL R19, R21, 0x2 ;
+        /*13f8*/                   LDS.U.32 R8, [R8+0xc00]         }
+        /*1408*/         {         LOP32I.AND R28, R18, 0xff ;
+        /*1410*/                   LDC.U8 R21, c[0x3][0x48b]         }
+        /*1418*/         {         SHL R18, R23, 0x2   SLOT 0;
+        /*1428*/                   LDC.U8 R23, c[0x3][0x48f]   SLOT 1        }
+        /*1430*/         {         LOP32I.AND R26, R12, 0xff ;
+        /*1438*/                   LDS.U.32 R25, [R25+0x400]         }
+        /*1448*/                   LDC R19, c[0x3][R19] ;
+        /*1450*/         {         LOP3.LUT R9, R10, R11, R9, 0x96   SLOT 0;
+        /*1458*/                   LDC.U8 R11, c[0x3][0x483]   SLOT 1        }
+        /*1468*/         {         LOP32I.AND R12, R5, 0xff ;
+        /*1470*/                   LDC R18, c[0x3][R18]         }
+        /*1478*/                   LOP32I.AND R27, R4, 0xff ;
+        /*1488*/                   SHL R5, R24, 0x2 ;
+        /*1490*/         {         LOP32I.AND R24, R6, 0xff ;
+        /*1498*/                   LDC R5, c[0x3][R5]         }
+        /*14a8*/                   LOP3.LUT R7, R25, R7, R8, 0x96 ;
+        /*14b0*/                   BFE.U32 R25, R13, 0x810 ;
+        /*14b8*/                   SHL R10, R12, 0x2 ;
+        /*14c8*/         {         SHL R8, R27, 0x2 ;
+        /*14d0*/                   LDC R10, c[0x3][R10]         }
+        /*14d8*/         {         SHL R12, R24, 0x2 ;
+        /*14e8*/                   LDC R8, c[0x3][R8]         }
+        /*14f0*/         {         LOP32I.AND R24, R22, 0xff ;
+        /*14f8*/                   LDC R12, c[0x3][R12]         }
+        /*1508*/                   SHL R27, R25, 0x2 ;
+        /*1510*/                   BFE.U32 R22, R17, 0x808 ;
+        /*1518*/                   SHR.U32 R25, R20, 0x18 ;
+        /*1528*/                   LOP32I.AND R20, R21, 0xff ;
+        /*1530*/                   SHL R4, R28, 0x2 ;
+        /*1538*/         {         SHL R30, R22, 0x2   SLOT 0;
+        /*1548*/                   LDS.U.32 R22, [R27+0x800]   SLOT 1        }
+        /*1550*/         {         SHL R29, R25, 0x2 ;
+        /*1558*/                   LDC R4, c[0x3][R4]         }
+        /*1568*/                   SHL R6, R26, 0x2 ;
+        /*1570*/         {         BFI R26, R13, 0x802, RZ ;
+        /*1578*/                   LDC R6, c[0x3][R6]         }
+        /*1588*/         {         BFI R28, R17, 0x802, RZ   SLOT 0;
+        /*1590*/                   LDS.U.32 R17, [R29+0xc00]   SLOT 1        }
+        /*1598*/                   LOP32I.AND R16, R16, 0xff ;
+        /*15a8*/         {         SHL R21, R24, 0x2   SLOT 0;
+        /*15b0*/                   LDS.U.32 R24, [R30+0x400]   SLOT 1        }
+        /*15b8*/         {         LOP32I.AND R13, R14, 0xff   SLOT 0;
+        /*15c8*/                   LDS.U.32 R14, [R26]   SLOT 1        }
+        /*15d0*/         {         BFI R25, R3, 0x802, RZ   SLOT 0;
+        /*15d8*/                   LDS.U.32 R3, [R28]   SLOT 1        }
+        /*15e8*/         {         LOP32I.AND R15, R15, 0xff ;
+        /*15f0*/                   LDC R26, c[0x3][R21]         }
+        /*15f8*/         {         LOP32I.AND R23, R23, 0xff ;
+        /*1608*/                   LDS.U.32 R25, [R25]         }
+        /*1610*/                   LOP32I.AND R11, R11, 0xff ;
+        /*1618*/                   SHL R16, R16, 0x2 ;
+        /*1628*/         {         SHL R13, R13, 0x2 ;
+        /*1630*/                   LDC R16, c[0x3][R16]         }
+        /*1638*/         {         SHL R29, R20, 0x2 ;
+        /*1648*/                   LDC R13, c[0x3][R13]         }
+        /*1650*/                   SHL R27, R15, 0x2 ;
+        /*1658*/                   SHL R15, R23, 0x2 ;
+        /*1668*/         {         SHL R23, R11, 0x2   SLOT 0;
+        /*1670*/                   LDC R11, c[0x3][R29]   SLOT 1        }
+        /*1678*/         {         SHF.L.W R20, R19, 0x8, R19 ;
+        /*1688*/                   LDC R15, c[0x3][R15]         }
+        /*1690*/         {         SHF.L.W R21, R18, 0x10, R18 ;
+        /*1698*/                   LDC R19, c[0x3][R23]         }
+        /*16a8*/         {         LOP3.LUT R24, R24, R22, R17, 0x96 ;
+        /*16b0*/                   LDC R18, c[0x3][R27]         }
+        /*16b8*/         {         LOP3.LUT R4, R4, R7, R14, 0x96   SLOT 0;
+        /*16c8*/                   LDC.U8 R7, c[0x3][0x475]   SLOT 1        }
+        /*16d0*/                   LOP3.LUT R17, R21, R2, R20, 0x96 ;
+        /*16d8*/         {         LOP3.LUT R2, R8, R9, R3, 0x96   SLOT 0;
+        /*16e8*/                   LDC.U8 R3, c[0x3][0x474]   SLOT 1        }
+        /*16f0*/         {         SHF.L.W R20, R10, 0x8, R10   SLOT 0;
+        /*16f8*/                   LDC.U8 R10, c[0x3][0x479]   SLOT 1        }
+        /*1708*/         {         SHF.L.W R21, R12, 0x10, R12   SLOT 0;
+        /*1710*/                   LDC.U8 R12, c[0x3][0x47c]   SLOT 1        }
+        /*1718*/         {         LOP3.LUT R24, R26, R24, R25, 0x96 ;
+        /*1728*/                   LDC.U8 R8, c[0x3][0x476]         }
+        /*1730*/         {         SHF.L.W R5, R5, 0x8, R5 ;
+        /*1738*/                   LDC.U8 R9, c[0x3][0x478]         }
+        /*1748*/         {         SHF.L.W R6, R6, 0x10, R6 ;
+        /*1750*/                   LDC.U8 R26, c[0x3][0x47b]         }
+        /*1758*/                   SHF.L.W R14, R16, 0x8, R16 ;
+        /*1768*/                   LOP3.LUT R20, R21, R2, R20, 0x96 ;
+        /*1770*/                   SHF.L.W R23, R13, 0x10, R13 ;
+        /*1778*/         {         SHF.L.W R13, R11, 0x18, R11   SLOT 0;
+        /*1788*/                   LDC.U8 R11, c[0x3][0x47a]   SLOT 1        }
+        /*1790*/                   LOP3.LUT R2, R6, R4, R5, 0x96 ;
+        /*1798*/                   SHF.L.W R16, R15, 0x18, R15 ;
+        /*17a8*/                   LOP3.LUT R5, R23, R24, R14, 0x96 ;
+        /*17b0*/                   SHF.L.W R4, R19, 0x18, R19 ;
+        /*17b8*/         {         LOP.XOR R6, R20, R13   SLOT 0;
+        /*17c8*/                   LDC.U8 R13, c[0x3][0x47d]   SLOT 1        }
+        /*17d0*/                   SHF.L.W R15, R18, 0x18, R18 ;
+        /*17d8*/                   LOP.XOR R5, R5, R16 ;
+        /*17e8*/                   LOP.XOR R4, R17, R4 ;
+        /*17f0*/                   LOP32I.AND R21, R3, 0xff ;
+        /*17f8*/                   LOP.XOR R2, R2, R15 ;
+        /*1808*/                   LOP32I.AND R15, R7, 0xff ;
+        /*1810*/                   SHR.U32 R14, R6, 0x18 ;
+        /*1818*/                   BFE.U32 R7, R5, 0x810 ;
+        /*1828*/                   BFE.U32 R3, R4, 0x808 ;
+        /*1830*/                   SHL R17, R14, 0x2 ;
+        /*1838*/                   SHL R16, R7, 0x2 ;
+        /*1848*/                   SHL R18, R3, 0x2 ;
+        /*1850*/         {         LOP32I.AND R14, R10, 0xff   SLOT 0;
+        /*1858*/                   LDS.U.32 R10, [R17+0xc00]   SLOT 1        }
+        /*1868*/         {         LOP32I.AND R7, R11, 0xff   SLOT 0;
+        /*1870*/                   LDS.U.32 R11, [R16+0x800]   SLOT 1        }
+        /*1878*/         {         LOP32I.AND R25, R12, 0xff   SLOT 0;
+        /*1888*/                   LDS.U.32 R12, [R18+0x400]   SLOT 1        }
+        /*1890*/         {         LOP32I.AND R24, R13, 0xff   SLOT 0;
+        /*1898*/                   LDC.U8 R13, c[0x3][0x47e]   SLOT 1        }
+        /*18a8*/         {         SHL R3, R14, 0x2   SLOT 0;
+        /*18b0*/                   LDC.U8 R14, c[0x3][0x477]   SLOT 1        }
+        /*18b8*/         {         BFE.U32 R16, R2.reuse, 0x808 ;
+        /*18c8*/                   LDC R3, c[0x3][R3]         }
+        /*18d0*/                   BFI R20, R2, 0x802, RZ ;
+        /*18d8*/                   SHR.U32 R18, R5, 0x18 ;
+        /*18e8*/                   BFE.U32 R17, R2, 0x810 ;
+        /*18f0*/                   LOP32I.AND R8, R8, 0xff ;
+        /*18f8*/         {         SHL R23, R16, 0x2   SLOT 0;
+        /*1908*/                   LDS.U.32 R16, [R20]   SLOT 1        }
+        /*1910*/                   LOP32I.AND R9, R9, 0xff ;
+        /*1918*/                   BFE.U32 R19, R6, 0x808 ;
+        /*1928*/                   SHL R27, R18, 0x2 ;
+        /*1930*/                   LOP3.LUT R11, R12, R11, R10, 0x96 ;
+        /*1938*/                   BFE.U32 R10, R4, 0x810 ;
+        /*1948*/                   LOP32I.AND R13, R13, 0xff ;
+        /*1950*/                   SHR.U32 R12, R4, 0x18 ;
+        /*1958*/         {         LOP32I.AND R22, R14, 0xff   SLOT 0;
+        /*1968*/                   LDS.U.32 R14, [R27+0xc00]   SLOT 1        }
+        /*1970*/         {         SHL R28, R17, 0x2   SLOT 0;
+        /*1978*/                   LDS.U.32 R17, [R23+0x400]   SLOT 1        }
+        /*1988*/         {         SHL R20, R10, 0x2   SLOT 0;
+        /*1990*/                   LDC.U8 R10, c[0x3][0x47f]   SLOT 1        }
+        /*1998*/         {         SHL R21, R21, 0x2 ;
+        /*19a8*/                   LDC.U8 R27, c[0x3][0x470]         }
+        /*19b0*/         {         SHL R8, R8, 0x2 ;
+        /*19b8*/                   LDS.U.32 R20, [R20+0x800]         }
+        /*19c8*/         {         SHL R23, R13, 0x2 ;
+        /*19d0*/                   LDC R21, c[0x3][R21]         }
+        /*19d8*/         {         SHL R13, R12, 0x2 ;
+        /*19e8*/                   LDC R8, c[0x3][R8]         }
+        /*19f0*/         {         SHL R9, R9, 0x2 ;
+        /*19f8*/                   LDC R23, c[0x3][R23]         }
+        /*1a08*/         {         SHL R7, R7, 0x2 ;
+        /*1a10*/                   LDS.U.32 R13, [R13+0xc00]         }
+        /*1a18*/         {         SHL R29, R19, 0x2 ;
+        /*1a28*/                   LDC R9, c[0x3][R9]         }
+        /*1a30*/         {         BFI R12, R6, 0x802, RZ ;
+        /*1a38*/                   LDS.U.32 R19, [R28+0x800]         }
+        /*1a48*/         {         SHL R15, R15, 0x2 ;
+        /*1a50*/                   LDC R7, c[0x3][R7]         }
+        /*1a58*/         {         SHL R22, R22, 0x2 ;
+        /*1a68*/                   LDS.U.32 R18, [R29+0x400]         }
+        /*1a70*/         {         LOP32I.AND R26, R26, 0xff ;
+        /*1a78*/                   LDC R15, c[0x3][R15]         }
+        /*1a88*/         {         SHL R28, R26, 0x2 ;
+        /*1a90*/                   LDS.U.32 R12, [R12]         }
+        /*1a98*/         {         LOP32I.AND R10, R10, 0xff ;
+        /*1aa8*/                   LDC R22, c[0x3][R22]         }
+        /*1ab0*/         {         LOP3.LUT R30, R17, R20, R14, 0x96 ;
+        /*1ab8*/                   LDC R28, c[0x3][R28]         }
+        /*1ac8*/                   SHL R25, R25, 0x2 ;
+        /*1ad0*/         {         SHL R24, R24, 0x2 ;
+        /*1ad8*/                   LDC R25, c[0x3][R25]         }
+        /*1ae8*/         {         BFI R29, R5, 0x802, RZ ;
+        /*1af0*/                   LDC R24, c[0x3][R24]         }
+        /*1af8*/         {         LOP3.LUT R11, R21, R11, R16, 0x96 ;
+        /*1b08*/                   LDS.U.32 R26, [R29]         }
+        /*1b10*/         {         SHF.L.W R14, R8, 0x10, R8   SLOT 0;
+        /*1b18*/                   LDC.U8 R8, c[0x3][0x472]   SLOT 1        }
+        /*1b28*/         {         LOP3.LUT R19, R18, R19, R13, 0x96   SLOT 0;
+        /*1b30*/                   LDC.U8 R18, c[0x3][0x468]   SLOT 1        }
+        /*1b38*/         {         SHL R16, R10, 0x2   SLOT 0;
+        /*1b48*/                   LDC.U8 R10, c[0x3][0x471]   SLOT 1        }
+        /*1b50*/                   SHF.L.W R3, R3, 0x8, R3 ;
+        /*1b58*/         {         LOP3.LUT R12, R9, R30, R12, 0x96   SLOT 0;
+        /*1b68*/                   LDC R9, c[0x3][R16]   SLOT 1        }
+        /*1b70*/         {         SHF.L.W R17, R7, 0x10, R7   SLOT 0;
+        /*1b78*/                   LDC.U8 R7, c[0x3][0x473]   SLOT 1        }
+        /*1b88*/         {         SHF.L.W R13, R15, 0x8, R15   SLOT 0;
+        /*1b90*/                   LDC.U8 R15, c[0x3][0x462]   SLOT 1        }
+        /*1b98*/                   LOP3.LUT R17, R17, R12, R3, 0x96 ;
+        /*1ba8*/         {         LOP3.LUT R14, R14, R11, R13, 0x96   SLOT 0;
+        /*1bb0*/                   LDC.U8 R11, c[0x3][0x460]   SLOT 1        }
+        /*1bb8*/                   SHF.L.W R3, R22, 0x18, R22 ;
+        /*1bc8*/                   SHR.U32 R13, R2, 0x18 ;
+        /*1bd0*/         {         LOP.XOR R2, R14, R3   SLOT 0;
+        /*1bd8*/                   LDC.U8 R14, c[0x3][0x461]   SLOT 1        }
+        /*1be8*/                   SHF.L.W R28, R28, 0x18, R28 ;
+        /*1bf0*/                   BFE.U32 R6, R6, 0x810 ;
+        /*1bf8*/                   BFE.U32 R5, R5, 0x808 ;
+        /*1c08*/                   LOP3.LUT R25, R25, R19, R26, 0x96 ;
+        /*1c10*/                   LOP.XOR R3, R17, R28 ;
+        /*1c18*/                   LOP32I.AND R16, R8, 0xff ;
+        /*1c28*/                   SHF.L.W R24, R24, 0x8, R24 ;
+        /*1c30*/                   SHF.L.W R23, R23, 0x10, R23 ;
+        /*1c38*/                   SHL R17, R13, 0x2 ;
+        /*1c48*/         {         LOP32I.AND R13, R10, 0xff   SLOT 0;
+        /*1c50*/                   LDC.U8 R10, c[0x3][0x469]   SLOT 1        }
+        /*1c58*/         {         SHL R8, R6, 0x2   SLOT 0;
+        /*1c68*/                   LDS.U.32 R6, [R17+0xc00]   SLOT 1        }
+        /*1c70*/         {         SHL R21, R5, 0x2 ;
+        /*1c78*/                   LDS.U.32 R8, [R8+0x800]         }
+        /*1c88*/         {         LOP32I.AND R19, R27, 0xff ;
+        /*1c90*/                   LDS.U.32 R21, [R21+0x400]         }
+        /*1c98*/         {         LOP32I.AND R22, R7, 0xff   SLOT 0;
+        /*1ca8*/                   LDC.U8 R7, c[0x3][0x46a]   SLOT 1        }
+        /*1cb0*/                   LOP3.LUT R12, R23, R25, R24, 0x96 ;
+        /*1cb8*/                   SHF.L.W R9, R9, 0x18, R9 ;
+        /*1cc8*/                   SHL R19, R19, 0x2 ;
+        /*1cd0*/                   SHL R25, R13, 0x2 ;
+        /*1cd8*/                   SHL R16, R16, 0x2 ;
+        /*1ce8*/         {         BFI R17, R4, 0x802, RZ   SLOT 0;
+        /*1cf0*/                   LDC R4, c[0x3][R19]   SLOT 1        }
+        /*1cf8*/         {         LOP.XOR R5, R12, R9   SLOT 0;
+        /*1d08*/                   LDC R12, c[0x3][R25]   SLOT 1        }
+        /*1d10*/         {         SHR.U32 R20, R2, 0x18 ;
+        /*1d18*/                   LDC R16, c[0x3][R16]         }
+        /*1d28*/         {         LOP32I.AND R24, R14, 0xff ;
+        /*1d30*/                   LDS.U.32 R17, [R17]         }
+        /*1d38*/                   SHL R22, R22, 0x2 ;
+        /*1d48*/                   LOP32I.AND R14, R15, 0xff ;
+        /*1d50*/                   SHL R15, R20, 0x2 ;
+        /*1d58*/         {         LOP32I.AND R20, R18, 0xff   SLOT 0;
+        /*1d68*/                   LDC R18, c[0x3][R22]   SLOT 1        }
+        /*1d70*/         {         BFE.U32 R9, R3, 0x810 ;
+        /*1d78*/                   LDS.U.32 R15, [R15+0xc00]         }
+        /*1d88*/                   BFE.U32 R23, R5, 0x808 ;
+        /*1d90*/                   LOP32I.AND R19, R10, 0xff ;
+        /*1d98*/                   SHL R10, R9, 0x2 ;
+        /*1da8*/         {         SHL R9, R24, 0x2 ;
+        /*1db0*/                   LDS.U.32 R10, [R10+0x800]         }
+        /*1db8*/         {         SHL R25, R23, 0x2 ;
+        /*1dc8*/                   LDC R9, c[0x3][R9]         }
+        /*1dd0*/                   LOP32I.AND R24, R7, 0xff ;
+        /*1dd8*/         {         LOP3.LUT R23, R21, R8, R6, 0x96   SLOT 0;
+        /*1de8*/                   LDC.U8 R6, c[0x3][0x46d]   SLOT 1        }
+        /*1df0*/                   SHL R7, R14, 0x2 ;
+        /*1df8*/         {         SHL R14, R20, 0x2   SLOT 0;
+        /*1e08*/                   LDS.U.32 R20, [R25+0x400]   SLOT 1        }
+        /*1e10*/         {         LOP32I.AND R13, R11, 0xff   SLOT 0;
+        /*1e18*/                   LDC.U8 R11, c[0x3][0x46c]   SLOT 1        }
+        /*1e28*/         {         SHL R8, R19, 0x2   SLOT 0;
+        /*1e30*/                   LDC.U8 R19, c[0x3][0x46e]   SLOT 1        }
+        /*1e38*/         {         LOP3.LUT R4, R4, R23, R17, 0x96 ;
+        /*1e48*/                   LDC R7, c[0x3][R7]         }
+        /*1e50*/         {         SHF.L.W R21, R12, 0x8, R12   SLOT 0;
+        /*1e58*/                   LDC.U8 R12, c[0x3][0x46b]   SLOT 1        }
+        /*1e68*/         {         SHF.L.W R22, R16, 0x10, R16 ;
+        /*1e70*/                   LDC R14, c[0x3][R14]         }
+        /*1e78*/         {         SHF.L.W R18, R18, 0x18, R18 ;
+        /*1e88*/                   LDC R8, c[0x3][R8]         }
+        /*1e90*/         {         LOP3.LUT R4, R22, R4, R21, 0x96   SLOT 0;
+        /*1e98*/                   LDC.U8 R22, c[0x3][0x46f]   SLOT 1        }
+        /*1ea8*/                   BFE.U32 R16, R2, 0x808 ;
+        /*1eb0*/                   BFE.U32 R17, R2, 0x810 ;
+        /*1eb8*/                   LOP.XOR R4, R4, R18 ;
+        /*1ec8*/                   SHL R21, R16, 0x2 ;
+        /*1ed0*/         {         LOP32I.AND R25, R6, 0xff ;
+        /*1ed8*/                   LDS.U.32 R18, [R21+0x400]         }
+        /*1ee8*/         {         BFE.U32 R16, R3, 0x808 ;
+        /*1ef0*/                   LDC.U8 R21, c[0x3][0x463]         }
+        /*1ef8*/                   SHR.U32 R6, R4, 0x18 ;
+        /*1f08*/                   LOP3.LUT R15, R20, R10, R15, 0x96 ;
+        /*1f10*/                   SHL R23, R17, 0x2 ;
+        /*1f18*/                   SHR.U32 R17, R5, 0x18 ;
+        /*1f28*/                   BFE.U32 R10, R4, 0x810 ;
+        /*1f30*/                   LOP32I.AND R26, R11, 0xff ;
+        /*1f38*/                   SHL R11, R24, 0x2 ;
+        /*1f48*/         {         LOP32I.AND R24, R19, 0xff ;
+        /*1f50*/                   LDC R11, c[0x3][R11]         }
+        /*1f58*/         {         SHL R27, R16, 0x2   SLOT 0;
+        /*1f68*/                   LDS.U.32 R16, [R23+0x800]   SLOT 1        }
+        /*1f70*/                   SHL R6, R6, 0x2 ;
+        /*1f78*/         {         SHL R20, R17, 0x2   SLOT 0;
+        /*1f88*/                   LDS.U.32 R17, [R27+0x400]   SLOT 1        }
+        /*1f90*/         {         SHL R19, R10, 0x2 ;
+        /*1f98*/                   LDS.U.32 R6, [R6+0xc00]         }
+        /*1fa8*/         {         SHL R13, R13, 0x2 ;
+        /*1fb0*/                   LDS.U.32 R20, [R20+0xc00]         }
+        /*1fb8*/         {         BFI R10, R4, 0x802, RZ ;
+        /*1fc8*/                   LDS.U.32 R19, [R19+0x800]         }
+        /*1fd0*/         {         LOP32I.AND R23, R12, 0xff ;
+        /*1fd8*/                   LDC R13, c[0x3][R13]         }
+        /*1fe8*/         {         BFI R12, R3, 0x802, RZ ;
+        /*1ff0*/                   LDS.U.32 R10, [R10]         }
+        /*1ff8*/         {         LOP32I.AND R22, R22, 0xff ;
+        /*2008*/                   LDS.U.32 R12, [R12]         }
+        /*2010*/                   SHL R23, R23, 0x2 ;
+        /*2018*/                   LDC R23, c[0x3][R23] ;
+        /*2028*/                   SHL R28, R22, 0x2 ;
+        /*2030*/         {         LOP32I.AND R22, R21, 0xff   SLOT 0;
+        /*2038*/                   LDC R21, c[0x3][R28]   SLOT 1        }
+        /*2048*/                   SHL R26, R26, 0x2 ;
+        /*2050*/         {         SHL R25, R25, 0x2 ;
+        /*2058*/                   LDC R26, c[0x3][R26]         }
+        /*2068*/         {         SHL R24, R24, 0x2 ;
+        /*2070*/                   LDC R25, c[0x3][R25]         }
+        /*2078*/         {         BFI R27, R5, 0x802, RZ ;
+        /*2088*/                   LDC R24, c[0x3][R24]         }
+        /*2090*/         {         LOP3.LUT R16, R17, R16, R6, 0x96   SLOT 0;
+        /*2098*/                   LDC.U8 R6, c[0x3][0x465]   SLOT 1        }
+        /*20a8*/         {         LOP3.LUT R19, R18, R19, R20, 0x96   SLOT 0;
+        /*20b0*/                   LDC.U8 R18, c[0x3][0x464]   SLOT 1        }
+        /*20b8*/         {         SHL R17, R22, 0x2 ;
+        /*20c8*/                   LDS.U.32 R27, [R27]         }
+        /*20d0*/         {         SHF.L.W R20, R7, 0x10, R7   SLOT 0;
+        /*20d8*/                   LDC.U8 R7, c[0x3][0x466]   SLOT 1        }
+        /*20e8*/         {         LOP3.LUT R15, R13, R15, R10, 0x96   SLOT 0;
+        /*20f0*/                   LDC R10, c[0x3][R17]   SLOT 1        }
+        /*20f8*/         {         SHF.L.W R13, R11, 0x10, R11   SLOT 0;
+        /*2108*/                   LDC.U8 R11, c[0x3][0x467]   SLOT 1        }
+        /*2110*/                   LOP3.LUT R14, R14, R19, R12, 0x96 ;
+        /*2118*/                   SHF.L.W R8, R8, 0x8, R8 ;
+        /*2128*/                   SHR.U32 R3, R3, 0x18 ;
+        /*2130*/                   BFE.U32 R5, R5, 0x810 ;
+        /*2138*/                   LOP3.LUT R8, R13, R14, R8, 0x96 ;
+        /*2148*/                   BFE.U32 R4, R4, 0x808 ;
+        /*2150*/                   SHF.L.W R23, R23, 0x18, R23 ;
+        /*2158*/                   SHL R14, R3, 0x2 ;
+        /*2168*/                   SHF.L.W R9, R9, 0x8, R9 ;
+        /*2170*/                   LOP.XOR R3, R8, R23 ;
+        /*2178*/                   LOP32I.AND R8, R6, 0xff ;
+        /*2188*/         {         LOP3.LUT R16, R26, R16, R27, 0x96   SLOT 0;
+        /*2190*/                   LDC.U8 R26, c[0x3][0x45c]   SLOT 1        }
+        /*2198*/                   SHF.L.W R25, R25, 0x8, R25 ;
+        /*21a8*/                   LOP32I.AND R18, R18, 0xff ;
+        /*21b0*/                   SHF.L.W R19, R24, 0x10, R24 ;
+        /*21b8*/         {         SHL R6, R5, 0x2   SLOT 0;
+        /*21c8*/                   LDS.U.32 R5, [R14+0xc00]   SLOT 1        }
+        /*21d0*/         {         SHL R12, R4, 0x2 ;
+        /*21d8*/                   LDS.U.32 R6, [R6+0x800]         }
+        /*21e8*/         {         LOP32I.AND R13, R7, 0xff ;
+        /*21f0*/                   LDS.U.32 R12, [R12+0x400]         }
+        /*21f8*/         {         LOP3.LUT R9, R20, R15, R9, 0x96   SLOT 0;
+        /*2208*/                   LDC.U8 R20, c[0x3][0x454]   SLOT 1        }
+        /*2210*/                   SHF.L.W R7, R10, 0x18, R10 ;
+        /*2218*/         {         LOP3.LUT R16, R19, R16, R25, 0x96   SLOT 0;
+        /*2228*/                   LDC.U8 R19, c[0x3][0x455]   SLOT 1        }
+        /*2230*/                   SHF.L.W R21, R21, 0x18, R21 ;
+        /*2238*/                   LOP32I.AND R10, R11, 0xff ;
+        /*2248*/                   SHL R17, R8, 0x2 ;
+        /*2250*/                   SHL R18, R18, 0x2 ;
+        /*2258*/         {         BFI R8, R2, 0x802, RZ   SLOT 0;
+        /*2268*/                   LDC R2, c[0x3][R18]   SLOT 1        }
+        /*2270*/         {         SHL R14, R13, 0x2   SLOT 0;
+        /*2278*/                   LDC R13, c[0x3][R17]   SLOT 1        }
+        /*2288*/         {         LOP.XOR R7, R9, R7 ;
+        /*2290*/                   LDS.U.32 R11, [R8]         }
+        /*2298*/         {         LOP.XOR R4, R16, R21 ;
+        /*22a8*/                   LDC R14, c[0x3][R14]         }
+        /*22b0*/                   SHL R9, R10, 0x2 ;
+        /*22b8*/         {         SHR.U32 R16, R3, 0x18 ;
+        /*22c8*/                   LDC R9, c[0x3][R9]         }
+        /*22d0*/                   BFE.U32 R10, R4, 0x810 ;
+        /*22d8*/                   BFE.U32 R15, R7, 0x808 ;
+        /*22e8*/                   SHL R22, R16, 0x2 ;
+        /*22f0*/         {         SHL R16, R10, 0x2   SLOT 0;
+        /*22f8*/                   LDC.U8 R10, c[0x3][0x450]   SLOT 1        }
+        /*2308*/         {         SHL R15, R15, 0x2 ;
+        /*2310*/                   LDS.U.32 R22, [R22+0xc00]         }
+        /*2318*/         {         LOP3.LUT R12, R12, R6, R5, 0x96   SLOT 0;
+        /*2328*/                   LDC.U8 R5, c[0x3][0x451]   SLOT 1        }
+        /*2330*/         {         SHF.L.W R13, R13, 0x8, R13 ;
+        /*2338*/                   LDS.U.32 R8, [R16+0x800]         }
+        /*2348*/         {         LOP3.LUT R2, R2, R12, R11, 0x96   SLOT 0;
+        /*2350*/                   LDC.U8 R12, c[0x3][0x452]   SLOT 1        }
+        /*2358*/         {         SHF.L.W R11, R14, 0x10, R14 ;
+        /*2368*/                   LDS.U.32 R21, [R15+0x400]         }
+        /*2370*/         {         SHF.L.W R17, R9, 0x18, R9   SLOT 0;
+        /*2378*/                   LDC.U8 R9, c[0x3][0x458]   SLOT 1        }
+        /*2388*/         {         LOP3.LUT R2, R11, R2, R13, 0x96   SLOT 0;
+        /*2390*/                   LDC.U8 R13, c[0x3][0x45e]   SLOT 1        }
+        /*2398*/         {         LOP.XOR R17, R2, R17 ;
+        /*23a8*/                   LDC.U8 R18, c[0x3][0x456]         }
+        /*23b0*/         {         LOP32I.AND R2, R10, 0xff ;
+        /*23b8*/                   LDC.U8 R16, c[0x3][0x459]         }
+        /*23c8*/         {         BFE.U32 R10, R7, 0x810 ;
+        /*23d0*/                   LDC.U8 R15, c[0x3][0x45a]         }
+        /*23d8*/         {         BFE.U32 R6, R17, 0x808 ;
+        /*23e8*/                   LDC.U8 R14, c[0x3][0x45d]         }
+        /*23f0*/                   LOP3.LUT R22, R21, R8, R22, 0x96 ;
+        /*23f8*/                   LOP32I.AND R21, R5, 0xff ;
+        /*2408*/                   SHR.U32 R5, R4, 0x18 ;
+        /*2410*/         {         SHL R8, R6, 0x2   SLOT 0;
+        /*2418*/                   LDC.U8 R6, c[0x3][0x45b]   SLOT 1        }
+        /*2428*/         {         SHL R25, R10, 0x2 ;
+        /*2430*/                   LDS.U.32 R8, [R8+0x400]         }
+        /*2438*/         {         SHL R27, R5, 0x2 ;
+        /*2448*/                   LDS.U.32 R25, [R25+0x800]         }
+        /*2450*/         {         LOP32I.AND R20, R20, 0xff ;
+        /*2458*/                   LDS.U.32 R10, [R27+0xc00]         }
+        /*2468*/                   SHL R5, R21, 0x2 ;
+        /*2470*/         {         LOP32I.AND R21, R9, 0xff   SLOT 0;
+        /*2478*/                   LDC.U8 R9, c[0x3][0x45f]   SLOT 1        }
+        /*2488*/         {         BFI R24, R17, 0x802, RZ ;
+        /*2490*/                   LDC R5, c[0x3][R5]         }
+        /*2498*/         {         SHL R23, R20, 0x2 ;
+        /*24a8*/                   LDS.U.32 R24, [R24]         }
+        /*24b0*/         {         SHL R20, R21, 0x2 ;
+        /*24b8*/                   LDC R23, c[0x3][R23]         }
+        /*24c8*/         {         BFI R21, R3, 0x802, RZ ;
+        /*24d0*/                   LDC R20, c[0x3][R20]         }
+        /*24d8*/         {         LOP32I.AND R11, R12, 0xff   SLOT 0;
+        /*24e8*/                   LDC.U8 R12, c[0x3][0x457]   SLOT 1        }
+        /*24f0*/         {         LOP32I.AND R26, R26, 0xff ;
+        /*24f8*/                   LDS.U.32 R21, [R21]         }
+        /*2508*/                   LOP32I.AND R27, R13, 0xff ;
+        /*2510*/                   SHL R13, R26, 0x2 ;
+        /*2518*/         {         LOP3.LUT R26, R8, R25, R10, 0x96   SLOT 0;
+        /*2528*/                   LDC.U8 R10, c[0x3][0x453]   SLOT 1        }
+        /*2530*/         {         BFE.U32 R25, R17, 0x810 ;
+        /*2538*/                   LDC R13, c[0x3][R13]         }
+        /*2548*/                   LOP32I.AND R19, R19, 0xff ;
+        /*2550*/                   LOP32I.AND R18, R18, 0xff ;
+        /*2558*/                   LOP3.LUT R22, R23, R22, R24, 0x96 ;
+        /*2568*/                   BFE.U32 R23, R3, 0x808 ;
+        /*2570*/                   SHL R19, R19, 0x2 ;
+        /*2578*/         {         LOP32I.AND R28, R12, 0xff ;
+        /*2588*/                   LDC R19, c[0x3][R19]         }
+        /*2590*/                   LOP3.LUT R21, R20, R26, R21, 0x96 ;
+        /*2598*/                   SHL R26, R25, 0x2 ;
+        /*25a8*/                   SHR.U32 R25, R7, 0x18 ;
+        /*25b0*/                   SHL R18, R18, 0x2 ;
+        /*25b8*/         {         LOP32I.AND R30, R9, 0xff ;
+        /*25c8*/                   LDC R18, c[0x3][R18]         }
+        /*25d0*/                   SHL R12, R27, 0x2 ;
+        /*25d8*/         {         SHR.U32 R24, R17, 0x18 ;
+        /*25e8*/                   LDC R12, c[0x3][R12]         }
+        /*25f0*/                   BFI R27, R4, 0x802, RZ ;
+        /*25f8*/         {         LOP32I.AND R16, R16, 0xff ;
+        /*2608*/                   LDS.U.32 R20, [R27]         }
+        /*2610*/                   SHL R9, R28, 0x2 ;
+        /*2618*/         {         LOP32I.AND R15, R15, 0xff ;
+        /*2628*/                   LDC R9, c[0x3][R9]         }
+        /*2630*/                   LOP32I.AND R14, R14, 0xff ;
+        /*2638*/         {         SHL R28, R23, 0x2   SLOT 0;
+        /*2648*/                   LDS.U.32 R23, [R26+0x800]   SLOT 1        }
+        /*2650*/         {         LOP32I.AND R29, R6, 0xff ;
+        /*2658*/                   LDS.U.32 R17, [R28+0x400]         }
+        /*2668*/                   SHL R25, R25, 0x2 ;
+        /*2670*/                   BFE.U32 R3, R3, 0x810 ;
+        /*2678*/                   BFE.U32 R4, R4, 0x808 ;
+        /*2688*/         {         SHL R27, R24, 0x2   SLOT 0;
+        /*2690*/                   LDS.U.32 R24, [R25+0xc00]   SLOT 1        }
+        /*2698*/                   LOP32I.AND R10, R10, 0xff ;
+        /*26a8*/                   SHL R16, R16, 0x2 ;
+        /*26b0*/         {         SHL R15, R15, 0x2 ;
+        /*26b8*/                   LDC R16, c[0x3][R16]         }
+        /*26c8*/         {         SHL R6, R14, 0x2 ;
+        /*26d0*/                   LDC R15, c[0x3][R15]         }
+        /*26d8*/         {         SHL R14, R29, 0x2 ;
+        /*26e8*/                   LDC R6, c[0x3][R6]         }
+        /*26f0*/         {         SHL R26, R3, 0x2   SLOT 0;
+        /*26f8*/                   LDS.U.32 R3, [R27+0xc00]   SLOT 1        }
+        /*2708*/         {         SHL R29, R4, 0x2 ;
+        /*2710*/                   LDC R14, c[0x3][R14]         }
+        /*2718*/         {         SHL R25, R10, 0x2 ;
+        /*2728*/                   LDS.U.32 R4, [R26+0x800]         }
+        /*2730*/         {         SHL R8, R30, 0x2 ;
+        /*2738*/                   LDS.U.32 R10, [R29+0x400]         }
+        /*2748*/         {         SHL R2, R2, 0x2 ;
+        /*2750*/                   LDC R25, c[0x3][R25]         }
+        /*2758*/         {         SHL R11, R11, 0x2 ;
+        /*2768*/                   LDC R8, c[0x3][R8]         }
+        /*2770*/         {         BFI R7, R7, 0x802, RZ ;
+        /*2778*/                   LDC R2, c[0x3][R2]         }
+        /*2788*/         {         SHF.L.W R19, R19, 0x8, R19 ;
+        /*2790*/                   LDC R11, c[0x3][R11]         }
+        /*2798*/         {         SHF.L.W R28, R18, 0x10, R18 ;
+        /*27a8*/                   LDS.U.32 R7, [R7]         }
+        /*27b0*/         {         LOP3.LUT R23, R17, R23, R24, 0x96 ;
+        /*27b8*/                   LDC.U8 R18, c[0x3][0x449]         }
+        /*27c8*/                   SHF.L.W R9, R9, 0x18, R9 ;
+        /*27d0*/         {         LOP3.LUT R19, R28, R22, R19, 0x96   SLOT 0;
+        /*27d8*/                   LDC.U8 R22, c[0x3][0x441]   SLOT 1        }
+        /*27e8*/                   SHF.L.W R16, R16, 0x8, R16 ;
+        /*27f0*/         {         LOP3.LUT R13, R13, R23, R20, 0x96   SLOT 0;
+        /*27f8*/                   LDC.U8 R23, c[0x3][0x440]   SLOT 1        }
+        /*2808*/                   SHF.L.W R15, R15, 0x10, R15 ;
+        /*2810*/                   SHF.L.W R6, R6, 0x8, R6 ;
+        /*2818*/         {         LOP.XOR R20, R19, R9   SLOT 0;
+        /*2828*/                   LDC.U8 R9, c[0x3][0x445]   SLOT 1        }
+        /*2830*/         {         SHF.L.W R12, R12, 0x10, R12 ;
+        /*2838*/                   LDC.U8 R19, c[0x3][0x442]         }
+        /*2848*/         {         LOP3.LUT R4, R10, R4, R3, 0x96   SLOT 0;
+        /*2850*/                   LDC.U8 R10, c[0x3][0x44d]   SLOT 1        }
+        /*2858*/         {         LOP3.LUT R15, R15, R21, R16, 0x96   SLOT 0;
+        /*2868*/                   LDC.U8 R16, c[0x3][0x444]   SLOT 1        }
+        /*2870*/                   SHF.L.W R14, R14, 0x18, R14 ;
+        /*2878*/         {         LOP3.LUT R6, R12, R13, R6, 0x96   SLOT 0;
+        /*2888*/                   LDC.U8 R12, c[0x3][0x44a]   SLOT 1        }
+        /*2890*/                   SHR.U32 R3, R20, 0x18 ;
+        /*2898*/                   SHF.L.W R5, R5, 0x8, R5 ;
+        /*28a8*/                   SHF.L.W R8, R8, 0x18, R8 ;
+        /*28b0*/                   LOP3.LUT R4, R2, R4, R7, 0x96 ;
+        /*28b8*/                   SHF.L.W R11, R11, 0x10, R11 ;
+        /*28c8*/         {         LOP.XOR R17, R15, R14   SLOT 0;
+        /*28d0*/                   LDC.U8 R15, c[0x3][0x446]   SLOT 1        }
+        /*28d8*/                   SHL R13, R3, 0x2 ;
+        /*28e8*/         {         LOP.XOR R2, R6, R8 ;
+        /*28f0*/                   LDS.U.32 R13, [R13+0xc00]         }
+        /*28f8*/                   SHF.L.W R25, R25, 0x18, R25 ;
+        /*2908*/         {         LOP3.LUT R3, R11, R4, R5, 0x96   SLOT 0;
+        /*2910*/                   LDC.U8 R11, c[0x3][0x448]   SLOT 1        }
+        /*2918*/                   BFE.U32 R7, R17.reuse, 0x810 ;
+        /*2928*/                   SHR.U32 R5, R17, 0x18 ;
+        /*2930*/                   BFE.U32 R4, R2, 0x808 ;
+        /*2938*/                   LOP.XOR R3, R3, R25 ;
+        /*2948*/                   SHL R6, R7, 0x2 ;
+        /*2950*/         {         SHL R8, R5, 0x2 ;
+        /*2958*/                   LDS.U.32 R6, [R6+0x800]         }
+        /*2968*/         {         BFE.U32 R5, R2, 0x810 ;
+        /*2970*/                   LDS.U.32 R8, [R8+0xc00]         }
+        /*2978*/                   SHL R7, R4, 0x2 ;
+        /*2988*/         {         BFE.U32 R4, R3, 0x808 ;
+        /*2990*/                   LDS.U.32 R7, [R7+0x400]         }
+        /*2998*/                   SHL R14, R5, 0x2 ;
+        /*29a8*/         {         SHL R5, R4, 0x2 ;
+        /*29b0*/                   LDS.U.32 R14, [R14+0x800]         }
+        /*29b8*/         {         LOP32I.AND R16, R16, 0xff ;
+        /*29c8*/                   LDC.U8 R4, c[0x3][0x44c]         }
+        /*29d0*/         {         BFI R26, R3, 0x802, RZ ;
+        /*29d8*/                   LDS.U.32 R5, [R5+0x400]         }
+        /*29e8*/         {         LOP32I.AND R21, R15, 0xff ;
+        /*29f0*/                   LDS.U.32 R26, [R26]         }
+        /*29f8*/                   SHL R15, R16, 0x2 ;
+        /*2a08*/         {         BFI R25, R20, 0x802, RZ ;
+        /*2a10*/                   LDC R15, c[0x3][R15]         }
+        /*2a18*/         {         LOP3.LUT R13, R7, R6, R13, 0x96   SLOT 0;
+        /*2a28*/                   LDC.U8 R7, c[0x3][0x44b]   SLOT 1        }
+        /*2a30*/         {         LOP32I.AND R23, R23, 0xff ;
+        /*2a38*/                   LDC.U8 R6, c[0x3][0x447]         }
+        /*2a48*/         {         LOP3.LUT R14, R5, R14, R8, 0x96   SLOT 0;
+        /*2a50*/                   LDC.U8 R8, c[0x3][0x44f]   SLOT 1        }
+        /*2a58*/         {         SHL R23, R23, 0x2 ;
+        /*2a68*/                   LDC.U8 R5, c[0x3][0x44e]         }
+        /*2a70*/         {         LOP32I.AND R11, R11, 0xff ;
+        /*2a78*/                   LDS.U.32 R25, [R25]         }
+        /*2a88*/         {         LOP32I.AND R24, R9, 0xff   SLOT 0;
+        /*2a90*/                   LDC.U8 R9, c[0x3][0x443]   SLOT 1        }
+        /*2a98*/         {         LOP32I.AND R27, R10, 0xff ;
+        /*2aa8*/                   LDC R23, c[0x3][R23]         }
+        /*2ab0*/                   LOP32I.AND R16, R4, 0xff ;
+        /*2ab8*/                   SHL R4, R11, 0x2 ;
+        /*2ac8*/         {         LOP32I.AND R11, R7, 0xff ;
+        /*2ad0*/                   LDC R4, c[0x3][R4]         }
+        /*2ad8*/                   SHL R7, R27, 0x2 ;
+        /*2ae8*/         {         SHL R24, R24, 0x2 ;
+        /*2af0*/                   LDC R7, c[0x3][R7]         }
+        /*2af8*/         {         LOP32I.AND R27, R8, 0xff ;
+        /*2b08*/                   LDC R24, c[0x3][R24]         }
+        /*2b10*/                   LOP32I.AND R10, R6, 0xff ;
+        /*2b18*/                   LOP3.LUT R13, R23, R13, R26, 0x96 ;
+        /*2b28*/                   SHR.U32 R26, R2, 0x18 ;
+        /*2b30*/                   LOP32I.AND R28, R5, 0xff ;
+        /*2b38*/                   SHL R6, R16, 0x2 ;
+        /*2b48*/         {         LOP3.LUT R14, R15, R14, R25, 0x96 ;
+        /*2b50*/                   LDC R6, c[0x3][R6]         }
+        /*2b58*/                   SHL R16, R10, 0x2 ;
+        /*2b68*/         {         SHL R29, R26, 0x2 ;
+        /*2b70*/                   LDC R16, c[0x3][R16]         }
+        /*2b78*/                   SHL R10, R27, 0x2 ;
+        /*2b88*/         {         BFE.U32 R23, R20, 0x808 ;
+        /*2b90*/                   LDC R10, c[0x3][R10]         }
+        /*2b98*/                   BFE.U32 R25, R3, 0x810 ;
+        /*2ba8*/         {         BFE.U32 R26, R20, 0x810   SLOT 0;
+        /*2bb0*/                   LDS.U.32 R20, [R29+0xc00]   SLOT 1        }
+        /*2bb8*/                   BFI R27, R17, 0x802, RZ ;
+        /*2bc8*/         {         LOP32I.AND R12, R12, 0xff ;
+        /*2bd0*/                   LDS.U.32 R15, [R27]         }
+        /*2bd8*/                   SHL R8, R28, 0x2 ;
+        /*2be8*/         {         LOP32I.AND R22, R22, 0xff ;
+        /*2bf0*/                   LDC R8, c[0x3][R8]         }
+        /*2bf8*/                   LOP32I.AND R19, R19, 0xff ;
+        /*2c08*/                   LOP32I.AND R18, R18, 0xff ;
+        /*2c10*/                   SHL R21, R21, 0x2 ;
+        /*2c18*/         {         SHL R23, R23, 0x2 ;
+        /*2c28*/                   LDC R21, c[0x3][R21]         }
+        /*2c30*/         {         SHL R28, R25, 0x2 ;
+        /*2c38*/                   LDS.U.32 R23, [R23+0x400]         }
+        /*2c48*/                   SHL R27, R26, 0x2 ;
+        /*2c50*/         {         BFE.U32 R25, R17, 0x808   SLOT 0;
+        /*2c58*/                   LDS.U.32 R17, [R28+0x800]   SLOT 1        }
+        /*2c68*/         {         SHR.U32 R26, R3, 0x18   SLOT 0;
+        /*2c70*/                   LDS.U.32 R3, [R27+0x800]   SLOT 1        }
+        /*2c78*/                   SHL R5, R12, 0x2 ;
+        /*2c88*/         {         LOP32I.AND R12, R9, 0xff ;
+        /*2c90*/                   LDC R5, c[0x3][R5]         }
+        /*2c98*/                   SHL R22, R22, 0x2 ;
+        /*2ca8*/         {         SHL R19, R19, 0x2 ;
+        /*2cb0*/                   LDC R22, c[0x3][R22]         }
+        /*2cb8*/         {         SHL R18, R18, 0x2 ;
+        /*2cc8*/                   LDC R19, c[0x3][R19]         }
+        /*2cd0*/         {         SHL R25, R25, 0x2 ;
+        /*2cd8*/                   LDC R18, c[0x3][R18]         }
+        /*2ce8*/         {         SHL R26, R26, 0x2 ;
+        /*2cf0*/                   LDS.U.32 R25, [R25+0x400]         }
+        /*2cf8*/         {         SHL R12, R12, 0x2 ;
+        /*2d08*/                   LDS.U.32 R26, [R26+0xc00]         }
+        /*2d10*/         {         SHL R9, R11, 0x2   SLOT 0;
+        /*2d18*/                   LDC.U8 R11, c[0x3][0x430]   SLOT 1        }
+        /*2d28*/         {         BFI R28, R2, 0x802, RZ ;
+        /*2d30*/                   LDC R12, c[0x3][R12]         }
+        /*2d38*/         {         SHF.L.W R27, R24, 0x8, R24 ;
+        /*2d48*/                   LDC R9, c[0x3][R9]         }
+        /*2d50*/         {         SHF.L.W R21, R21, 0x10, R21 ;
+        /*2d58*/                   LDS.U.32 R24, [R28]         }
+        /*2d68*/                   SHF.L.W R16, R16, 0x18, R16 ;
+        /*2d70*/         {         LOP3.LUT R17, R23, R17, R20, 0x96   SLOT 0;
+        /*2d78*/                   LDC.U8 R20, c[0x3][0x432]   SLOT 1        }
+        /*2d88*/         {         SHF.L.W R19, R19, 0x10, R19 ;
+        /*2d90*/                   LDC.U8 R23, c[0x3][0x431]         }
+        /*2d98*/         {         LOP3.LUT R2, R21, R14, R27, 0x96   SLOT 0;
+        /*2da8*/                   LDC.U8 R21, c[0x3][0x434]   SLOT 1        }
+        /*2db0*/                   SHF.L.W R18, R18, 0x8, R18 ;
+        /*2db8*/                   LOP3.LUT R15, R4, R17, R15, 0x96 ;
+        /*2dc8*/                   SHF.L.W R22, R22, 0x8, R22 ;
+        /*2dd0*/                   SHF.L.W R5, R5, 0x10, R5 ;
+        /*2dd8*/                   LOP3.LUT R3, R25, R3, R26, 0x96 ;
+        /*2de8*/                   SHF.L.W R14, R12, 0x18, R12 ;
+        /*2df0*/                   LOP3.LUT R12, R19, R13, R22, 0x96 ;
+        /*2df8*/                   SHF.L.W R4, R7, 0x8, R7 ;
+        /*2e08*/                   LOP.XOR R2, R2, R16 ;
+        /*2e10*/                   SHF.L.W R7, R9, 0x18, R9 ;
+        /*2e18*/                   LOP3.LUT R5, R5, R15, R18, 0x96 ;
+        /*2e28*/                   SHF.L.W R13, R8, 0x10, R8 ;
+        /*2e30*/                   LOP3.LUT R6, R6, R3, R24, 0x96 ;
+        /*2e38*/                   SHF.L.W R10, R10, 0x18, R10 ;
+        /*2e48*/                   SHR.U32 R8, R2, 0x18 ;
+        /*2e50*/                   LOP.XOR R7, R5, R7 ;
+        /*2e58*/                   LOP.XOR R12, R12, R14 ;
+        /*2e68*/                   LOP3.LUT R4, R13, R6, R4, 0x96 ;
+        /*2e70*/                   SHL R15, R8, 0x2 ;
+        /*2e78*/                   SHR.U32 R13, R7, 0x18 ;
+        /*2e88*/                   LOP.XOR R8, R4, R10 ;
+        /*2e90*/                   BFI R14, R12, 0x802, RZ ;
+        /*2e98*/         {         BFE.U32 R9, R2.reuse, 0x808 ;
+        /*2ea8*/                   LDS.U.32 R3, [R14]         }
+        /*2eb0*/                   SHL R17, R13, 0x2 ;
+        /*2eb8*/                   BFE.U32 R5, R2, 0x810 ;
+        /*2ec8*/                   BFE.U32 R13, R8, 0x808 ;
+        /*2ed0*/                   BFE.U32 R14, R8, 0x810 ;
+        /*2ed8*/         {         SHL R16, R9, 0x2   SLOT 0;
+        /*2ee8*/                   LDS.U.32 R9, [R15+0xc00]   SLOT 1        }
+        /*2ef0*/                   BFE.U32 R6, R7, 0x810 ;
+        /*2ef8*/         {         SHL R18, R5, 0x2   SLOT 0;
+        /*2f08*/                   LDS.U.32 R5, [R16+0x400]   SLOT 1        }
+        /*2f10*/                   SHL R27, R13, 0x2 ;
+        /*2f18*/         {         SHL R22, R14, 0x2 ;
+        /*2f28*/                   LDS.U.32 R27, [R27+0x400]         }
+        /*2f30*/         {         BFE.U32 R13, R12.reuse, 0x808 ;
+        /*2f38*/                   LDS.U.32 R22, [R22+0x800]         }
+        /*2f48*/                   BFE.U32 R14, R12, 0x810 ;
+        /*2f50*/                   BFE.U32 R4, R7, 0x808 ;
+        /*2f58*/                   SHR.U32 R16, R8, 0x18 ;
+        /*2f68*/                   SHR.U32 R12, R12, 0x18 ;
+        /*2f70*/                   LOP32I.AND R11, R11, 0xff ;
+        /*2f78*/         {         SHL R10, R6, 0x2   SLOT 0;
+        /*2f88*/                   LDS.U.32 R6, [R18+0x800]   SLOT 1        }
+        /*2f90*/         {         SHL R15, R4, 0x2 ;
+        /*2f98*/                   LDS.U.32 R10, [R10+0x800]         }
+        /*2fa8*/         {         SHL R16, R16, 0x2 ;
+        /*2fb0*/                   LDS.U.32 R15, [R15+0x400]         }
+        /*2fb8*/         {         SHL R24, R12, 0x2 ;
+        /*2fc8*/                   LDC.U8 R18, c[0x3][0x43a]         }
+        /*2fd0*/         {         SHL R11, R11, 0x2 ;
+        /*2fd8*/                   LDC.U8 R12, c[0x3][0x435]         }
+        /*2fe8*/         {         SHL R13, R13, 0x2 ;
+        /*2ff0*/                   LDS.U.32 R19, [R16+0xc00]         }
+        /*2ff8*/         {         SHL R14, R14, 0x2 ;
+        /*3008*/                   LDC R28, c[0x3][R11]         }
+        /*3010*/         {         BFI R2, R2, 0x802, RZ ;
+        /*3018*/                   LDS.U.32 R24, [R24+0xc00]         }
+        /*3028*/         {         LOP3.LUT R9, R27, R10, R9, 0x96 ;
+        /*3030*/                   LDC.U8 R16, c[0x3][0x438]         }
+        /*3038*/         {         LOP32I.AND R20, R20, 0xff ;
+        /*3048*/                   LDS.U.32 R4, [R17+0xc00]         }
+        /*3050*/                   LOP32I.AND R23, R23, 0xff ;
+        /*3058*/                   LDC.U8 R11, c[0x3][0x43d] ;
+        /*3068*/         {         LOP3.LUT R6, R15, R6, R24, 0x96 ;
+        /*3070*/                   LDS.U.32 R25, [R13+0x400]         }
+        /*3078*/         {         LOP32I.AND R18, R18, 0xff ;
+        /*3088*/                   LDC.U8 R10, c[0x3][0x43b]         }
+        /*3090*/         {         LOP3.LUT R3, R28, R9, R3, 0x96   SLOT 0;
+        /*3098*/                   LDC.U8 R9, c[0x3][0x43e]   SLOT 1        }
+        /*30a8*/         {         LOP32I.AND R15, R16, 0xff ;
+        /*30b0*/                   LDC.U8 R17, c[0x3][0x439]         }
+        /*30b8*/         {         SHL R16, R23, 0x2 ;
+        /*30c8*/                   LDS.U.32 R26, [R14+0x800]         }
+        /*30d0*/         {         SHL R24, R18, 0x2 ;
+        /*30d8*/                   LDC.U8 R13, c[0x3][0x43c]         }
+        /*30e8*/         {         BFI R18, R7, 0x802, RZ ;
+        /*30f0*/                   LDC.U8 R23, c[0x3][0x43f]         }
+        /*30f8*/                   LDC.U8 R14, c[0x3][0x436] ;
+        /*3108*/         {         LOP3.LUT R4, R25, R22, R4, 0x96 ;
+        /*3110*/                   LDS.U.32 R18, [R18]         }
+        /*3118*/         {         SHL R22, R20, 0x2 ;
+        /*3128*/                   LDC R16, c[0x3][R16]         }
+        /*3130*/         {         SHL R20, R15, 0x2   SLOT 0;
+        /*3138*/                   LDC.U8 R15, c[0x3][0x433]   SLOT 1        }
+        /*3148*/         {         LOP32I.AND R17, R17, 0xff ;
+        /*3150*/                   LDC R20, c[0x3][R20]         }
+        /*3158*/         {         LOP3.LUT R5, R5, R26, R19, 0x96 ;
+        /*3168*/                   LDC R22, c[0x3][R22]         }
+        /*3170*/         {         LOP32I.AND R19, R13, 0xff ;
+        /*3178*/                   LDC R7, c[0x3][R24]         }
+        /*3188*/         {         SHL R13, R17, 0x2 ;
+        /*3190*/                   LDS.U.32 R2, [R2]         }
+        /*3198*/         {         SHL R17, R19, 0x2 ;
+        /*31a8*/                   LDC R13, c[0x3][R13]         }
+        /*31b0*/         {         BFI R19, R8, 0x802, RZ ;
+        /*31b8*/                   LDC R17, c[0x3][R17]         }
+        /*31c8*/         {         LOP32I.AND R11, R11, 0xff ;
+        /*31d0*/                   LDS.U.32 R19, [R19]         }
+        /*31d8*/                   LOP32I.AND R21, R21, 0xff ;
+        /*31e8*/                   LOP32I.AND R10, R10, 0xff ;
+        /*31f0*/                   LOP32I.AND R14, R14, 0xff ;
+        /*31f8*/                   SHL R8, R11, 0x2 ;
+        /*3208*/         {         SHL R11, R21, 0x2 ;
+        /*3210*/                   LDC R8, c[0x3][R8]         }
+        /*3218*/         {         LOP32I.AND R9, R9, 0xff ;
+        /*3228*/                   LDC R11, c[0x3][R11]         }
+        /*3230*/         {         SHL R26, R10, 0x2   SLOT 0;
+        /*3238*/                   LDC.U8 R10, c[0x3][0x437]   SLOT 1        }
+        /*3248*/                   LOP32I.AND R12, R12, 0xff ;
+        /*3250*/         {         LOP32I.AND R24, R15, 0xff   SLOT 0;
+        /*3258*/                   LDC R15, c[0x3][R26]   SLOT 1        }
+        /*3268*/         {         SHL R21, R14, 0x2   SLOT 0;
+        /*3270*/                   LDC.U8 R14, c[0x3][0x425]   SLOT 1        }
+        /*3278*/         {         LOP32I.AND R25, R23, 0xff ;
+        /*3288*/                   LDC R21, c[0x3][R21]         }
+        /*3290*/                   SHL R9, R9, 0x2 ;
+        /*3298*/         {         LOP3.LUT R5, R20, R5, R18, 0x96 ;
+        /*32a8*/                   LDC R9, c[0x3][R9]         }
+        /*32b0*/         {         SHL R23, R12, 0x2   SLOT 0;
+        /*32b8*/                   LDC.U8 R12, c[0x3][0x424]   SLOT 1        }
+        /*32c8*/                   SHF.L.W R20, R22, 0x10, R22 ;
+        /*32d0*/                   SHL R28, R25, 0x2 ;
+        /*32d8*/         {         SHF.L.W R22, R13, 0x8, R13   SLOT 0;
+        /*32e8*/                   LDC R13, c[0x3][R23]   SLOT 1        }
+        /*32f0*/                   SHL R24, R24, 0x2 ;
+        /*32f8*/         {         LOP3.LUT R19, R17, R6, R19, 0x96   SLOT 0;
+        /*3308*/                   LDC.U8 R6, c[0x3][0x426]   SLOT 1        }
+        /*3310*/         {         SHF.L.W R18, R16, 0x8, R16   SLOT 0;
+        /*3318*/                   LDC R16, c[0x3][R28]   SLOT 1        }
+        /*3328*/         {         SHF.L.W R27, R7, 0x10, R7 ;
+        /*3330*/                   LDC R17, c[0x3][R24]         }
+        /*3338*/         {         SHF.L.W R25, R8, 0x8, R8 ;
+        /*3348*/                   LDC.U8 R7, c[0x3][0x428]         }
+        /*3350*/                   LOP3.LUT R8, R11, R4, R2, 0x96 ;
+        /*3358*/                   LOP32I.AND R10, R10, 0xff ;
+        /*3368*/         {         LOP3.LUT R2, R27, R5, R22, 0x96   SLOT 0;
+        /*3370*/                   LDC.U8 R5, c[0x3][0x429]   SLOT 1        }
+        /*3378*/                   LOP3.LUT R3, R20, R3, R18, 0x96 ;
+        /*3388*/                   SHF.L.W R15, R15, 0x18, R15 ;
+        /*3390*/                   LOP32I.AND R14, R14, 0xff ;
+        /*3398*/         {         SHL R20, R10, 0x2   SLOT 0;
+        /*33a8*/                   LDC.U8 R10, c[0x3][0x42c]   SLOT 1        }
+        /*33b0*/         {         SHF.L.W R26, R9, 0x10, R9   SLOT 0;
+        /*33b8*/                   LDC.U8 R9, c[0x3][0x42a]   SLOT 1        }
+        /*33c8*/         {         LOP32I.AND R11, R12, 0xff   SLOT 0;
+        /*33d0*/                   LDC.U8 R12, c[0x3][0x42d]   SLOT 1        }
+        /*33d8*/                   LOP.XOR R2, R2, R15 ;
+        /*33e8*/         {         SHL R24, R14, 0x2   SLOT 0;
+        /*33f0*/                   LDC R14, c[0x3][R20]   SLOT 1        }
+        /*33f8*/         {         SHF.L.W R15, R13, 0x8, R13   SLOT 0;
+        /*3408*/                   LDC.U8 R13, c[0x3][0x42e]   SLOT 1        }
+        /*3410*/                   LOP3.LUT R4, R26, R19, R25, 0x96 ;
+        /*3418*/                   SHF.L.W R18, R16, 0x18, R16 ;
+        /*3428*/                   SHF.L.W R16, R17, 0x18, R17 ;
+        /*3430*/                   SHF.L.W R21, R21, 0x10, R21 ;
+        /*3438*/                   LOP.XOR R4, R4, R18 ;
+        /*3448*/                   LOP.XOR R3, R3, R16 ;
+        /*3450*/         {         LOP32I.AND R19, R6, 0xff   SLOT 0;
+        /*3458*/                   LDC.U8 R6, c[0x3][0x427]   SLOT 1        }
+        /*3468*/                   LOP3.LUT R15, R21, R8, R15, 0x96 ;
+        /*3470*/                   LOP32I.AND R21, R5, 0xff ;
+        /*3478*/                   SHR.U32 R18, R2, 0x18 ;
+        /*3488*/                   BFE.U32 R8, R4, 0x810 ;
+        /*3490*/                   BFE.U32 R5, R3, 0x808 ;
+        /*3498*/                   SHL R17, R19, 0x2 ;
+        /*34a8*/         {         SHL R20, R18, 0x2 ;
+        /*34b0*/                   LDC R17, c[0x3][R17]         }
+        /*34b8*/                   SHL R19, R8, 0x2 ;
+        /*34c8*/                   SHL R26, R5, 0x2 ;
+        /*34d0*/         {         LOP32I.AND R16, R10, 0xff   SLOT 0;
+        /*34d8*/                   LDS.U.32 R10, [R20+0xc00]   SLOT 1        }
+        /*34e8*/         {         SHF.L.W R5, R14, 0x18, R14   SLOT 0;
+        /*34f0*/                   LDC.U8 R14, c[0x3][0x42f]   SLOT 1        }
+        /*34f8*/         {         LOP32I.AND R25, R12, 0xff   SLOT 0;
+        /*3508*/                   LDS.U.32 R12, [R19+0x800]   SLOT 1        }
+        /*3510*/         {         LOP32I.AND R18, R13, 0xff   SLOT 0;
+        /*3518*/                   LDS.U.32 R13, [R26+0x400]   SLOT 1        }
+        /*3528*/                   LOP.XOR R5, R15, R5 ;
+        /*3530*/                   SHL R11, R11, 0x2 ;
+        /*3538*/         {         LOP32I.AND R9, R9, 0xff ;
+        /*3548*/                   LDC R19, c[0x3][R11]         }
+        /*3550*/         {         BFI R20, R5, 0x802, RZ ;
+        /*3558*/                   LDC.U8 R11, c[0x3][0x420]         }
+        /*3568*/         {         SHL R15, R18, 0x2 ;
+        /*3570*/                   LDS.U.32 R20, [R20]         }
+        /*3578*/         {         SHR.U32 R18, R4, 0x18 ;
+        /*3588*/                   LDC R15, c[0x3][R15]         }
+        /*3590*/         {         LOP32I.AND R23, R7, 0xff   SLOT 0;
+        /*3598*/                   LDC.U8 R7, c[0x3][0x42b]   SLOT 1        }
+        /*35a8*/                   SHL R22, R9, 0x2 ;
+        /*35b0*/         {         SHL R8, R16, 0x2 ;
+        /*35b8*/                   LDC R22, c[0x3][R22]         }
+        /*35c8*/         {         BFE.U32 R9, R5.reuse, 0x808 ;
+        /*35d0*/                   LDC R8, c[0x3][R8]         }
+        /*35d8*/                   BFE.U32 R16, R3, 0x810 ;
+        /*35e8*/                   SHL R27, R18, 0x2 ;
+        /*35f0*/                   BFE.U32 R18, R5, 0x810 ;
+        /*35f8*/         {         LOP3.LUT R26, R13, R12, R10, 0x96   SLOT 0;
+        /*3608*/                   LDS.U.32 R10, [R27+0xc00]   SLOT 1        }
+        /*3610*/                   SHL R9, R9, 0x2 ;
+        /*3618*/         {         LOP32I.AND R6, R6, 0xff ;
+        /*3628*/                   LDS.U.32 R9, [R9+0x400]         }
+        /*3630*/         {         SHL R12, R16, 0x2   SLOT 0;
+        /*3638*/                   LDC R16, c[0x3][R24]   SLOT 1        }
+        /*3648*/         {         SHL R29, R18, 0x2 ;
+        /*3650*/                   LDS.U.32 R12, [R12+0x800]         }
+        /*3658*/                   BFE.U32 R13, R2, 0x808 ;
+        /*3668*/                   SHR.U32 R18, R3, 0x18 ;
+        /*3670*/                   SHL R6, R6, 0x2 ;
+        /*3678*/         {         SHL R30, R13, 0x2   SLOT 0;
+        /*3688*/                   LDS.U.32 R13, [R29+0x800]   SLOT 1        }
+        /*3690*/         {         SHL R27, R18, 0x2 ;
+        /*3698*/                   LDC R6, c[0x3][R6]         }
+        /*36a8*/         {         LOP3.LUT R19, R19, R26, R20, 0x96 ;
+        /*36b0*/                   LDS.U.32 R18, [R30+0x400]         }
+        /*36b8*/         {         SHL R23, R23, 0x2 ;
+        /*36c8*/                   LDS.U.32 R20, [R27+0xc00]         }
+        /*36d0*/         {         SHL R21, R21, 0x2 ;
+        /*36d8*/                   LDC R23, c[0x3][R23]         }
+        /*36e8*/         {         SHL R25, R25, 0x2 ;
+        /*36f0*/                   LDC R21, c[0x3][R21]         }
+        /*36f8*/         {         LOP32I.AND R7, R7, 0xff ;
+        /*3708*/                   LDC R25, c[0x3][R25]         }
+        /*3710*/                   LOP32I.AND R14, R14, 0xff ;
+        /*3718*/                   BFI R28, R2, 0x802, RZ ;
+        /*3728*/         {         BFI R26, R4, 0x802, RZ ;
+        /*3730*/                   LDS.U.32 R24, [R28]         }
+        /*3738*/         {         SHL R7, R7, 0x2 ;
+        /*3748*/                   LDS.U.32 R26, [R26]         }
+        /*3750*/         {         SHL R14, R14, 0x2 ;
+        /*3758*/                   LDC R7, c[0x3][R7]         }
+        /*3768*/         {         LOP32I.AND R27, R11, 0xff   SLOT 0;
+        /*3770*/                   LDC.U8 R11, c[0x3][0x421]   SLOT 1        }
+        /*3778*/         {         LOP3.LUT R29, R9, R12, R10, 0x96   SLOT 0;
+        /*3788*/                   LDC.U8 R10, c[0x3][0x422]   SLOT 1        }
+        /*3790*/         {         SHF.L.W R16, R16, 0x8, R16 ;
+        /*3798*/                   LDC R14, c[0x3][R14]         }
+        /*37a8*/                   LOP3.LUT R13, R18, R13, R20, 0x96 ;
+        /*37b0*/                   SHF.L.W R17, R17, 0x10, R17 ;
+        /*37b8*/         {         SHF.L.W R12, R6, 0x18, R6   SLOT 0;
+        /*37c8*/                   LDC.U8 R6, c[0x3][0x423]   SLOT 1        }
+        /*37d0*/                   LOP3.LUT R23, R23, R29, R24, 0x96 ;
+        /*37d8*/                   SHF.L.W R21, R21, 0x8, R21 ;
+        /*37e8*/                   SHF.L.W R22, R22, 0x10, R22 ;
+        /*37f0*/         {         LOP3.LUT R8, R8, R13, R26, 0x96   SLOT 0;
+        /*37f8*/                   LDC.U8 R26, c[0x3][0x41c]   SLOT 1        }
+        /*3808*/                   SHF.L.W R25, R25, 0x8, R25 ;
+        /*3810*/                   SHF.L.W R15, R15, 0x10, R15 ;
+        /*3818*/                   LOP3.LUT R18, R17, R19, R16, 0x96 ;
+        /*3828*/                   SHR.U32 R5, R5, 0x18 ;
+        /*3830*/                   BFE.U32 R2, R2, 0x810 ;
+        /*3838*/                   BFE.U32 R4, R4, 0x808 ;
+        /*3848*/         {         LOP3.LUT R21, R22, R23, R21, 0x96   SLOT 0;
+        /*3850*/                   LDC.U8 R23, c[0x3][0x410]   SLOT 1        }
+        /*3858*/                   SHF.L.W R7, R7, 0x18, R7 ;
+        /*3868*/         {         LOP3.LUT R8, R15, R8, R25, 0x96   SLOT 0;
+        /*3870*/                   LDC.U8 R25, c[0x3][0x41a]   SLOT 1        }
+        /*3878*/                   SHF.L.W R14, R14, 0x18, R14 ;
+        /*3888*/                   LOP.XOR R18, R18, R12 ;
+        /*3890*/                   LOP32I.AND R11, R11, 0xff ;
+        /*3898*/                   LOP32I.AND R10, R10, 0xff ;
+        /*38a8*/                   SHL R5, R5, 0x2 ;
+        /*38b0*/         {         SHL R12, R2, 0x2 ;
+        /*38b8*/                   LDS.U.32 R5, [R5+0xc00]         }
+        /*38c8*/                   SHL R15, R4, 0x2 ;
+        /*38d0*/         {         LOP.XOR R2, R21, R7   SLOT 0;
+        /*38d8*/                   LDS.U.32 R7, [R12+0x800]   SLOT 1        }
+        /*38e8*/         {         LOP.XOR R14, R8, R14   SLOT 0;
+        /*38f0*/                   LDS.U.32 R8, [R15+0x400]   SLOT 1        }
+        /*38f8*/                   SHL R9, R27, 0x2 ;
+        /*3908*/         {         LOP32I.AND R6, R6, 0xff ;
+        /*3910*/                   LDC R12, c[0x3][R9]         }
+        /*3918*/                   SHL R19, R11, 0x2 ;
+        /*3928*/         {         SHL R16, R10, 0x2   SLOT 0;
+        /*3930*/                   LDC R10, c[0x3][R19]   SLOT 1        }
+        /*3938*/         {         BFI R3, R3, 0x802, RZ ;
+        /*3948*/                   LDC R16, c[0x3][R16]         }
+        /*3950*/         {         SHR.U32 R4, R18, 0x18 ;
+        /*3958*/                   LDS.U.32 R11, [R3]         }
+        /*3968*/         {         SHL R17, R6, 0x2   SLOT 0;
+        /*3970*/                   LDC.U8 R6, c[0x3][0x414]   SLOT 1        }
+        /*3978*/         {         BFE.U32 R13, R2, 0x810 ;
+        /*3988*/                   LDC R17, c[0x3][R17]         }
+        /*3990*/         {         SHL R22, R4, 0x2 ;
+        /*3998*/                   LDC.U8 R3, c[0x3][0x415]         }
+        /*39a8*/         {         BFE.U32 R4, R14, 0x808 ;
+        /*39b0*/                   LDS.U.32 R22, [R22+0xc00]         }
+        /*39b8*/                   SHL R13, R13, 0x2 ;
+        /*39c8*/         {         LOP3.LUT R5, R8, R7, R5, 0x96   SLOT 0;
+        /*39d0*/                   LDC.U8 R8, c[0x3][0x412]   SLOT 1        }
+        /*39d8*/         {         SHL R15, R4, 0x2 ;
+        /*39e8*/                   LDS.U.32 R13, [R13+0x800]         }
+        /*39f0*/         {         SHF.L.W R10, R10, 0x8, R10 ;
+        /*39f8*/                   LDC.U8 R4, c[0x3][0x411]         }
+        /*3a08*/         {         LOP3.LUT R5, R12, R5, R11, 0x96 ;
+        /*3a10*/                   LDS.U.32 R15, [R15+0x400]         }
+        /*3a18*/         {         SHF.L.W R16, R16, 0x10, R16 ;
+        /*3a28*/                   LDC.U8 R12, c[0x3][0x419]         }
+        /*3a30*/         {         LOP3.LUT R5, R16, R5, R10, 0x96 ;
+        /*3a38*/                   LDC.U8 R11, c[0x3][0x416]         }
+        /*3a48*/         {         SHF.L.W R10, R17, 0x18, R17 ;
+        /*3a50*/                   LDC.U8 R7, c[0x3][0x418]         }
+        /*3a58*/         {         LOP.XOR R5, R5, R10   SLOT 0;
+        /*3a68*/                   LDC.U8 R10, c[0x3][0x413]   SLOT 1        }
+        /*3a70*/                   BFE.U32 R9, R14, 0x810 ;
+        /*3a78*/                   BFE.U32 R16, R5, 0x808 ;
+        /*3a88*/                   LOP3.LUT R22, R15, R13, R22, 0x96 ;
+        /*3a90*/                   SHR.U32 R15, R2, 0x18 ;
+        /*3a98*/         {         LOP32I.AND R19, R4, 0xff   SLOT 0;
+        /*3aa8*/                   LDC.U8 R4, c[0x3][0x41d]   SLOT 1        }
+        /*3ab0*/         {         LOP32I.AND R13, R8, 0xff   SLOT 0;
+        /*3ab8*/                   LDC.U8 R8, c[0x3][0x41e]   SLOT 1        }
+        /*3ac8*/         {         SHL R27, R9, 0x2   SLOT 0;
+        /*3ad0*/                   LDC.U8 R9, c[0x3][0x417]   SLOT 1        }
+        /*3ad8*/                   SHL R15, R15, 0x2 ;
+        /*3ae8*/         {         SHL R17, R16, 0x2   SLOT 0;
+        /*3af0*/                   LDS.U.32 R16, [R27+0x800]   SLOT 1        }
+        /*3af8*/         {         LOP32I.AND R23, R23, 0xff ;
+        /*3b08*/                   LDS.U.32 R15, [R15+0xc00]         }
+        /*3b10*/         {         LOP32I.AND R20, R6, 0xff   SLOT 0;
+        /*3b18*/                   LDC.U8 R6, c[0x3][0x41b]   SLOT 1        }
+        /*3b28*/         {         BFI R24, R5, 0x802, RZ ;
+        /*3b30*/                   LDS.U.32 R17, [R17+0x400]         }
+        /*3b38*/         {         BFI R21, R18, 0x802, RZ ;
+        /*3b48*/                   LDS.U.32 R24, [R24]         }
+        /*3b50*/         {         SHL R23, R23, 0x2 ;
+        /*3b58*/                   LDS.U.32 R21, [R21]         }
+        /*3b68*/         {         SHL R20, R20, 0x2 ;
+        /*3b70*/                   LDC R23, c[0x3][R23]         }
+        /*3b78*/         {         LOP32I.AND R12, R12, 0xff ;
+        /*3b88*/                   LDC R20, c[0x3][R20]         }
+        /*3b90*/                   LOP32I.AND R25, R25, 0xff ;
+        /*3b98*/                   LOP32I.AND R26, R26, 0xff ;
+        /*3ba8*/                   LOP32I.AND R27, R4, 0xff ;
+        /*3bb0*/                   SHL R4, R12, 0x2 ;
+        /*3bb8*/         {         LOP32I.AND R12, R8, 0xff ;
+        /*3bc8*/                   LDC R4, c[0x3][R4]         }
+        /*3bd0*/                   SHL R8, R25, 0x2 ;
+        /*3bd8*/         {         LOP32I.AND R25, R10, 0xff ;
+        /*3be8*/                   LDC R8, c[0x3][R8]         }
+        /*3bf0*/                   SHL R10, R26, 0x2 ;
+        /*3bf8*/         {         LOP3.LUT R26, R17, R16, R15, 0x96   SLOT 0;
+        /*3c08*/                   LDC.U8 R15, c[0x3][0x41f]   SLOT 1        }
+        /*3c10*/         {         LOP32I.AND R28, R9, 0xff ;
+        /*3c18*/                   LDC R10, c[0x3][R10]         }
+        /*3c28*/                   SHL R9, R27, 0x2 ;
+        /*3c30*/         {         LOP32I.AND R27, R6, 0xff ;
+        /*3c38*/                   LDC R9, c[0x3][R9]         }
+        /*3c48*/                   SHL R6, R25, 0x2 ;
+        /*3c50*/         {         BFE.U32 R25, R18, 0x810 ;
+        /*3c58*/                   LDC R6, c[0x3][R6]         }
+        /*3c68*/                   SHL R17, R28, 0x2 ;
+        /*3c70*/         {         LOP3.LUT R22, R23, R22, R24, 0x96 ;
+        /*3c78*/                   LDC R17, c[0x3][R17]         }
+        /*3c88*/                   LOP3.LUT R21, R20, R26, R21, 0x96 ;
+        /*3c90*/                   SHL R28, R25, 0x2 ;
+        /*3c98*/                   BFE.U32 R23, R2, 0x808 ;
+        /*3ca8*/                   SHR.U32 R26, R5, 0x18 ;
+        /*3cb0*/                   BFE.U32 R25, R18, 0x808 ;
+        /*3cb8*/                   LOP32I.AND R11, R11, 0xff ;
+        /*3cc8*/                   SHL R16, R27, 0x2 ;
+        /*3cd0*/         {         BFI R24, R14, 0x802, RZ ;
+        /*3cd8*/                   LDC R16, c[0x3][R16]         }
+        /*3ce8*/         {         SHL R30, R23, 0x2   SLOT 0;
+        /*3cf0*/                   LDS.U.32 R23, [R28+0x800]   SLOT 1        }
+        /*3cf8*/         {         SHL R29, R26, 0x2 ;
+        /*3d08*/                   LDS.U.32 R20, [R24]         }
+        /*3d10*/         {         SHL R27, R25, 0x2 ;
+        /*3d18*/                   LDS.U.32 R18, [R30+0x400]         }
+        /*3d28*/         {         SHR.U32 R14, R14, 0x18 ;
+        /*3d30*/                   LDS.U.32 R24, [R29+0xc00]         }
+        /*3d38*/         {         BFE.U32 R25, R5, 0x810   SLOT 0;
+        /*3d48*/                   LDS.U.32 R5, [R27+0x400]   SLOT 1        }
+        /*3d50*/                   LOP32I.AND R15, R15, 0xff ;
+        /*3d58*/                   SHL R11, R11, 0x2 ;
+        /*3d68*/         {         LOP32I.AND R3, R3, 0xff ;
+        /*3d70*/                   LDC R11, c[0x3][R11]         }
+        /*3d78*/                   SHL R12, R12, 0x2 ;
+        /*3d88*/         {         LOP32I.AND R7, R7, 0xff ;
+        /*3d90*/                   LDC R12, c[0x3][R12]         }
+        /*3d98*/                   SHL R19, R19, 0x2 ;
+        /*3da8*/         {         SHL R13, R13, 0x2 ;
+        /*3db0*/                   LDC R19, c[0x3][R19]         }
+        /*3db8*/         {         SHL R14, R14, 0x2 ;
+        /*3dc8*/                   LDC R13, c[0x3][R13]         }
+        /*3dd0*/         {         SHL R26, R25, 0x2 ;
+        /*3dd8*/                   LDS.U.32 R14, [R14+0xc00]         }
+        /*3de8*/         {         SHL R28, R15, 0x2   SLOT 0;
+        /*3df0*/                   LDS.U.32 R15, [R26+0x800]   SLOT 1        }
+        /*3df8*/                   SHL R3, R3, 0x2 ;
+        /*3e08*/         {         SHL R7, R7, 0x2 ;
+        /*3e10*/                   LDC R3, c[0x3][R3]         }
+        /*3e18*/         {         BFI R25, R2, 0x802, RZ   SLOT 0;
+        /*3e28*/                   LDC R2, c[0x3][R28]   SLOT 1        }
+        /*3e30*/         {         SHF.L.W R12, R12, 0x10, R12 ;
+        /*3e38*/                   LDC R7, c[0x3][R7]         }
+        /*3e48*/         {         LOP3.LUT R23, R18, R23, R24, 0x96 ;
+        /*3e50*/                   LDS.U.32 R25, [R25]         }
+        /*3e58*/                   SHF.L.W R19, R19, 0x8, R19 ;
+        /*3e68*/                   SHF.L.W R13, R13, 0x10, R13 ;
+        /*3e70*/                   LOP3.LUT R10, R10, R23, R20, 0x96 ;
+        /*3e78*/                   LOP3.LUT R14, R5, R15, R14, 0x96 ;
+        /*3e88*/                   SHF.L.W R26, R11, 0x10, R11 ;
+        /*3e90*/                   SHF.L.W R11, R9, 0x8, R9 ;
+        /*3e98*/                   LOP3.LUT R13, R13, R22, R19, 0x96 ;
+        /*3ea8*/                   SHF.L.W R3, R3, 0x8, R3 ;
+        /*3eb0*/                   SHF.L.W R6, R6, 0x18, R6 ;
+        /*3eb8*/                   LOP3.LUT R10, R12, R10, R11, 0x96 ;
+        /*3ec8*/                   SHF.L.W R9, R4, 0x8, R4 ;
+        /*3ed0*/                   SHF.L.W R5, R2, 0x18, R2 ;
+        /*3ed8*/                   SHF.L.W R11, R8, 0x10, R8 ;
+        /*3ee8*/                   LOP3.LUT R14, R7, R14, R25, 0x96 ;
+        /*3ef0*/                   LOP3.LUT R21, R26, R21, R3, 0x96 ;
+        /*3ef8*/                   LOP.XOR R3, R13, R6 ;
+        /*3f08*/                   LOP.XOR R2, R10, R5 ;
+        /*3f10*/                   SHF.L.W R16, R16, 0x18, R16 ;
+        /*3f18*/                   LOP3.LUT R11, R11, R14, R9, 0x96 ;
+        /*3f28*/                   LOP32I.AND R12, R3, 0xff ;
+        /*3f30*/         {         BFE.U32 R13, R2, 0x808 ;
+        /*3f38*/                   LDS.U.U8 R8, [R12+0x1000]         }
+        /*3f48*/         {         LOP.XOR R16, R11, R16 ;
+        /*3f50*/                   LDS.U.U8 R13, [R13+0x1000]         }
+        /*3f58*/                   SHF.L.W R4, R17, 0x18, R17 ;
+        /*3f68*/                   BFE.U32 R18, R16, 0x810 ;
+        /*3f70*/                   LDS.U.U8 R18, [R18+0x1000] ;
+        /*3f78*/                   LOP.XOR R7, R21, R4 ;
+        /*3f88*/                   BFE.U32 R6, R3, 0x808 ;
+        /*3f90*/         {         LOP32I.AND R11, R16, 0xff ;
+        /*3f98*/                   LDS.U.U8 R6, [R6+0x1000]         }
+        /*3fa8*/         {         LOP32I.AND R15, R7.reuse, 0xff ;
+        /*3fb0*/                   LDS.U.U8 R11, [R11+0x1000]         }
+        /*3fb8*/         {         BFE.U32 R10, R7.reuse, 0x808 ;
+        /*3fc8*/                   LDS.U.U8 R15, [R15+0x1000]         }
+        /*3fd0*/         {         BFE.U32 R12, R16, 0x808 ;
+        /*3fd8*/                   LDS.U.U8 R10, [R10+0x1000]         }
+        /*3fe8*/         {         LOP32I.AND R17, R2.reuse, 0xff ;
+        /*3ff0*/                   LDS.U.U8 R12, [R12+0x1000]         }
+        /*3ff8*/         {         BFE.U32 R14, R2, 0x810 ;
+        /*4008*/                   LDS.U.U8 R17, [R17+0x1000]         }
+        /*4010*/         {         SHR.U32 R9, R7.reuse, 0x18 ;
+        /*4018*/                   LDS.U.U8 R14, [R14+0x1000]         }
+        /*4028*/         {         BFE.U32 R4, R3, 0x810 ;
+        /*4030*/                   LDS.U.U8 R9, [R9+0x1000]         }
+        /*4038*/         {         PRMT R8, R13, 0x7604, R8 ;
+        /*4048*/                   LDS.U.U8 R4, [R4+0x1000]         }
+        /*4050*/                   BFE.U32 R13, R7, 0x810 ;
+        /*4058*/         {         SHR.U32 R5, R16, 0x18 ;
+        /*4068*/                   LDS.U.U8 R13, [R13+0x1000]         }
+        /*4070*/         {         PRMT R8, R18, 0x7054, R8 ;
+        /*4078*/                   LDS.U.U8 R5, [R5+0x1000]         }
+        /*4088*/                   SHR.U32 R16, R2, 0x18 ;
+        /*4090*/         {         SHR.U32 R18, R3, 0x18 ;
+        /*4098*/                   LDS.U.U8 R16, [R16+0x1000]         }
+        /*40a8*/         {         SHR R19, R0.reuse, 0x1f ;
+        /*40b0*/                   LDS.U.U8 R18, [R18+0x1000]         }
+        /*40b8*/                   LEA R2.CC, R0, c[0x0][0x148], 0x2 ;
+        /*40c8*/                   PRMT R7, R6, 0x7604, R15 ;
+        /*40d0*/                   PRMT R10, R10, 0x7604, R11 ;
+        /*40d8*/                   LEA.HI.X R3, R0, c[0x0][0x14c], R19, 0x2 ;
+        /*40e8*/                   IADD32I R6.CC, R2, 0x80 ;
+        /*40f0*/                   PRMT R12, R12, 0x7604, R17 ;
+        /*40f8*/                   PRMT R14, R14, 0x7054, R7 ;
+        /*4108*/                   PRMT R15, R9, 0x654, R8 ;
+        /*4110*/                   IADD.X R7, RZ, R3 ;
+        /*4118*/                   IADD32I R8.CC, R6, 0x80 ;
+        /*4128*/                   PRMT R10, R4, 0x7054, R10 ;
+        /*4130*/                   PRMT R12, R13, 0x7054, R12 ;
+        /*4138*/                   PRMT R14, R5, 0x654, R14 ;
+        /*4148*/                   IADD.X R9, RZ, R7 ;
+        /*4150*/                   PRMT R10, R16, 0x654, R10 ;
+        /*4158*/                   IADD32I R4.CC, R8, 0x80 ;
+        /*4168*/                   PRMT R12, R18, 0x654, R12 ;
+        /*4170*/                   LOP.XOR R15, R15, c[0x3][0x400] ;
+        /*4178*/         {         LOP.XOR R0, R14, c[0x3][0x404] ;
+        /*4188*/                   STG.E [R2], R15         }
+        /*4190*/         {         LOP.XOR R10, R10, c[0x3][0x408] ;
+        /*4198*/                   STG.E [R6], R0         }
+        /*41a8*/         {         IADD.X R5, RZ, R9 ;
+        /*41b0*/                   STG.E [R8], R10         }
+        /*41b8*/                   LOP.XOR R11, R12, c[0x3][0x40c] ;
+        /*41c8*/                   STG.E [R4], R11 ;
+        /*41d0*/                   EXIT ;
+.L_9:
+        /*41d8*/                   BRA `(.L_9) ;
+.L_73:
+
+
+//--------------------- .text._Z14encrypt_KernelPjS_mS_S_S_S_Ph --------------------------
+	.section	.text._Z14encrypt_KernelPjS_mS_S_S_S_Ph,"ax",@progbits
+	.sectionflags	@"SHF_BARRIERS=1"
+	.sectioninfo	@"SHI_REGISTERS=23"
+	.align	32
+
+
+
+
+.text._Z14encrypt_KernelPjS_mS_S_S_S_Ph:
+        .type           _Z14encrypt_KernelPjS_mS_S_S_S_Ph,@function
+        .size           _Z14encrypt_KernelPjS_mS_S_S_S_Ph,(.L_74 - _Z14encrypt_KernelPjS_mS_S_S_S_Ph)
+        .other          _Z14encrypt_KernelPjS_mS_S_S_S_Ph,@"STO_CUDA_ENTRY STV_DEFAULT"
+_Z14encrypt_KernelPjS_mS_S_S_S_Ph:
+        /*0008*/                   MOV R1, c[0x0][0x20] ;
+        /*0010*/                   I2F.F32.U32.RP R2, 0x20 ;
+        /*0018*/                   MUFU.RCP R2, R2 ;
+        /*0028*/                   S2R R0, SR_TID.X ;
+        /*0030*/         {         IADD32I R3, R2, 0xffffffe ;
+        /*0038*/                   S2R R5, SR_CTAID.X         }
+        /*0048*/                   F2I.FTZ.U32.F32.TRUNC R3, R3 ;
+        /*0050*/         {         ISCADD R9, -R3.reuse, RZ, 0x5 ;
+        /*0058*/                   I2I.S32.S32 R11, |R0|         }
+        /*0068*/         {         XMAD R4, R3.reuse, R9.reuse, RZ ;
+        /*0070*/                   SSY `(.L_10)         }
+        /*0078*/                   XMAD R6, R3, R9.H1, RZ ;
+        /*0088*/                   XMAD R7, R3.H1, R9.H1, R3 ;
+        /*0090*/                   XMAD.CHI R4, R3.H1, R9, R4 ;
+        /*0098*/                   XMAD R8, R3, R9, RZ ;
+        /*00a8*/                   IADD3.RS R2, R4, R6, R7 ;
+        /*00b0*/                   XMAD R6, R5, c[0x0] [0x8], R0 ;
+        /*00b8*/                   XMAD.MRG R7, R5, c[0x0] [0x8].H1, RZ ;
+        /*00c8*/                   XMAD R10, R3, R9.H1, RZ ;
+        /*00d0*/                   XMAD R12, R3.H1, R9.H1, R3 ;
+        /*00d8*/                   XMAD R4, R2, R11, RZ ;
+        /*00e8*/                   XMAD.CHI R9, R3.H1, R9, R8 ;
+        /*00f0*/                   XMAD.PSL.CBCC R3, R5.H1, R7.H1, R6 ;
+        /*00f8*/                   XMAD R5, R2, R11.H1, RZ ;
+        /*0108*/                   XMAD.CHI R4, R2.H1, R11, R4 ;
+        /*0110*/                   XMAD R2, R2.H1, R11.H1, RZ ;
+        /*0118*/                   IADD3.RS R9, R9, R10, R12 ;
+        /*0128*/                   IADD3.RS R2, R4, R5, R2 ;
+        /*0130*/                   XMAD R6, R9, R3, RZ ;
+        /*0138*/                   XMAD R13, R9, R3.H1, RZ ;
+        /*0148*/                   XMAD R4, R9.H1, R3.H1, RZ ;
+        /*0150*/                   ISCADD R2, -R2, R11, 0x5 ;
+        /*0158*/                   XMAD.CHI R6, R9.H1, R3.reuse, R6 ;
+        /*0168*/                   ISETP.GE.U32.AND P1, PT, R2, 0x20, PT ;
+        /*0170*/                   IADD3.RS R13, R6, R13, R4 ;
+        /*0178*/                   ISCADD R3, -R13, R3, 0x5 ;
+        /*0188*/               @P1 IADD32I R2, R2, -0x20 ;
+        /*0190*/                   ISETP.GE.U32.AND P0, PT, R3, 0x20, PT ;
+        /*0198*/                   ISETP.GE.U32.AND P3, PT, R2, 0x20, PT ;
+        /*01a8*/                   ISETP.GE.AND P1, PT, R0, RZ, PT ;
+        /*01b0*/               @P0 IADD32I R3, R3, -0x20 ;
+        /*01b8*/               @P3 IADD32I R2, R2, -0x20 ;
+        /*01c8*/                   ISETP.GE.U32.AND P2, PT, R3, 0x20, PT ;
+        /*01d0*/                   ISETP.GT.AND P3, PT, R0, 0xff, PT ;
+        /*01d8*/               @P0 IADD32I R13, R13, 0x1 ;
+        /*01e8*/                   MOV R12, R2 ;
+        /*01f0*/              @!P1 IADD R12, -R12, RZ ;
+        /*01f8*/         {     @P2 IADD32I R13, R13, 0x1 ;
+        /*0208*/               @P3 SYNC                                                 (*"TARGET= .L_10 "*)        }
+.L_11:
+        /*0210*/                   SHL R15, R0.reuse, 0x2 ;
+        /*0218*/                   SHR R9, R0.reuse, 0x1e ;
+        /*0228*/                   SHR R11, R0, 0x1f ;
+        /*0230*/                   IADD R2.CC, R15.reuse, c[0x0][0x158] ;
+        /*0238*/                   IADD.X R3, R9.reuse, c[0x0][0x15c] ;
+        /*0248*/         {         IADD R4.CC, R15, c[0x0][0x160] ;
+        /*0250*/                   LDG.E R2, [R2]         }
+        /*0258*/                   IADD.X R5, R9, c[0x0][0x164] ;
+        /*0268*/         {         IADD R6.CC, R15.reuse, c[0x0][0x168] ;
+        /*0270*/                   LDG.E R4, [R4]         }
+        /*0278*/                   IADD.X R7, R9.reuse, c[0x0][0x16c] ;
+        /*0288*/         {         IADD R8.CC, R15, c[0x0][0x170] ;
+        /*0290*/                   LDG.E R6, [R6]         }
+        /*0298*/                   IADD.X R9, R9, c[0x0][0x174] ;
+        /*02a8*/         {         IADD R10.CC, R0, c[0x0][0x178] ;
+        /*02b0*/                   LDG.E R8, [R8]         }
+        /*02b8*/                   IADD.X R11, R11, c[0x0][0x17c] ;
+        /*02c8*/                   LDG.E.U8 R10, [R10] ;
+        /*02d0*/                   IADD R14, R0, c[0x0][0x8] ;
+        /*02d8*/                   ISETP.GE.AND P0, PT, R14, 0x100, PT ;
+        /*02e8*/                   DEPBAR.LE SB5, 0x3 ;
+        /*02f0*/                   STS [R15], R2 ;
+        /*02f8*/                   STS [R15+0x400], R4 ;
+        /*0308*/                   DEPBAR.LE SB5, 0x1 ;
+        /*0310*/                   STS [R15+0x800], R6 ;
+        /*0318*/                   STS [R15+0xc00], R8 ;
+        /*0328*/                   STS.U8 [R0+0x1000], R10 ;
+        /*0330*/         {         MOV R0, R14 ;
+        /*0338*/              @!P0 BRA `(.L_11)         }
+        /*0348*/                   SYNC                                                 (*"TARGET= .L_10 "*);
+.L_10:
+        /*0350*/         {         MOV R2, c[0x0][0x150] ;
+        /*0358*/                   BAR.SYNC 0x0         }
+        /*0368*/                   MOV R3, c[0x0][0x154] ;
+        /*0370*/                   SHF.R.U64 R2, R2, 0x9, R3 ;
+        /*0378*/                   SHR R0, R13, 0x1f ;
+        /*0388*/                   SHR.U32 R3, R3, 0x9 ;
+        /*0390*/                   IADD RZ.CC, R13, -R2 ;
+        /*0398*/                   ISETP.GE.U32.X.AND P0, PT, R0, R3, PT ;
+        /*03a8*/                   NOP ;
+        /*03b0*/                   NOP ;
+        /*03b8*/               @P0 EXIT ;
+        /*03c8*/                   ISCADD R0, R13, R12, 0x7 ;
+        /*03d0*/                   SHR R2, R0.reuse, 0x1e ;
+        /*03d8*/                   ISCADD R6.CC, R0, c[0x0][0x140], 0x2 ;
+        /*03e8*/                   IADD.X R7, R2, c[0x0][0x144] ;
+        /*03f0*/                   LDG.E R2, [R6] ;
+        /*03f8*/                   LDG.E R3, [R6+0x80] ;
+        /*0408*/                   LDG.E R8, [R6+0x100] ;
+        /*0410*/                   LDG.E R9, [R6+0x180] ;
+        /*0418*/                   DEPBAR.LE SB5, 0x1 ;
+        /*0428*/                   LOP.XOR R10, R2, c[0x3][0x400] ;
+        /*0430*/                   LOP.XOR R3, R3, c[0x3][0x404] ;
+        /*0438*/                   LOP.XOR R8, R8, c[0x3][0x408] ;
+        /*0448*/                   BFE.U32 R2, R10.reuse, 0x810 ;
+        /*0450*/                   SHL R11, R10.reuse, 0x2 ;
+        /*0458*/                   BFE.U32 R4, R10, 0x808 ;
+        /*0468*/                   LOP.XOR R9, R9, c[0x3][0x40c] ;
+        /*0470*/                   SHL R15, R2, 0x2 ;
+        /*0478*/         {         LOP32I.AND R13, R11, 0x3fc ;
+        /*0488*/                   LDS.U.32 R6, [R15+0x800]         }
+        /*0490*/                   SHR.U32 R7, R3.reuse, 0x16 ;
+        /*0498*/                   BFI R12, R8.reuse, 0x802, RZ ;
+        /*04a8*/                   BFE.U32 R2, R3, 0x810 ;
+        /*04b0*/                   SHR.U32 R11, R8, 0x18 ;
+        /*04b8*/         {         SHL R5, R4, 0x2   SLOT 0;
+        /*04c8*/                   LDS.U.32 R4, [R12]   SLOT 1        }
+        /*04d0*/         {         SHL R14, R2, 0x2 ;
+        /*04d8*/                   LDS.U.32 R5, [R5+0x400]         }
+        /*04e8*/         {         SHL R16, R11, 0x2 ;
+        /*04f0*/                   LDS.U.32 R14, [R14+0x800]         }
+        /*04f8*/         {         LOP32I.AND R12, R7, 0x3fc ;
+        /*0508*/                   LDS.U.32 R16, [R16+0xc00]         }
+        /*0510*/         {         BFE.U32 R7, R9, 0x808 ;
+        /*0518*/                   LDS.U.32 R12, [R12+0xc00]         }
+        /*0528*/         {         SHR.U32 R10, R10, 0x16 ;
+        /*0530*/                   LDS.U.32 R2, [R13]         }
+        /*0538*/                   SHL R15, R7, 0x2 ;
+        /*0548*/         {         SHL R11, R9.reuse, 0x2 ;
+        /*0550*/                   LDS.U.32 R15, [R15+0x400]         }
+        /*0558*/                   LOP32I.AND R18, R10, 0x3fc ;
+        /*0568*/                   BFE.U32 R7, R3, 0x808 ;
+        /*0570*/                   BFE.U32 R10, R8, 0x810 ;
+        /*0578*/                   SHR.U32 R17, R9, 0x16 ;
+        /*0588*/                   LOP32I.AND R13, R11, 0x3fc ;
+        /*0590*/         {         BFE.U32 R11, R8, 0x808 ;
+        /*0598*/                   LDS.U.32 R13, [R13]         }
+        /*05a8*/         {         SHL R20, R7, 0x2   SLOT 0;
+        /*05b0*/                   LDS.U.32 R7, [R18+0xc00]   SLOT 1        }
+        /*05b8*/         {         SHL R19, R10, 0x2   SLOT 0;
+        /*05c8*/                   LDS.U.32 R10, [R20+0x400]   SLOT 1        }
+        /*05d0*/         {         LOP32I.AND R17, R17, 0x3fc ;
+        /*05d8*/                   LDS.U.32 R8, [R19+0x800]         }
+        /*05e8*/                   BFE.U32 R9, R9, 0x810 ;
+        /*05f0*/         {         SHL R21, R11, 0x2   SLOT 0;
+        /*05f8*/                   LDS.U.32 R11, [R17+0xc00]   SLOT 1        }
+        /*0608*/                   LOP3.LUT R16, R5, R14, R16, 0x96 ;
+        /*0610*/                   SHL R3, R3, 0x2 ;
+        /*0618*/         {         SHL R14, R9, 0x2   SLOT 0;
+        /*0628*/                   LDS.U.32 R9, [R21+0x400]   SLOT 1        }
+        /*0630*/         {         LOP3.LUT R6, R15, R6, R12, 0x96 ;
+        /*0638*/                   LDS.U.32 R14, [R14+0x800]         }
+        /*0648*/                   LOP32I.AND R12, R3, 0x3fc ;
+        /*0650*/                   LDS.U.32 R12, [R12] ;
+        /*0658*/                   LOP3.LUT R13, R16, c[0x3][0x41c], R13, 0x96 ;
+        /*0668*/                   LOP3.LUT R4, R6, c[0x3][0x418], R4, 0x96 ;
+        /*0670*/                   SHR.U32 R3, R13, 0x16 ;
+        /*0678*/                   LOP3.LUT R8, R10, R8, R11, 0x96 ;
+        /*0688*/                   BFE.U32 R5, R13.reuse, 0x808 ;
+        /*0690*/                   BFE.U32 R6, R13.reuse, 0x810 ;
+        /*0698*/                   SHL R13, R13, 0x2 ;
+        /*06a8*/                   LOP3.LUT R10, R8, c[0x3][0x410], R2, 0x96 ;
+        /*06b0*/                   SHR.U32 R11, R4, 0x18 ;
+        /*06b8*/                   LOP3.LUT R9, R9, R14, R7, 0x96 ;
+        /*06c8*/                   BFI R16, R4, 0x802, RZ ;
+        /*06d0*/         {         LOP32I.AND R15, R3, 0x3fc   SLOT 0;
+        /*06d8*/                   LDS.U.32 R3, [R16]   SLOT 1        }
+        /*06e8*/                   LOP32I.AND R7, R13, 0x3fc ;
+        /*06f0*/         {         BFE.U32 R13, R10, 0x808 ;
+        /*06f8*/                   LDS.U.32 R7, [R7]         }
+        /*0708*/                   SHL R16, R11, 0x2 ;
+        /*0710*/         {         LOP3.LUT R11, R9, c[0x3][0x414], R12, 0x96   SLOT 0;
+        /*0718*/                   LDS.U.32 R9, [R16+0xc00]   SLOT 1        }
+        /*0728*/                   SHL R14, R13, 0x2 ;
+        /*0730*/         {         BFE.U32 R13, R11, 0x810 ;
+        /*0738*/                   LDS.U.32 R14, [R14+0x400]         }
+        /*0748*/         {         SHL R18, R5, 0x2   SLOT 0;
+        /*0750*/                   LDS.U.32 R5, [R15+0xc00]   SLOT 1        }
+        /*0758*/                   BFE.U32 R12, R10, 0x810 ;
+        /*0768*/                   SHL R20, R13, 0x2 ;
+        /*0770*/         {         BFE.U32 R8, R4.reuse, 0x810 ;
+        /*0778*/                   LDS.U.32 R20, [R20+0x800]         }
+        /*0788*/                   SHR.U32 R15, R11.reuse, 0x16 ;
+        /*0790*/                   BFE.U32 R13, R4, 0x808 ;
+        /*0798*/                   BFE.U32 R4, R11, 0x808 ;
+        /*07a8*/         {         SHL R17, R6, 0x2   SLOT 0;
+        /*07b0*/                   LDS.U.32 R6, [R18+0x400]   SLOT 1        }
+        /*07b8*/         {         SHL R12, R12, 0x2 ;
+        /*07c8*/                   LDS.U.32 R2, [R17+0x800]         }
+        /*07d0*/         {         SHL R22, R13, 0x2 ;
+        /*07d8*/                   LDS.U.32 R12, [R12+0x800]         }
+        /*07e8*/                   LOP32I.AND R18, R15, 0x3fc ;
+        /*07f0*/         {         SHL R8, R8, 0x2 ;
+        /*07f8*/                   LDS.U.32 R19, [R18+0xc00]         }
+        /*0808*/         {         SHL R13, R10.reuse, 0x2 ;
+        /*0810*/                   LDS.U.32 R8, [R8+0x800]         }
+        /*0818*/         {         SHL R21, R4, 0x2   SLOT 0;
+        /*0828*/                   LDS.U.32 R4, [R22+0x400]   SLOT 1        }
+        /*0830*/         {         SHR.U32 R15, R10, 0x16   SLOT 0;
+        /*0838*/                   LDS.U.32 R10, [R21+0x400]   SLOT 1        }
+        /*0848*/                   LOP32I.AND R13, R13, 0x3fc ;
+        /*0850*/                   SHL R17, R11, 0x2 ;
+        /*0858*/         {         LOP32I.AND R16, R15, 0x3fc   SLOT 0;
+        /*0868*/                   LDS.U.32 R15, [R13]   SLOT 1        }
+        /*0870*/         {         LOP32I.AND R17, R17, 0x3fc ;
+        /*0878*/                   LDS.U.32 R11, [R16+0xc00]         }
+        /*0888*/         {         LOP3.LUT R9, R14, R20, R9, 0x96 ;
+        /*0890*/                   LDS.U.32 R17, [R17]         }
+        /*0898*/                   LOP3.LUT R6, R6, R12, R19, 0x96 ;
+        /*08a8*/                   LOP3.LUT R7, R9, c[0x3][0x42c], R7, 0x96 ;
+        /*08b0*/                   LOP3.LUT R3, R6, c[0x3][0x428], R3, 0x96 ;
+        /*08b8*/                   LOP3.LUT R5, R10, R8, R5, 0x96 ;
+        /*08c8*/                   SHR.U32 R9, R7, 0x16 ;
+        /*08d0*/                   LOP3.LUT R5, R5, c[0x3][0x420], R15, 0x96 ;
+        /*08d8*/                   LOP3.LUT R6, R4, R2, R11, 0x96 ;
+        /*08e8*/                   LOP32I.AND R2, R9, 0x3fc ;
+        /*08f0*/         {         SHR.U32 R9, R3, 0x18 ;
+        /*08f8*/                   LDS.U.32 R2, [R2+0xc00]         }
+        /*0908*/                   BFE.U32 R10, R5, 0x808 ;
+        /*0910*/                   LOP3.LUT R6, R6, c[0x3][0x424], R17, 0x96 ;
+        /*0918*/                   SHL R11, R9, 0x2 ;
+        /*0928*/         {         BFE.U32 R9, R5, 0x810 ;
+        /*0930*/                   LDS.U.32 R11, [R11+0xc00]         }
+        /*0938*/                   SHL R13, R10, 0x2 ;
+        /*0948*/         {         BFE.U32 R10, R6, 0x810 ;
+        /*0950*/                   LDS.U.32 R13, [R13+0x400]         }
+        /*0958*/                   SHL R17, R9, 0x2 ;
+        /*0968*/                   BFE.U32 R8, R7, 0x808 ;
+        /*0970*/                   SHR.U32 R9, R6, 0x16 ;
+        /*0978*/                   BFI R12, R3, 0x802, RZ ;
+        /*0988*/         {         SHL R16, R10, 0x2   SLOT 0;
+        /*0990*/                   LDS.U.32 R10, [R17+0x800]   SLOT 1        }
+        /*0998*/         {         SHL R8, R8, 0x2 ;
+        /*09a8*/                   LDS.U.32 R4, [R12]         }
+        /*09b0*/         {         LOP32I.AND R15, R9, 0x3fc ;
+        /*09b8*/                   LDS.U.32 R16, [R16+0x800]         }
+        /*09c8*/         {         SHL R12, R7.reuse, 0x2 ;
+        /*09d0*/                   LDS.U.32 R8, [R8+0x400]         }
+        /*09d8*/         {         BFE.U32 R9, R7, 0x810 ;
+        /*09e8*/                   LDS.U.32 R15, [R15+0xc00]         }
+        /*09f0*/                   LOP32I.AND R14, R12, 0x3fc ;
+        /*09f8*/         {         BFE.U32 R12, R3.reuse, 0x808 ;
+        /*0a08*/                   LDS.U.32 R14, [R14]         }
+        /*0a10*/                   SHL R19, R9, 0x2 ;
+        /*0a18*/         {         BFE.U32 R7, R3, 0x810   SLOT 0;
+        /*0a28*/                   LDS.U.32 R3, [R19+0x800]   SLOT 1        }
+        /*0a30*/                   BFE.U32 R9, R6, 0x808 ;
+        /*0a38*/                   SHL R20, R12, 0x2 ;
+        /*0a48*/                   SHL R12, R5, 0x2 ;
+        /*0a50*/                   SHL R7, R7, 0x2 ;
+        /*0a58*/         {         SHL R18, R9, 0x2   SLOT 0;
+        /*0a68*/                   LDS.U.32 R9, [R20+0x400]   SLOT 1        }
+        /*0a70*/         {         SHR.U32 R5, R5, 0x16 ;
+        /*0a78*/                   LDS.U.32 R7, [R7+0x800]         }
+        /*0a88*/         {         LOP32I.AND R17, R12, 0x3fc   SLOT 0;
+        /*0a90*/                   LDS.U.32 R12, [R18+0x400]   SLOT 1        }
+        /*0a98*/         {         LOP3.LUT R16, R13, R16, R11, 0x96   SLOT 0;
+        /*0aa8*/                   LDS.U.32 R11, [R17]   SLOT 1        }
+        /*0ab0*/                   LOP32I.AND R13, R5, 0x3fc ;
+        /*0ab8*/                   SHL R6, R6, 0x2 ;
+        /*0ac8*/         {         LOP3.LUT R5, R8, R10, R15, 0x96   SLOT 0;
+        /*0ad0*/                   LDS.U.32 R8, [R13+0xc00]   SLOT 1        }
+        /*0ad8*/                   LOP32I.AND R6, R6, 0x3fc ;
+        /*0ae8*/                   LDS.U.32 R10, [R6] ;
+        /*0af0*/                   LOP3.LUT R14, R16, c[0x3][0x43c], R14, 0x96 ;
+        /*0af8*/                   LOP3.LUT R12, R12, R7, R2, 0x96 ;
+        /*0b08*/                   LOP3.LUT R5, R5, c[0x3][0x438], R4, 0x96 ;
+        /*0b10*/                   BFE.U32 R16, R14, 0x808 ;
+        /*0b18*/                   LOP3.LUT R11, R12, c[0x3][0x430], R11, 0x96 ;
+        /*0b28*/                   LOP3.LUT R8, R9, R3, R8, 0x96 ;
+        /*0b30*/                   SHR.U32 R4, R14.reuse, 0x16 ;
+        /*0b38*/                   BFE.U32 R15, R14.reuse, 0x810 ;
+        /*0b48*/                   SHL R14, R14, 0x2 ;
+        /*0b50*/                   BFE.U32 R13, R11, 0x808 ;
+        /*0b58*/                   LOP3.LUT R10, R8, c[0x3][0x434], R10, 0x96 ;
+        /*0b68*/                   SHL R19, R16, 0x2 ;
+        /*0b70*/         {         SHL R16, R15, 0x2 ;
+        /*0b78*/                   LDS.U.32 R6, [R19+0x400]         }
+        /*0b88*/         {         LOP32I.AND R15, R14, 0x3fc ;
+        /*0b90*/                   LDS.U.32 R3, [R16+0x800]         }
+        /*0b98*/                   SHR.U32 R7, R5, 0x18 ;
+        /*0ba8*/                   SHL R14, R13, 0x2 ;
+        /*0bb0*/         {         BFI R18, R5, 0x802, RZ ;
+        /*0bb8*/                   LDS.U.32 R14, [R14+0x400]         }
+        /*0bc8*/                   BFE.U32 R13, R10, 0x810 ;
+        /*0bd0*/         {         LOP32I.AND R17, R4, 0x3fc   SLOT 0;
+        /*0bd8*/                   LDS.U.32 R4, [R18]   SLOT 1        }
+        /*0be8*/         {         BFE.U32 R9, R5, 0x810 ;
+        /*0bf0*/                   LDS.U.32 R2, [R17+0xc00]         }
+        /*0bf8*/                   SHL R19, R13, 0x2 ;
+        /*0c08*/         {         SHL R18, R7, 0x2   SLOT 0;
+        /*0c10*/                   LDS.U.32 R7, [R15]   SLOT 1        }
+        /*0c18*/         {         BFE.U32 R12, R11, 0x810 ;
+        /*0c28*/                   LDS.U.32 R19, [R19+0x800]         }
+        /*0c30*/         {         SHL R8, R9, 0x2   SLOT 0;
+        /*0c38*/                   LDS.U.32 R9, [R18+0xc00]   SLOT 1        }
+        /*0c48*/         {         SHR.U32 R15, R10, 0x16 ;
+        /*0c50*/                   LDS.U.32 R8, [R8+0x800]         }
+        /*0c58*/                   BFE.U32 R13, R5, 0x808 ;
+        /*0c68*/                   BFE.U32 R5, R10, 0x808 ;
+        /*0c70*/                   SHL R12, R12, 0x2 ;
+        /*0c78*/         {         LOP32I.AND R17, R15, 0x3fc ;
+        /*0c88*/                   LDS.U.32 R12, [R12+0x800]         }
+        /*0c90*/         {         SHR.U32 R15, R11.reuse, 0x16 ;
+        /*0c98*/                   LDS.U.32 R17, [R17+0xc00]         }
+        /*0ca8*/                   SHL R20, R13, 0x2 ;
+        /*0cb0*/                   SHL R13, R11, 0x2 ;
+        /*0cb8*/         {         SHL R18, R5, 0x2   SLOT 0;
+        /*0cc8*/                   LDS.U.32 R5, [R20+0x400]   SLOT 1        }
+        /*0cd0*/         {         LOP32I.AND R15, R15, 0x3fc ;
+        /*0cd8*/                   LDS.U.32 R11, [R18+0x400]         }
+        /*0ce8*/         {         SHL R16, R10, 0x2   SLOT 0;
+        /*0cf0*/                   LDS.U.32 R10, [R15+0xc00]   SLOT 1        }
+        /*0cf8*/                   LOP32I.AND R13, R13, 0x3fc ;
+        /*0d08*/                   LDS.U.32 R13, [R13] ;
+        /*0d10*/                   LOP32I.AND R16, R16, 0x3fc ;
+        /*0d18*/                   LDS.U.32 R16, [R16] ;
+        /*0d28*/                   LOP3.LUT R9, R14, R19, R9, 0x96 ;
+        /*0d30*/                   LOP3.LUT R6, R6, R12, R17, 0x96 ;
+        /*0d38*/                   LOP3.LUT R7, R9, c[0x3][0x44c], R7, 0x96 ;
+        /*0d48*/                   LOP3.LUT R4, R6, c[0x3][0x448], R4, 0x96 ;
+        /*0d50*/                   LOP3.LUT R2, R11, R8, R2, 0x96 ;
+        /*0d58*/                   SHR.U32 R9, R7, 0x16 ;
+        /*0d68*/                   LOP3.LUT R5, R5, R3, R10, 0x96 ;
+        /*0d70*/                   LOP3.LUT R6, R2, c[0x3][0x440], R13, 0x96 ;
+        /*0d78*/                   LOP32I.AND R2, R9, 0x3fc ;
+        /*0d88*/         {         SHR.U32 R9, R4, 0x18 ;
+        /*0d90*/                   LDS.U.32 R2, [R2+0xc00]         }
+        /*0d98*/                   LOP3.LUT R5, R5, c[0x3][0x444], R16, 0x96 ;
+        /*0da8*/                   BFE.U32 R8, R7, 0x808 ;
+        /*0db0*/                   SHL R17, R9, 0x2 ;
+        /*0db8*/                   BFE.U32 R9, R6, 0x810 ;
+        /*0dc8*/                   SHR.U32 R12, R5, 0x16 ;
+        /*0dd0*/                   SHL R8, R8, 0x2 ;
+        /*0dd8*/         {         SHL R9, R9, 0x2 ;
+        /*0de8*/                   LDS.U.32 R8, [R8+0x400]         }
+        /*0df0*/         {         LOP32I.AND R15, R12, 0x3fc ;
+        /*0df8*/                   LDS.U.32 R9, [R9+0x800]         }
+        /*0e08*/         {         BFI R11, R4, 0x802, RZ ;
+        /*0e10*/                   LDS.U.32 R15, [R15+0xc00]         }
+        /*0e18*/         {         BFE.U32 R10, R6, 0x808 ;
+        /*0e28*/                   LDS.U.32 R3, [R11]         }
+        /*0e30*/                   SHL R14, R7, 0x2 ;
+        /*0e38*/                   BFE.U32 R11, R5, 0x810 ;
+        /*0e48*/                   SHL R16, R11, 0x2 ;
+        /*0e50*/         {         BFE.U32 R11, R7, 0x810 ;
+        /*0e58*/                   LDS.U.32 R16, [R16+0x800]         }
+        /*0e68*/                   BFE.U32 R7, R4, 0x810 ;
+        /*0e70*/         {         SHL R13, R10, 0x2   SLOT 0;
+        /*0e78*/                   LDS.U.32 R10, [R17+0xc00]   SLOT 1        }
+        /*0e88*/         {         SHL R18, R7, 0x2 ;
+        /*0e90*/                   LDS.U.32 R13, [R13+0x400]         }
+        /*0e98*/                   BFE.U32 R7, R5, 0x808 ;
+        /*0ea8*/                   SHL R20, R11, 0x2 ;
+        /*0eb0*/                   LOP32I.AND R14, R14, 0x3fc ;
+        /*0eb8*/         {         BFE.U32 R11, R4, 0x808   SLOT 0;
+        /*0ec8*/                   LDS.U.32 R4, [R20+0x800]   SLOT 1        }
+        /*0ed0*/         {         SHR.U32 R17, R6.reuse, 0x16 ;
+        /*0ed8*/                   LDS.U.32 R14, [R14]         }
+        /*0ee8*/                   SHL R12, R6, 0x2 ;
+        /*0ef0*/                   LOP3.LUT R9, R8, R9, R15, 0x96 ;
+        /*0ef8*/                   SHL R19, R7, 0x2 ;
+        /*0f08*/         {         SHL R21, R11, 0x2   SLOT 0;
+        /*0f10*/                   LDS.U.32 R11, [R18+0x800]   SLOT 1        }
+        /*0f18*/         {         LOP32I.AND R17, R17, 0x3fc ;
+        /*0f28*/                   LDS.U.32 R7, [R21+0x400]         }
+        /*0f30*/         {         SHL R8, R5, 0x2 ;
+        /*0f38*/                   LDS.U.32 R17, [R17+0xc00]         }
+        /*0f48*/         {         LOP32I.AND R6, R12, 0x3fc   SLOT 0;
+        /*0f50*/                   LDS.U.32 R12, [R19+0x400]   SLOT 1        }
+        /*0f58*/                   LOP32I.AND R8, R8, 0x3fc ;
+        /*0f68*/                   LDS.U.32 R8, [R8] ;
+        /*0f70*/         {         LOP3.LUT R13, R13, R16, R10, 0x96   SLOT 0;
+        /*0f78*/                   LDS.U.32 R10, [R6]   SLOT 1        }
+        /*0f88*/                   LOP3.LUT R5, R9, c[0x3][0x458], R3, 0x96 ;
+        /*0f90*/                   LOP3.LUT R13, R13, c[0x3][0x45c], R14, 0x96 ;
+        /*0f98*/                   LOP3.LUT R11, R12, R11, R2, 0x96 ;
+        /*0fa8*/                   SHR.U32 R12, R5, 0x18 ;
+        /*0fb0*/                   SHR.U32 R3, R13, 0x16 ;
+        /*0fb8*/                   LOP3.LUT R17, R7, R4, R17, 0x96 ;
+        /*0fc8*/                   SHL R19, R12, 0x2 ;
+        /*0fd0*/                   LOP32I.AND R14, R3, 0x3fc ;
+        /*0fd8*/         {         LOP3.LUT R12, R17, c[0x3][0x454], R8, 0x96 ;
+        /*0fe8*/                   LDS.U.32 R2, [R14+0xc00]         }
+        /*0ff0*/         {         BFE.U32 R9, R13.reuse, 0x808 ;
+        /*0ff8*/                   LDS.U.32 R8, [R19+0xc00]         }
+        /*1008*/                   BFE.U32 R6, R13, 0x810 ;
+        /*1010*/                   LOP3.LUT R10, R11, c[0x3][0x450], R10, 0x96 ;
+        /*1018*/                   SHL R13, R13, 0x2 ;
+        /*1028*/                   BFE.U32 R14, R12, 0x810 ;
+        /*1030*/                   BFI R15, R5, 0x802, RZ ;
+        /*1038*/         {         SHL R18, R9, 0x2 ;
+        /*1048*/                   LDS.U.32 R3, [R15]         }
+        /*1050*/                   SHL R22, R14, 0x2 ;
+        /*1058*/         {         LOP32I.AND R7, R13, 0x3fc ;
+        /*1068*/                   LDS.U.32 R22, [R22+0x800]         }
+        /*1070*/         {         BFE.U32 R9, R5.reuse, 0x810 ;
+        /*1078*/                   LDS.U.32 R7, [R7]         }
+        /*1088*/                   SHR.U32 R15, R12.reuse, 0x16 ;
+        /*1090*/                   BFE.U32 R14, R5, 0x808 ;
+        /*1098*/                   BFE.U32 R13, R10, 0x808 ;
+        /*10a8*/                   BFE.U32 R5, R12, 0x808 ;
+        /*10b0*/                   BFE.U32 R11, R10, 0x810 ;
+        /*10b8*/                   LOP32I.AND R19, R15, 0x3fc ;
+        /*10c8*/         {         SHL R21, R14, 0x2 ;
+        /*10d0*/                   LDS.U.32 R20, [R19+0xc00]         }
+        /*10d8*/                   SHL R9, R9, 0x2 ;
+        /*10e8*/         {         SHL R13, R13, 0x2 ;
+        /*10f0*/                   LDS.U.32 R9, [R9+0x800]         }
+        /*10f8*/         {         SHL R14, R10.reuse, 0x2 ;
+        /*1108*/                   LDS.U.32 R13, [R13+0x400]         }
+        /*1110*/         {         SHL R15, R5, 0x2   SLOT 0;
+        /*1118*/                   LDS.U.32 R5, [R21+0x400]   SLOT 1        }
+        /*1128*/         {         SHL R11, R11, 0x2 ;
+        /*1130*/                   LDS.U.32 R15, [R15+0x400]         }
+        /*1138*/         {         SHR.U32 R10, R10, 0x16 ;
+        /*1148*/                   LDS.U.32 R11, [R11+0x800]         }
+        /*1150*/         {         SHL R16, R6, 0x2   SLOT 0;
+        /*1158*/                   LDS.U.32 R6, [R18+0x400]   SLOT 1        }
+        /*1168*/         {         LOP32I.AND R14, R14, 0x3fc ;
+        /*1170*/                   LDS.U.32 R4, [R16+0x800]         }
+        /*1178*/         {         SHL R17, R12, 0x2   SLOT 0;
+        /*1188*/                   LDS.U.32 R12, [R14]   SLOT 1        }
+        /*1190*/                   LOP32I.AND R16, R10, 0x3fc ;
+        /*1198*/         {         LOP32I.AND R17, R17, 0x3fc ;
+        /*11a8*/                   LDS.U.32 R18, [R16+0xc00]         }
+        /*11b0*/         {         LOP3.LUT R8, R13, R22, R8, 0x96 ;
+        /*11b8*/                   LDS.U.32 R17, [R17]         }
+        /*11c8*/                   LOP3.LUT R2, R15, R9, R2, 0x96 ;
+        /*11d0*/                   LOP3.LUT R6, R6, R11, R20, 0x96 ;
+        /*11d8*/                   LOP3.LUT R8, R8, c[0x3][0x46c], R7, 0x96 ;
+        /*11e8*/                   LOP3.LUT R7, R6, c[0x3][0x468], R3, 0x96 ;
+        /*11f0*/                   LOP3.LUT R2, R2, c[0x3][0x460], R12, 0x96 ;
+        /*11f8*/                   LOP3.LUT R4, R5, R4, R18, 0x96 ;
+        /*1208*/                   BFE.U32 R9, R2, 0x808 ;
+        /*1210*/                   SHR.U32 R5, R7, 0x18 ;
+        /*1218*/                   LOP3.LUT R4, R4, c[0x3][0x464], R17, 0x96 ;
+        /*1228*/                   SHL R13, R9, 0x2 ;
+        /*1230*/         {         SHL R11, R5, 0x2 ;
+        /*1238*/                   LDS.U.32 R13, [R13+0x400]         }
+        /*1248*/         {         BFE.U32 R9, R4, 0x810 ;
+        /*1250*/                   LDS.U.32 R11, [R11+0xc00]         }
+        /*1258*/                   BFE.U32 R3, R8, 0x808 ;
+        /*1268*/                   BFE.U32 R5, R2, 0x810 ;
+        /*1270*/                   BFI R12, R7, 0x802, RZ ;
+        /*1278*/                   SHL R10, R8.reuse, 0x2 ;
+        /*1288*/                   SHL R14, R9, 0x2 ;
+        /*1290*/         {         SHL R6, R3, 0x2   SLOT 0;
+        /*1298*/                   LDS.U.32 R3, [R12]   SLOT 1        }
+        /*12a8*/         {         SHL R17, R5, 0x2 ;
+        /*12b0*/                   LDS.U.32 R14, [R14+0x800]         }
+        /*12b8*/         {         SHR.U32 R5, R4, 0x16 ;
+        /*12c8*/                   LDS.U.32 R6, [R6+0x400]         }
+        /*12d0*/         {         SHR.U32 R12, R8, 0x16 ;
+        /*12d8*/                   LDS.U.32 R9, [R17+0x800]         }
+        /*12e8*/                   LOP32I.AND R19, R10, 0x3fc ;
+        /*12f0*/                   LOP32I.AND R15, R5, 0x3fc ;
+        /*12f8*/         {         LOP32I.AND R16, R12, 0x3fc   SLOT 0;
+        /*1308*/                   LDS.U.32 R12, [R19]   SLOT 1        }
+        /*1310*/         {         BFE.U32 R8, R8, 0x810 ;
+        /*1318*/                   LDS.U.32 R15, [R15+0xc00]         }
+        /*1328*/                   BFE.U32 R10, R7.reuse, 0x808 ;
+        /*1330*/                   SHR.U32 R18, R2, 0x16 ;
+        /*1338*/         {         BFE.U32 R5, R7, 0x810   SLOT 0;
+        /*1348*/                   LDS.U.32 R7, [R16+0xc00]   SLOT 1        }
+        /*1350*/                   LOP3.LUT R11, R13, R14, R11, 0x96 ;
+        /*1358*/                   SHL R22, R8, 0x2 ;
+        /*1368*/                   BFE.U32 R8, R4, 0x808 ;
+        /*1370*/                   LOP32I.AND R18, R18, 0x3fc ;
+        /*1378*/                   SHL R17, R2, 0x2 ;
+        /*1388*/                   SHL R2, R10, 0x2 ;
+        /*1390*/         {         SHL R4, R4, 0x2 ;
+        /*1398*/                   LDS.U.32 R2, [R2+0x400]         }
+        /*13a8*/         {         SHL R20, R5, 0x2   SLOT 0;
+        /*13b0*/                   LDS.U.32 R5, [R22+0x800]   SLOT 1        }
+        /*13b8*/         {         LOP3.LUT R13, R11, c[0x3][0x47c], R12, 0x96   SLOT 0;
+        /*13c8*/                   LDS.U.32 R12, [R18+0xc00]   SLOT 1        }
+        /*13d0*/         {         SHL R21, R8, 0x2   SLOT 0;
+        /*13d8*/                   LDS.U.32 R8, [R20+0x800]   SLOT 1        }
+        /*13e8*/         {         LOP3.LUT R6, R6, R9, R15, 0x96 ;
+        /*13f0*/                   LDS.U.32 R10, [R21+0x400]         }
+        /*13f8*/                   LOP32I.AND R9, R4, 0x3fc ;
+        /*1408*/         {         LOP32I.AND R17, R17, 0x3fc ;
+        /*1410*/                   LDS.U.32 R9, [R9]         }
+        /*1418*/         {         LOP3.LUT R11, R6, c[0x3][0x478], R3, 0x96 ;
+        /*1428*/                   LDS.U.32 R17, [R17]         }
+        /*1430*/                   SHR.U32 R3, R13.reuse, 0x16 ;
+        /*1438*/                   BFE.U32 R4, R13.reuse, 0x808 ;
+        /*1448*/                   BFE.U32 R6, R13.reuse, 0x810 ;
+        /*1450*/                   SHL R16, R13, 0x2 ;
+        /*1458*/                   SHR.U32 R13, R11, 0x18 ;
+        /*1468*/                   LOP3.LUT R10, R10, R8, R7, 0x96 ;
+        /*1470*/                   LOP3.LUT R12, R2, R5, R12, 0x96 ;
+        /*1478*/                   BFI R15, R11, 0x802, RZ ;
+        /*1488*/                   LOP3.LUT R12, R12, c[0x3][0x474], R9, 0x96 ;
+        /*1490*/                   BFE.U32 R8, R11, 0x810 ;
+        /*1498*/                   LOP3.LUT R10, R10, c[0x3][0x470], R17, 0x96 ;
+        /*14a8*/                   SHL R5, R13, 0x2 ;
+        /*14b0*/         {         BFE.U32 R11, R11, 0x808 ;
+        /*14b8*/                   LDS.U.32 R5, [R5+0xc00]         }
+        /*14c8*/                   BFE.U32 R13, R12, 0x810 ;
+        /*14d0*/         {         LOP32I.AND R14, R3, 0x3fc   SLOT 0;
+        /*14d8*/                   LDS.U.32 R3, [R15]   SLOT 1        }
+        /*14e8*/                   SHL R17, R8, 0x2 ;
+        /*14f0*/         {         BFE.U32 R8, R10.reuse, 0x808 ;
+        /*14f8*/                   LDS.U.32 R9, [R17+0x800]         }
+        /*1508*/                   SHL R19, R11, 0x2 ;
+        /*1510*/         {         SHL R7, R4, 0x2   SLOT 0;
+        /*1518*/                   LDS.U.32 R4, [R14+0xc00]   SLOT 1        }
+        /*1528*/         {         BFE.U32 R11, R10, 0x810 ;
+        /*1530*/                   LDS.U.32 R7, [R7+0x400]         }
+        /*1538*/                   SHR.U32 R15, R12, 0x16 ;
+        /*1548*/                   SHL R20, R13, 0x2 ;
+        /*1550*/         {         BFE.U32 R13, R12, 0x808 ;
+        /*1558*/                   LDS.U.32 R20, [R20+0x800]         }
+        /*1568*/                   SHR.U32 R14, R10, 0x16 ;
+        /*1570*/                   LOP32I.AND R17, R15, 0x3fc ;
+        /*1578*/         {         SHL R21, R8, 0x2   SLOT 0;
+        /*1588*/                   LDS.U.32 R8, [R19+0x400]   SLOT 1        }
+        /*1590*/         {         SHL R10, R10, 0x2 ;
+        /*1598*/                   LDS.U.32 R17, [R17+0xc00]         }
+        /*15a8*/         {         SHL R18, R11, 0x2   SLOT 0;
+        /*15b0*/                   LDS.U.32 R11, [R21+0x400]   SLOT 1        }
+        /*15b8*/         {         SHL R19, R13, 0x2 ;
+        /*15c8*/                   LDS.U.32 R18, [R18+0x800]         }
+        /*15d0*/                   SHL R6, R6, 0x2 ;
+        /*15d8*/         {         LOP32I.AND R14, R14, 0x3fc ;
+        /*15e8*/                   LDS.U.32 R6, [R6+0x800]         }
+        /*15f0*/         {         SHL R13, R12, 0x2 ;
+        /*15f8*/                   LDS.U.32 R15, [R14+0xc00]         }
+        /*1608*/                   LOP32I.AND R16, R16, 0x3fc ;
+        /*1610*/         {         LOP32I.AND R12, R10, 0x3fc   SLOT 0;
+        /*1618*/                   LDS.U.32 R10, [R19+0x400]   SLOT 1        }
+        /*1628*/         {         LOP3.LUT R11, R11, R20, R5, 0x96 ;
+        /*1630*/                   LDS.U.32 R2, [R16]         }
+        /*1638*/         {         LOP32I.AND R16, R13, 0x3fc   SLOT 0;
+        /*1648*/                   LDS.U.32 R13, [R12]   SLOT 1        }
+        /*1650*/         {         LOP3.LUT R5, R7, R18, R17, 0x96 ;
+        /*1658*/                   LDS.U.32 R16, [R16]         }
+        /*1668*/                   LOP3.LUT R6, R8, R6, R15, 0x96 ;
+        /*1670*/                   LOP3.LUT R5, R5, c[0x3][0x488], R3, 0x96 ;
+        /*1678*/                   LOP3.LUT R4, R10, R9, R4, 0x96 ;
+        /*1688*/                   SHR.U32 R8, R5, 0x18 ;
+        /*1690*/                   LOP3.LUT R2, R11, c[0x3][0x48c], R2, 0x96 ;
+        /*1698*/                   LOP3.LUT R7, R4, c[0x3][0x480], R13, 0x96 ;
+        /*16a8*/                   LOP3.LUT R9, R6, c[0x3][0x484], R16, 0x96 ;
+        /*16b0*/                   BFE.U32 R10, R7, 0x808 ;
+        /*16b8*/                   BFE.U32 R11, R9, 0x810 ;
+        /*16c8*/                   SHL R13, R8, 0x2 ;
+        /*16d0*/                   SHR.U32 R3, R2.reuse, 0x16 ;
+        /*16d8*/                   BFE.U32 R6, R2, 0x808 ;
+        /*16e8*/                   BFE.U32 R8, R2.reuse, 0x810 ;
+        /*16f0*/         {         SHL R12, R10, 0x2   SLOT 0;
+        /*16f8*/                   LDS.U.32 R10, [R13+0xc00]   SLOT 1        }
+        /*1708*/         {         SHL R17, R11, 0x2 ;
+        /*1710*/                   LDS.U.32 R12, [R12+0x400]         }
+        /*1718*/         {         SHL R2, R2, 0x2 ;
+        /*1728*/                   LDS.U.32 R17, [R17+0x800]         }
+        /*1730*/                   SHL R19, R8, 0x2 ;
+        /*1738*/                   LOP32I.AND R11, R2, 0x3fc ;
+        /*1748*/         {         BFE.U32 R2, R7, 0x810 ;
+        /*1750*/                   LDS.U.32 R11, [R11]         }
+        /*1758*/                   SHR.U32 R8, R9, 0x16 ;
+        /*1768*/                   SHL R6, R6, 0x2 ;
+        /*1770*/         {         BFE.U32 R15, R5, 0x810 ;
+        /*1778*/                   LDS.U.32 R6, [R6+0x400]         }
+        /*1788*/         {         SHL R21, R2, 0x2   SLOT 0;
+        /*1790*/                   LDS.U.32 R2, [R19+0x800]   SLOT 1        }
+        /*1798*/         {         LOP32I.AND R13, R8, 0x3fc   SLOT 0;
+        /*17a8*/                   LDS.U.32 R8, [R21+0x800]   SLOT 1        }
+        /*17b0*/         {         BFE.U32 R16, R9, 0x808 ;
+        /*17b8*/                   LDS.U.32 R13, [R13+0xc00]         }
+        /*17c8*/                   BFI R4, R5, 0x802, RZ ;
+        /*17d0*/         {         SHL R18, R15, 0x2 ;
+        /*17d8*/                   LDS.U.32 R4, [R4]         }
+        /*17e8*/                   BFE.U32 R5, R5, 0x808 ;
+        /*17f0*/                   SHR.U32 R15, R7, 0x16 ;
+        /*17f8*/                   LOP3.LUT R12, R12, R17, R10, 0x96 ;
+        /*1808*/                   LOP32I.AND R3, R3, 0x3fc ;
+        /*1810*/         {         SHL R10, R16, 0x2 ;
+        /*1818*/                   LDS.U.32 R3, [R3+0xc00]         }
+        /*1828*/         {         SHL R14, R7, 0x2 ;
+        /*1830*/                   LDS.U.32 R10, [R10+0x400]         }
+        /*1838*/         {         SHL R20, R5, 0x2   SLOT 0;
+        /*1848*/                   LDS.U.32 R5, [R18+0x800]   SLOT 1        }
+        /*1850*/         {         SHL R9, R9, 0x2 ;
+        /*1858*/                   LDS.U.32 R7, [R20+0x400]         }
+        /*1868*/                   LOP32I.AND R15, R15, 0x3fc ;
+        /*1870*/         {         LOP3.LUT R16, R12, c[0x3][0x49c], R11, 0x96   SLOT 0;
+        /*1878*/                   LDS.U.32 R12, [R15+0xc00]   SLOT 1        }
+        /*1888*/                   LOP32I.AND R14, R14, 0x3fc ;
+        /*1890*/         {         LOP32I.AND R11, R9, 0x3fc ;
+        /*1898*/                   LDS.U.32 R14, [R14]         }
+        /*18a8*/         {         LOP3.LUT R9, R6, R8, R13, 0x96 ;
+        /*18b0*/                   LDS.U.32 R11, [R11]         }
+        /*18b8*/                   LOP3.LUT R9, R9, c[0x3][0x498], R4, 0x96 ;
+        /*18c8*/                   LOP3.LUT R5, R10, R5, R3, 0x96 ;
+        /*18d0*/                   BFE.U32 R18, R16, 0x808 ;
+        /*18d8*/         {         LOP32I.AND R10, R9, 0xff ;
+        /*18e8*/                   LDS.U.U8 R8, [R18+0x1000]         }
+        /*18f0*/         {         LOP3.LUT R12, R7, R2, R12, 0x96 ;
+        /*18f8*/                   LDS.U.U8 R10, [R10+0x1000]         }
+        /*1908*/                   LOP3.LUT R14, R5, c[0x3][0x490], R14, 0x96 ;
+        /*1910*/                   SHR.U32 R13, R16, 0x18 ;
+        /*1918*/         {         LOP3.LUT R11, R12, c[0x3][0x494], R11, 0x96 ;
+        /*1928*/                   LDS.U.U8 R4, [R13+0x1000]         }
+        /*1930*/                   BFE.U32 R6, R16, 0x810 ;
+        /*1938*/         {         LOP32I.AND R16, R16, 0xff ;
+        /*1948*/                   LDS.U.U8 R6, [R6+0x1000]         }
+        /*1950*/         {         BFE.U32 R17, R9, 0x808 ;
+        /*1958*/                   LDS.U.U8 R3, [R16+0x1000]         }
+        /*1968*/         {         LOP32I.AND R7, R14.reuse, 0xff ;
+        /*1970*/                   LDS.U.U8 R2, [R17+0x1000]         }
+        /*1978*/         {         BFE.U32 R12, R11.reuse, 0x808 ;
+        /*1988*/                   LDS.U.U8 R7, [R7+0x1000]         }
+        /*1990*/         {         LOP32I.AND R13, R11.reuse, 0xff ;
+        /*1998*/                   LDS.U.U8 R12, [R12+0x1000]         }
+        /*19a8*/         {         BFE.U32 R18, R14.reuse, 0x808 ;
+        /*19b0*/                   LDS.U.U8 R13, [R13+0x1000]         }
+        /*19b8*/         {         BFE.U32 R5, R9, 0x810 ;
+        /*19c8*/                   LDS.U.U8 R18, [R18+0x1000]         }
+        /*19d0*/         {         BFE.U32 R15, R14.reuse, 0x810 ;
+        /*19d8*/                   LDS.U.U8 R5, [R5+0x1000]         }
+        /*19e8*/         {         BFE.U32 R20, R11.reuse, 0x810 ;
+        /*19f0*/                   LDS.U.U8 R15, [R15+0x1000]         }
+        /*19f8*/         {         SHR.U32 R16, R11, 0x18 ;
+        /*1a08*/                   LDS.U.U8 R20, [R20+0x1000]         }
+        /*1a10*/         {         SHR.U32 R14, R14, 0x18 ;
+        /*1a18*/                   LDS.U.U8 R17, [R16+0x1000]         }
+        /*1a28*/         {         SHR.U32 R11, R9, 0x18   SLOT 0;
+        /*1a30*/                   LDS.U.U8 R9, [R14+0x1000]   SLOT 1        }
+        /*1a38*/         {         PRMT R8, R8, 0x7604, R10   SLOT 0;
+        /*1a48*/                   LDS.U.U8 R10, [R11+0x1000]   SLOT 1        }
+        /*1a50*/                   PRMT R7, R12, 0x7604, R7 ;
+        /*1a58*/                   PRMT R13, R2, 0x7604, R13 ;
+        /*1a68*/                   PRMT R3, R18, 0x7604, R3 ;
+        /*1a70*/                   PRMT R8, R15, 0x7054, R8 ;
+        /*1a78*/                   PRMT R6, R6, 0x7054, R13 ;
+        /*1a88*/                   PRMT R5, R5, 0x7054, R7 ;
+        /*1a90*/                   PRMT R20, R20, 0x7054, R3 ;
+        /*1a98*/                   SHR R15, R0.reuse, 0x1f ;
+        /*1aa8*/                   PRMT R8, R17, 0x654, R8 ;
+        /*1ab0*/                   LEA R2.CC, R0, c[0x0][0x148], 0x2 ;
+        /*1ab8*/                   PRMT R6, R9, 0x654, R6 ;
+        /*1ac8*/                   PRMT R4, R4, 0x654, R5 ;
+        /*1ad0*/                   PRMT R10, R10, 0x654, R20 ;
+        /*1ad8*/                   LEA.HI.X R3, R0, c[0x0][0x14c], R15, 0x2 ;
+        /*1ae8*/                   LOP.XOR R8, R8, c[0x3][0x4a8] ;
+        /*1af0*/         {         LOP.XOR R0, R6, c[0x3][0x4a4] ;
+        /*1af8*/                   STG.E [R2+0x100], R8         }
+        /*1b08*/         {         LOP.XOR R4, R4, c[0x3][0x4a0] ;
+        /*1b10*/                   STG.E [R2+0x80], R0         }
+        /*1b18*/         {         LOP.XOR R5, R10, c[0x3][0x4ac] ;
+        /*1b28*/                   STG.E [R2], R4         }
+        /*1b30*/                   STG.E [R2+0x180], R5 ;
+        /*1b38*/                   EXIT ;
+.L_12:
+        /*1b48*/                   BRA `(.L_12) ;
+.L_74:
+
+
+//--------------------- .nv.shared._Z14decrypt_KernelPjS_mS_S_S_S_Ph --------------------------
+	.section	.nv.shared._Z14decrypt_KernelPjS_mS_S_S_S_Ph,"aw",@nobits
+	.align	4
+.nv.shared._Z14decrypt_KernelPjS_mS_S_S_S_Ph:
+	.zero		4352
+
+
+//--------------------- .nv.shared._Z14encrypt_KernelPjS_mS_S_S_S_Ph --------------------------
+	.section	.nv.shared._Z14encrypt_KernelPjS_mS_S_S_S_Ph,"aw",@nobits
+	.align	4
+.nv.shared._Z14encrypt_KernelPjS_mS_S_S_S_Ph:
+	.zero		4352

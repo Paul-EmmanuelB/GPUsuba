@@ -10,7 +10,6 @@ size_t inputSize, uint32_t* dev_sm_te1, uint32_t* dev_sm_te2, uint32_t* dev_sm_t
     int tid             = threadIdx.x;                           //** localID
     int laneID          = tid%warpSize;                          //** laneID 
     int global_warpID   = (blockIdx.x*blockDim.x+tid)/warpSize;  //** global warpID
-    int elements        = inputSize/512;                         //** One warp treat 16384 bytes
     
     uint32_t w1,w2,w3,w4,s1,s2,s3,s4;
     int ROUNDS = 11;
@@ -33,21 +32,19 @@ size_t inputSize, uint32_t* dev_sm_te1, uint32_t* dev_sm_te2, uint32_t* dev_sm_t
     __syncthreads();
 
     // Each warp treat 512 bytes. 
-    if(global_warpID < elements) {
-        //Loading plaintext
+    if(global_warpID < inputSize/512) {
+        //Loading plaintext and first AddRoundkey
         w1 = dev_input[128*global_warpID+laneID+0];
-        w2 = dev_input[128*global_warpID+laneID+32];
-        w3 = dev_input[128*global_warpID+laneID+64];
-        w4 = dev_input[128*global_warpID+laneID+96];
-
-        // First round AddRoundKey: ex-or with round key
         w1 ^= const_expkey[0];
+        w2 = dev_input[128*global_warpID+laneID+32];
         w2 ^= const_expkey[1];
+        w3 = dev_input[128*global_warpID+laneID+64];
         w3 ^= const_expkey[2];
+        w4 = dev_input[128*global_warpID+laneID+96];
         w4 ^= const_expkey[3];
 
         // Round transformation: a set of table lookups operations.
-        #pragma unroll
+        #pragma nonunroll
         for (int i = 1; i < 10; i++) {
             s1 = (sm_te4[(w4 >> 24)] ^ sm_te3[(w3 >> 16) & 0xFF] ^ sm_te2[(w2 >> 8) & 0xFF] ^ sm_te1[w1 & 0xFF]);
             s2 = (sm_te4[(w1 >> 24)] ^ sm_te3[(w4 >> 16) & 0xFF] ^ sm_te2[(w3 >> 8) & 0xFF] ^ sm_te1[w2 & 0xFF]);
